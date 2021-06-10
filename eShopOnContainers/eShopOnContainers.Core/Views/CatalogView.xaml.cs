@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Views
 {
-    public partial class CatalogView : ContentPage, IMenuContainerPage
+    public partial class CatalogView : ContentPageBase, IMenuContainerPage
     {
         private FiltersView _filterView = new FiltersView();
 

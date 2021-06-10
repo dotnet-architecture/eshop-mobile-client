@@ -2,7 +2,7 @@
 
 namespace eShopOnContainers.Core.Views
 {
-    public partial class CampaignView : ContentPage
+    public partial class CampaignView : ContentPageBase
     {
 
         public CampaignView()

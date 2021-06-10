@@ -9,6 +9,22 @@ namespace eShopOnContainers.Core.ViewModels.Base
         protected readonly IDialogService DialogService;
         protected readonly INavigationService NavigationService;
 
+        private bool _isInitialized;
+
+        public bool IsInitialized
+        {
+            get
+            {
+                return _isInitialized;
+            }
+
+            set
+            {
+                _isInitialized = value;
+                OnPropertyChanged (nameof (IsInitialized));
+            }
+        }
+
         private bool _isBusy;
 
         public bool IsBusy
@@ -21,7 +37,7 @@ namespace eShopOnContainers.Core.ViewModels.Base
             set
             {
                 _isBusy = value;
-                RaisePropertyChanged(() => IsBusy);
+                OnPropertyChanged (nameof (IsBusy));
             }
         }
 
