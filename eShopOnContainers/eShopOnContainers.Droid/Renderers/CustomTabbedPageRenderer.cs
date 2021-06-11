@@ -1,12 +1,12 @@
 using Android.Content;
 using Android.Graphics;
-using Android.Support.Design.Widget;
-using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
+using AndroidX.ViewPager.Widget;
 using eShopOnContainers.Core.Controls;
 using eShopOnContainers.Droid.Extensions;
 using eShopOnContainers.Droid.Renderers;
+using Google.Android.Material.Tabs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
