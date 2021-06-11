@@ -22,7 +22,7 @@ namespace eShopOnContainers.Droid.Renderers
                 return;
             }
 
-            var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            var toolbar = FindViewById<AndroidX.AppCompat.Widget.Toolbar> (Resource.Id.toolbar);
 
             if (toolbar != null)
             {

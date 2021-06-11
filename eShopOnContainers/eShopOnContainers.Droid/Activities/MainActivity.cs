@@ -1,4 +1,3 @@
-using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -33,7 +32,6 @@ namespace eShopOnContainers.Droid.Activities
             SupportActionBar.SetDisplayShowTitleEnabled(false);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            UserDialogs.Init(this);
             CachedImageRenderer.Init(false);
             LoadApplication(new App());
 

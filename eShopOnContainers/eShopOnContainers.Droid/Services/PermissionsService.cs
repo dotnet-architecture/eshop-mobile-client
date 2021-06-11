@@ -1,7 +1,7 @@
 ﻿using Android;
 using Android.App;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
+using AndroidX.Core.App;
+using AndroidX.Core.Content;
 using eShopOnContainers.Core.Models.Permissions;
 using eShopOnContainers.Core.Services.Permissions;
 using System;
