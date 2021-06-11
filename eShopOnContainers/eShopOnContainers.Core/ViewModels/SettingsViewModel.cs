@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using eShopOnContainers.Core.Services.Dependency;
+using Xamarin.Essentials;
 
 namespace eShopOnContainers.Core.ViewModels
 {
@@ -212,22 +213,11 @@ namespace eShopOnContainers.Core.ViewModels
             RaisePropertyChanged(() => TitleUseAzureServices);
             RaisePropertyChanged(() => DescriptionUseAzureServices);
 
-            var previousPageViewModel = NavigationService.PreviousPageViewModel;
-            if (previousPageViewModel != null)
+            //TODO: We should re-evaluate this workflow
+            if (UseAzureServices)
             {
-                if (previousPageViewModel is MainViewModel)
-                {
-                    // Slight delay so that page navigation isn't instantaneous
-                    await Task.Delay(1000);
-                    if (UseAzureServices)
-                    {
-                        _settingsService.AuthAccessToken = string.Empty;
-                        _settingsService.AuthIdToken = string.Empty;
-
-                        await NavigationService.NavigateToAsync<LoginViewModel>(new LogoutParameter { Logout = true });
-                        await NavigationService.RemoveBackStackAsync();
-                    }
-                }
+                _settingsService.AuthAccessToken = string.Empty;
+                _settingsService.AuthIdToken = string.Empty;
             }
         }
 
@@ -242,7 +232,7 @@ namespace eShopOnContainers.Core.ViewModels
         {
             if (!_settingsService.UseMocks)
             {
-                var locationRequest = new Location
+                var locationRequest = new Models.Location.Location
                 {
                     Latitude = _latitude,
                     Longitude = _longitude
@@ -298,12 +288,33 @@ namespace eShopOnContainers.Core.ViewModels
             _settingsService.Longitude = _longitude.ToString();
         }
 
-        private void UpdateAllowGpsLocation()
+        private async Task UpdateAllowGpsLocation()
         {
             if (_allowGpsLocation)
             {
-                var locator = _dependencyService.Get<ILocationServiceImplementation>();
-                if (!locator.IsGeolocationEnabled)
+                bool hasWhenInUseLocationPermissions;
+                bool hasBackgroundLocationPermissions;
+
+                if (await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>() != PermissionStatus.Granted)
+                {
+                    hasWhenInUseLocationPermissions = await Permissions.RequestAsync<Permissions.LocationWhenInUse> () == PermissionStatus.Granted;
+                }
+                else
+                {
+                    hasWhenInUseLocationPermissions = true;
+                }
+
+                if (await Permissions.CheckStatusAsync<Permissions.LocationAlways> () != PermissionStatus.Granted)
+                {
+                    hasBackgroundLocationPermissions = await Permissions.RequestAsync<Permissions.LocationAlways> () == PermissionStatus.Granted;
+                }
+                else
+                {
+                    hasBackgroundLocationPermissions = true;
+                }
+
+
+                if (!hasWhenInUseLocationPermissions || !hasBackgroundLocationPermissions)
                 {
                     _allowGpsLocation = false;
                     GpsWarningMessage = "Enable the GPS sensor on your device";

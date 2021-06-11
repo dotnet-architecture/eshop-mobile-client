@@ -86,8 +86,6 @@
     <BundleResource Include="Resources\menu_campaigns.png" />
     <BundleResource Include="Resources\menu_campaigns%402x.png" />
     <BundleResource Include="Resources\menu_campaigns%403x.png" />
-    <Compile Include="Services\LocationServiceImplementation.cs" />
-    <Compile Include="Services\PermissionsService.cs" />
     <Compile Include="Services\GeolocationSingleUpdateDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +108,9 @@
     <PackageReference Include="PCLCrypto" Version="2.0.147" />
     <PackageReference Include="IdentityModel" Version="3.0.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.6.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\fake_product_01.png" />

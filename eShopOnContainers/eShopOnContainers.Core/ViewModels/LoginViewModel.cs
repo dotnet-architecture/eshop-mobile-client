@@ -124,7 +124,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand SignInCommand => new Command(async () => await SignInAsync());
 
-        public ICommand RegisterCommand => new Command(Register);
+        public ICommand RegisterCommand => new Command(async () => await RegisterAsync());
 
         public ICommand NavigateCommand => new Command<string>(async (url) => await NavigateAsync(url));
 
@@ -197,9 +197,9 @@ namespace eShopOnContainers.Core.ViewModels
             IsBusy = false;
         }
 
-        private void Register()
+        private Task RegisterAsync()
         {
-            _openUrlService.OpenUrl(GlobalSetting.Instance.RegisterWebsite);
+            return _openUrlService.OpenUrl(GlobalSetting.Instance.RegisterWebsite);
         }
 
         private void Logout()
