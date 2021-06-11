@@ -1,4 +1,5 @@
-﻿using eShopOnContainers.Core.Models.Location;
+﻿using eShopOnContainers.Core;
+using eShopOnContainers.Core.Models.Location;
 using eShopOnContainers.Core.Services.Dependency;
 using eShopOnContainers.Core.Services.Location;
 using eShopOnContainers.Core.Services.Settings;
@@ -23,10 +24,8 @@ namespace eShopOnContainers
             InitializeComponent();
 
             InitApp();
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                InitNavigation();
-            }
+
+            MainPage = new AppShell ();
         }
 
         private void InitApp()
@@ -46,10 +45,6 @@ namespace eShopOnContainers
         {
             base.OnStart();
 
-            if (Device.RuntimePlatform != Device.UWP)
-            {
-                await InitNavigation();
-            }
             if (_settingsService.AllowGpsLocation && !_settingsService.UseFakeLocation)
             {
                 await GetGpsLocation();

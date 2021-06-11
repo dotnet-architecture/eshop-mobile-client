@@ -8,7 +8,10 @@
              xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
              xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
              viewModelBase:ViewModelLocator.AutoWireViewModel="true"
-             Title="Settings">
+             Title="Settings"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:DoubleConverter x:Key="DoubleConverter" />

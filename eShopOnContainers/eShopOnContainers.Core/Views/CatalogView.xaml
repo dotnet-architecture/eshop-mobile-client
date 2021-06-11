@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="eShopOnContainers.Core.Views.CatalogView"   
              xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
@@ -8,7 +8,9 @@
              xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
              xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
              xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
+             xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
 			 viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+             x:DataType="viewmodels:CatalogViewModel"
              Title="Catalog">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -121,4 +123,4 @@
             </ActivityIndicator.WidthRequest>
         </ActivityIndicator>
     </Grid>
-</ContentPage>
+</views:ContentPageBase>

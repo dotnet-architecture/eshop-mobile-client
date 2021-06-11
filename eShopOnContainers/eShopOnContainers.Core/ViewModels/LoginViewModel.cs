@@ -178,8 +178,7 @@ namespace eShopOnContainers.Core.ViewModels
             {
                 _settingsService.AuthAccessToken = GlobalSetting.Instance.AuthToken;
 
-                await NavigationService.NavigateToAsync<MainViewModel>();
-                await NavigationService.RemoveLastFromBackStackAsync();
+                await Shell.Current.GoToAsync ("//Main");
             }
 
             IsBusy = false;
@@ -253,9 +252,9 @@ namespace eShopOnContainers.Core.ViewModels
             }
         }
 
-        private async Task SettingsAsync()
+        private Task SettingsAsync()
         {
-            await NavigationService.NavigateToAsync<SettingsViewModel>();
+            return Shell.Current.GoToAsync ("Settings");
         }
 
         private bool Validate()
