@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Services.Settings
@@ -34,119 +35,62 @@ namespace eShopOnContainers.Core.Services.Settings
 
         public string AuthAccessToken
         {
-            get => GetValueOrDefault(AccessToken, AccessTokenDefault);
-            set => AddOrUpdateValue(AccessToken, value);
+            get => Preferences.Get(AccessToken, AccessTokenDefault);
+            set => Preferences.Set(AccessToken, value);
         }
 
         public string AuthIdToken
         {
-            get => GetValueOrDefault(IdToken, IdTokenDefault);
-            set => AddOrUpdateValue(IdToken, value);
+            get => Preferences.Get(IdToken, IdTokenDefault);
+            set => Preferences.Set(IdToken, value);
         }
 
         public bool UseMocks
         {
-            get => GetValueOrDefault(IdUseMocks, UseMocksDefault);
-            set => AddOrUpdateValue(IdUseMocks, value);
+            get => Preferences.Get(IdUseMocks, UseMocksDefault);
+            set => Preferences.Set(IdUseMocks, value);
         }
 
         public string IdentityEndpointBase
         {
-            get => GetValueOrDefault(IdIdentityBase, UrlIdentityDefault);
-            set => AddOrUpdateValue(IdIdentityBase, value);
+            get => Preferences.Get(IdIdentityBase, UrlIdentityDefault);
+            set => Preferences.Set(IdIdentityBase, value);
         }
 
         public string GatewayShoppingEndpointBase
         {
-            get => GetValueOrDefault(IdGatewayShoppingBase, UrlGatewayShoppingDefault);
-            set => AddOrUpdateValue(IdGatewayShoppingBase, value);
+            get => Preferences.Get(IdGatewayShoppingBase, UrlGatewayShoppingDefault);
+            set => Preferences.Set(IdGatewayShoppingBase, value);
         }
 
         public string GatewayMarketingEndpointBase
         {
-            get => GetValueOrDefault(IdGatewayMarketingBase, UrlGatewayMarketingDefault);
-            set => AddOrUpdateValue(IdGatewayMarketingBase, value);
+            get => Preferences.Get(IdGatewayMarketingBase, UrlGatewayMarketingDefault);
+            set => Preferences.Set(IdGatewayMarketingBase, value);
         }
 
         public bool UseFakeLocation
         {
-            get => GetValueOrDefault(IdUseFakeLocation, UseFakeLocationDefault);
-            set => AddOrUpdateValue(IdUseFakeLocation, value);
+            get => Preferences.Get(IdUseFakeLocation, UseFakeLocationDefault);
+            set => Preferences.Set(IdUseFakeLocation, value);
         }
 
         public string Latitude
         {
-            get => GetValueOrDefault(IdLatitude, FakeLatitudeDefault.ToString());
-            set => AddOrUpdateValue(IdLatitude, value);
+            get => Preferences.Get(IdLatitude, FakeLatitudeDefault.ToString());
+            set => Preferences.Set(IdLatitude, value);
         }
 
         public string Longitude
         {
-            get => GetValueOrDefault(IdLongitude, FakeLongitudeDefault.ToString());
-            set => AddOrUpdateValue(IdLongitude, value);
+            get => Preferences.Get(IdLongitude, FakeLongitudeDefault.ToString());
+            set => Preferences.Set(IdLongitude, value);
         }
 
         public bool AllowGpsLocation
         {
-            get => GetValueOrDefault(IdAllowGpsLocation, AllowGpsLocationDefault);
-            set => AddOrUpdateValue(IdAllowGpsLocation, value);
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        public Task AddOrUpdateValue(string key, bool value) => AddOrUpdateValueInternal(key, value);
-        public Task AddOrUpdateValue(string key, string value) => AddOrUpdateValueInternal(key, value);
-        public bool GetValueOrDefault(string key, bool defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
-        public string GetValueOrDefault(string key, string defaultValue) => GetValueOrDefaultInternal(key, defaultValue);
-
-        #endregion
-
-        #region Internal Implementation
-
-        async Task AddOrUpdateValueInternal<T>(string key, T value)
-        {
-            if (value == null)
-            {
-                await Remove(key);
-            }
-
-            Application.Current.Properties[key] = value;
-            try
-            {
-                await Application.Current.SavePropertiesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Unable to save: " + key, " Message: " + ex.Message);
-            }
-        }
-
-        T GetValueOrDefaultInternal<T>(string key, T defaultValue = default(T))
-        {
-            object value = null;
-            if (Application.Current.Properties.ContainsKey(key))
-            {
-                value = Application.Current.Properties[key];
-            }
-            return null != value ? (T)value : defaultValue;
-        }
-
-        async Task Remove(string key)
-        {
-            try
-            {
-                if (Application.Current.Properties[key] != null)
-                {
-                    Application.Current.Properties.Remove(key);
-                    await Application.Current.SavePropertiesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Unable to remove: " + key, " Message: " + ex.Message);
-            }
+            get => Preferences.Get(IdAllowGpsLocation, AllowGpsLocationDefault);
+            set => Preferences.Set(IdAllowGpsLocation, value);
         }
 
         #endregion
