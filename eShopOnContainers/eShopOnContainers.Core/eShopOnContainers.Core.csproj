@@ -18,10 +18,10 @@
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.4" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="LiveSharp" Version="2.0.13" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Permissions\" />
     <Folder Include="Models\Permissions\" />
   </ItemGroup>
 </Project>

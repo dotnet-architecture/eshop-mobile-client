@@ -63,6 +63,9 @@
     <PackageReference Include="Xamarin.AndroidX.ExifInterface">
       <Version>1.3.2.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.6.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\MainActivity.cs" />
@@ -78,8 +81,6 @@
     <Compile Include="Effects\CircleEffect.cs" />
     <Compile Include="Effects\BaseContainerEffect.cs" />
     <Compile Include="Activities\SplashActivity.cs" />
-    <Compile Include="Services\PermissionsService.cs" />
-    <Compile Include="Services\LocationServiceImplementation.cs" />
     <Compile Include="Services\GeolocationSingleListener.cs" />
     <Compile Include="Extensions\LocationExtensions.cs" />
   </ItemGroup>

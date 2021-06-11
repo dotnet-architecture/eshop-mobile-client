@@ -8,7 +8,9 @@ using eShopOnContainers.Services;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -64,33 +66,32 @@ namespace eShopOnContainers
 
         private async Task GetGpsLocation()
         {
-            var dependencyService = ViewModelLocator.Resolve<IDependencyService>();
-            var locator = dependencyService.Get<ILocationServiceImplementation>();
-
-            if (locator.IsGeolocationEnabled && locator.IsGeolocationAvailable)
+            try
             {
-                locator.DesiredAccuracy = 50;
+                var request = new GeolocationRequest (GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync (request, CancellationToken.None).ConfigureAwait(false);
 
-                try
+                if (location != null)
                 {
-                    var position = await locator.GetPositionAsync();
-                    _settingsService.Latitude = position.Latitude.ToString();
-                    _settingsService.Longitude = position.Longitude.ToString();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
+                    _settingsService.Latitude = location.Latitude.ToString ();
+                    _settingsService.Longitude = location.Longitude.ToString ();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                _settingsService.AllowGpsLocation = false;
+                if (ex is FeatureNotEnabledException || ex is FeatureNotEnabledException || ex is PermissionException)
+                {
+                    _settingsService.AllowGpsLocation = false;
+                }
+
+                // Unable to get location
+                Debug.WriteLine(ex);
             }
         }
 
         private async Task SendCurrentLocation()
         {
-            var location = new Location
+            var location = new Core.Models.Location.Location
             {
                 Latitude = double.Parse(_settingsService.Latitude, CultureInfo.InvariantCulture),
                 Longitude = double.Parse(_settingsService.Longitude, CultureInfo.InvariantCulture)
