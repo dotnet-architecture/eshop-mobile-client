@@ -4,7 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
     x:Class="eShopOnContainers.Core.AppShell">
-    <TabBar>
+
+    <FlyoutItem >
+        <ShellContent ContentTemplate="{DataTemplate views:LoginView}" Route="Login" />
+    </FlyoutItem>
+
+    <TabBar Route="Main">
         <ShellContent Title="Catalog" ContentTemplate="{DataTemplate views:CatalogView}">
             <ShellContent.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">

@@ -4,12 +4,8 @@ using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Views
 {
-    public class ContentPageBase : ContentPage
+    public abstract class ContentPageBase : ContentPage
     {
-        public ContentPageBase ()
-        {
-        }
-
         protected override async void OnAppearing ()
         {
             base.OnAppearing ();
