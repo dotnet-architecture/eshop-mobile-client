@@ -11,16 +11,16 @@ namespace eShopOnContainers.Core.ViewModels
     public class OrderDetailViewModel : ViewModelBase
     {
         private readonly ISettingsService _settingsService;
-        private readonly IOrderService _ordersService;
+        private readonly IOrderService _orderService;
 
         private Order _order;
         private bool _isSubmittedOrder;
         private string _orderStatusText;
 
-        public OrderDetailViewModel(ISettingsService settingsService, IOrderService ordersService)
+        public OrderDetailViewModel()
         {
-            _settingsService = settingsService;
-            _ordersService = ordersService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _orderService = DependencyService.Get<IOrderService> ();
         }
 
         public Order Order
@@ -66,7 +66,7 @@ namespace eShopOnContainers.Core.ViewModels
 
                 // Get order detail info
                 var authToken = _settingsService.AuthAccessToken;
-                Order = await _ordersService.GetOrderAsync(order.OrderNumber, authToken);
+                Order = await _orderService.GetOrderAsync(order.OrderNumber, authToken);
                 IsSubmittedOrder = Order.OrderStatus == OrderStatus.Submitted;
                 OrderStatusText = Order.OrderStatus.ToString().ToUpper();
 
@@ -78,7 +78,7 @@ namespace eShopOnContainers.Core.ViewModels
         {
             var authToken = _settingsService.AuthAccessToken;
 
-            var result = await _ordersService.CancelOrderAsync(_order.OrderNumber, authToken);
+            var result = await _orderService.CancelOrderAsync(_order.OrderNumber, authToken);
 
             if (result)
             {
@@ -86,7 +86,7 @@ namespace eShopOnContainers.Core.ViewModels
             }
             else
             {
-                Order = await _ordersService.GetOrderAsync(Order.OrderNumber, authToken);
+                Order = await _orderService.GetOrderAsync(Order.OrderNumber, authToken);
                 OrderStatusText = Order.OrderStatus.ToString().ToUpper();
             }
 

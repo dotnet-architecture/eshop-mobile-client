@@ -16,10 +16,10 @@ namespace eShopOnContainers.Core.ViewModels
 
         private ObservableCollection<CampaignItem> _campaigns;
 
-        public CampaignViewModel(ISettingsService settingsService, ICampaignService campaignService)
+        public CampaignViewModel()
         {
-            _settingsService = settingsService;
-            _campaignService = campaignService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _campaignService = DependencyService.Get<ICampaignService> ();
         }
 
         public ObservableCollection<CampaignItem> Campaigns

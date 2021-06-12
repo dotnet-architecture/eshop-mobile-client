@@ -27,16 +27,12 @@ namespace eShopOnContainers.Core.ViewModels
         private IOrderService _orderService;
         private IUserService _userService;
 
-        public CheckoutViewModel(
-            ISettingsService settingsService,
-            IBasketService basketService,
-            IOrderService orderService,
-            IUserService userService)
+        public CheckoutViewModel()
         {
-            _settingsService = settingsService;
-            _basketService = basketService;
-            _orderService = orderService;
-            _userService = userService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _basketService = DependencyService.Get<IBasketService> ();
+            _orderService = DependencyService.Get<IOrderService> ();
+            _userService = DependencyService.Get<IUserService> ();
         }
 
         public ObservableCollection<BasketItem> OrderItems

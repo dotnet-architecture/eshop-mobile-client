@@ -22,14 +22,11 @@ namespace eShopOnContainers.Core.ViewModels
         private IBasketService _basketService;
         private IUserService _userService;
 
-        public BasketViewModel(
-            ISettingsService settingsService,
-            IBasketService basketService,
-            IUserService userService)
+        public BasketViewModel()
         {
-            _settingsService = settingsService;
-            _basketService = basketService;
-            _userService = userService;
+            _settingsService = DependencyService.Get<ISettingsService>();
+            _basketService = DependencyService.Get<IBasketService> ();
+            _userService = DependencyService.Get<IUserService> ();
         }
 
         public int BadgeCount

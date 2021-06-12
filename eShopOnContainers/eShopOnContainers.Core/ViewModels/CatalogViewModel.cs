@@ -15,11 +15,11 @@ namespace eShopOnContainers.Core.ViewModels
         private CatalogBrand _brand;
         private ObservableCollection<CatalogType> _types;
         private CatalogType _type;
-        private ICatalogService _productsService;
+        private ICatalogService _catalogService;
 
-        public CatalogViewModel(ICatalogService productsService)
+        public CatalogViewModel()
         {
-            _productsService = productsService;
+            _catalogService = DependencyService.Get<ICatalogService> ();
         }
 
         public ObservableCollection<CatalogItem> Products
@@ -87,9 +87,9 @@ namespace eShopOnContainers.Core.ViewModels
             IsBusy = true;
 
             // Get Catalog, Brands and Types
-            Products = await _productsService.GetCatalogAsync();
-            Brands = await _productsService.GetCatalogBrandAsync();
-            Types = await _productsService.GetCatalogTypeAsync();
+            Products = await _catalogService.GetCatalogAsync();
+            Brands = await _catalogService.GetCatalogBrandAsync();
+            Types = await _catalogService.GetCatalogTypeAsync();
 
             IsBusy = false;
         }
@@ -111,7 +111,7 @@ namespace eShopOnContainers.Core.ViewModels
 
             // Filter catalog products
             MessagingCenter.Send(this, MessageKeys.Filter);
-            Products = await _productsService.FilterAsync(Brand.Id, Type.Id);
+            Products = await _catalogService.FilterAsync(Brand.Id, Type.Id);
 
             IsBusy = false;
         }
@@ -122,7 +122,7 @@ namespace eShopOnContainers.Core.ViewModels
 
             Brand = null;
             Type = null;
-            Products = await _productsService.GetCatalogAsync();
+            Products = await _catalogService.GetCatalogAsync();
 
             IsBusy = false;
         }
