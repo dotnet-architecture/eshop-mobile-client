@@ -26,14 +26,11 @@ namespace eShopOnContainers.Core.ViewModels
         private IOpenUrlService _openUrlService;
         private IIdentityService _identityService;
 
-        public LoginViewModel(
-            ISettingsService settingsService,
-            IOpenUrlService openUrlService,
-            IIdentityService identityService)
+        public LoginViewModel()
         {
-            _settingsService = settingsService;
-            _openUrlService = openUrlService;
-            _identityService = identityService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _openUrlService = DependencyService.Get<IOpenUrlService> ();
+            _identityService = DependencyService.Get<IIdentityService> ();
 
             _userName = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();

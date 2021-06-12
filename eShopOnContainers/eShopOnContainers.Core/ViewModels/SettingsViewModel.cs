@@ -26,13 +26,11 @@ namespace eShopOnContainers.Core.ViewModels
 
         private readonly ISettingsService _settingsService;
         private readonly ILocationService _locationService;
-        private readonly IDependencyService _dependencyService;
 
-        public SettingsViewModel(ISettingsService settingsService, ILocationService locationService, IDependencyService dependencyService)
+        public SettingsViewModel()
         {
-            _settingsService = settingsService;
-            _locationService = locationService;
-            _dependencyService = dependencyService;
+            _settingsService = Xamarin.Forms.DependencyService.Get<ISettingsService> ();
+            _locationService = Xamarin.Forms.DependencyService.Get<ILocationService> ();
 
             _useAzureServices = !_settingsService.UseMocks;
             _identityEndpoint = _settingsService.IdentityEndpointBase;

@@ -17,10 +17,10 @@ namespace eShopOnContainers.Core.ViewModels
         private readonly IOrderService _orderService;
         private ObservableCollection<Order> _orders;
 
-        public ProfileViewModel(ISettingsService settingsService, IOrderService orderService)
+        public ProfileViewModel()
         {
-            _settingsService = settingsService;
-            _orderService = orderService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _orderService = DependencyService.Get<IOrderService> ();
         }
 
         public ObservableCollection<Order> Orders

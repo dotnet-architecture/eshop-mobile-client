@@ -18,10 +18,10 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand EnableDetailsSiteCommand => new Command(EnableDetailsSite);
 
-        public CampaignDetailsViewModel(ISettingsService settingsService, ICampaignService campaignService)
+        public CampaignDetailsViewModel()
         {
-            _settingsService = settingsService;
-            _campaignService = campaignService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _campaignService = DependencyService.Get<ICampaignService> ();
         }
 
         public CampaignItem Campaign
