@@ -1,14 +1,17 @@
 ﻿using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
-using SlideOverKit;
 using System;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Views
 {
-    public partial class CatalogView : ContentPageBase, IMenuContainerPage
+    public partial class CatalogView : ContentPageBase
     {
         private FiltersView _filterView = new FiltersView();
+
+        private bool _filterShown;
 
         public CatalogView()
         {
@@ -34,7 +37,7 @@ namespace eShopOnContainers.Core.Views
             set;
         }
 
-        public SlideMenuView SlideMenu
+        public Popup SlideMenu
         {
             get;
             set;
@@ -54,13 +57,16 @@ namespace eShopOnContainers.Core.Views
 
         private void Filter()
         {
-            if (SlideMenu.IsShown)
+            if(!_filterShown)
             {
-                HideMenuAction?.Invoke();
+                _filterShown = true;
+                Navigation.ShowPopup (SlideMenu);
+                ShowMenuAction?.Invoke();
             }
             else
             {
-                ShowMenuAction?.Invoke();
+                _filterShown = false;
+                SlideMenu.Dismiss (null);
             }
         }
     }
