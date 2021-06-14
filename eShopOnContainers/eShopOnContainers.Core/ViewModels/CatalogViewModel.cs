@@ -102,18 +102,22 @@ namespace eShopOnContainers.Core.ViewModels
 
         private async Task FilterAsync()
         {
-            if (Brand == null || Type == null)
-            {
-                return;
+            try
+            {    
+                IsBusy = true;
+
+                if (Brand != null && Type != null)
+                {
+                    Products = await _catalogService.FilterAsync(Brand.Id, Type.Id);
+                }
+
+                // Filter catalog products
+                MessagingCenter.Send(this, MessageKeys.Filter);
             }
-
-            IsBusy = true;
-
-            // Filter catalog products
-            MessagingCenter.Send(this, MessageKeys.Filter);
-            Products = await _catalogService.FilterAsync(Brand.Id, Type.Id);
-
-            IsBusy = false;
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task ClearFilterAsync()

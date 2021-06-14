@@ -14,16 +14,6 @@ namespace eShopOnContainers.Services
     {
         private readonly ISettingsService _settingsService;
 
-        public ViewModelBase PreviousPageViewModel
-        {
-            get
-            {
-                var mainPage = Application.Current.MainPage as CustomNavigationView;
-                var viewModel = mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2].BindingContext;
-                return viewModel as ViewModelBase;
-            }
-        }
-
         public NavigationService(ISettingsService settingsService)
         {
             _settingsService = settingsService;

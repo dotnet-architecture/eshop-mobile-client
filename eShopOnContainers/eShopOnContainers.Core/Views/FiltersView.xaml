@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<slideOverKit:SlideMenuView 
+<xct:Popup
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:slideOverKit="clr-namespace:SlideOverKit" 
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Class="eShopOnContainers.Core.Views.FiltersView"
-    MenuOrientations="TopToBottom"
     BackgroundColor="{StaticResource BackgroundColor}"
-    HeightRequest="250"
-    IsFullScreen="True">
-  <slideOverKit:SlideMenuView.Resources>
+    IsLightDismissEnabled="False"
+    HeightRequest="250">
+  <xct:Popup.Resources>
     <ResourceDictionary>
 
       <Style x:Key="FilterPickerStyle"  
@@ -56,7 +55,7 @@
       </Style>
           
     </ResourceDictionary>
-  </slideOverKit:SlideMenuView.Resources>
+  </xct:Popup.Resources>
   <Grid    
     Padding="0"            
     ColumnSpacing="0"    
@@ -108,4 +107,4 @@
       Style="{StaticResource ClearFilterButtonStyle}"
       Command="{Binding ClearFilterCommand}"/>
 </Grid>
-</slideOverKit:SlideMenuView>
+</xct:Popup>
