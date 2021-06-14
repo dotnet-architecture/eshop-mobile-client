@@ -5,7 +5,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using FFImageLoading;
-using FFImageLoading.Forms.Droid;
 using System;
 using Xamarin.Forms.Platform.Android;
 using eShopOnContainers.Droid.Services;
@@ -34,7 +33,8 @@ namespace eShopOnContainers.Droid.Activities
             SupportActionBar.SetDisplayShowTitleEnabled(false);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            CachedImageRenderer.Init(false);
+            CachedImageRenderer.Init(true);
+
             LoadApplication(new App());
 
             Window window = this.Window;
