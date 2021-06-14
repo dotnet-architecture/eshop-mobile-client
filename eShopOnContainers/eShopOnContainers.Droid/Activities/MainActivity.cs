@@ -7,7 +7,7 @@ using Android.Views;
 using FFImageLoading;
 using System;
 using Xamarin.Forms.Platform.Android;
-using eShopOnContainers.Droid.Services;
+using FFImageLoading.Forms.Platform;
 
 namespace eShopOnContainers.Droid.Activities
 {

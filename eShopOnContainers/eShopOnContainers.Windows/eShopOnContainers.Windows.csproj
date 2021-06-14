@@ -11,8 +11,8 @@
     <AssemblyName>eShopOnContainers.Windows</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -109,9 +109,6 @@
     <Compile Include="Controls\TabItem.xaml.cs">
       <DependentUpon>TabItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\TabBadgeColorConverter.cs" />
-    <Compile Include="Converters\TabBadgeTextConverter.cs" />
-    <Compile Include="Converters\TabIconConverter.cs" />
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
@@ -120,9 +117,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />
-    <Compile Include="Renderers\SlideDownMenuPageRenderer.cs" />
-    <Compile Include="Services\LocationServiceImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -174,13 +168,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +177,11 @@
       <Project>{76c5f2a7-6cd5-49ea-9f33-ec44de6539c7}</Project>
       <Name>eShopOnContainers.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.19041.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

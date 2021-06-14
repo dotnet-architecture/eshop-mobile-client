@@ -1,4 +1,4 @@
-using FFImageLoading.Forms;
+﻿using FFImageLoading.Forms;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -55,9 +55,11 @@ namespace eShopOnContainers.UWP
                 {
                     typeof(CachedImage).GetTypeInfo().Assembly,
                     typeof(FFImageLoading.Forms.Platform.CachedImageRenderer).GetTypeInfo().Assembly,
-                    typeof(SlideOverKit.MenuContainerPage).GetTypeInfo().Assembly,
-                    typeof(SlideOverKit.UWP.MenuContainerPageUWPRenderer).GetTypeInfo().Assembly
                 };
+
+                global::Xamarin.Forms.Forms.SetFlags("Shell_UWP_Experimental");
+
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
                 Xamarin.Forms.Forms.Init(e, assembliesToInclude);
 
