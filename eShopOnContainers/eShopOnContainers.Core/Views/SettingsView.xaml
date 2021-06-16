@@ -150,22 +150,9 @@
             Grid.Column="1" 
             Checked="{Binding UseAzureServices, Mode=TwoWay}"
             Command="{Binding ToggleMockServicesCommand}"
-            Style="{StaticResource SettingsToggleButtonStyle}">
-            <controls:ToggleButton.CheckedImage>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="iOS" Value="switchOn.png" />
-                    <On Platform="Android" Value="switch_on.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets/switchOn.png" />
-                </OnPlatform>
-            </controls:ToggleButton.CheckedImage>
-            <controls:ToggleButton.UnCheckedImage>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="iOS" Value="switchOff.png" />
-                    <On Platform="Android" Value="switch_off.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets/switchOff.png" />
-                </OnPlatform>
-            </controls:ToggleButton.UnCheckedImage>
-        </controls:ToggleButton>
+            Style="{StaticResource SettingsToggleButtonStyle}"
+            CheckedImage="{StaticResource ToggleOnImageSource}"
+            UnCheckedImage="{StaticResource ToggleOffImageSource}" />
         <!-- ENDPOINT -->
         <StackLayout
             Grid.Row="1"
@@ -230,22 +217,9 @@
             Checked="{Binding UseFakeLocation, Mode=TwoWay}"
             Command="{Binding ToggleFakeLocationCommand}"
             Style="{StaticResource SettingsToggleButtonStyle}"
-            IsVisible="{Binding UserIsLogged}">
-            <controls:ToggleButton.CheckedImage>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="iOS" Value="switchOn.png" />
-                    <On Platform="Android" Value="switch_on.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets/switchOn.png" />
-                </OnPlatform>
-            </controls:ToggleButton.CheckedImage>
-            <controls:ToggleButton.UnCheckedImage>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="iOS" Value="switchOff.png" />
-                    <On Platform="Android" Value="switch_off.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets/switchOff.png" />
-                </OnPlatform>
-            </controls:ToggleButton.UnCheckedImage>
-        </controls:ToggleButton>
+            IsVisible="{Binding UserIsLogged}"
+            CheckedImage="{StaticResource ToggleOnImageSource}"
+            UnCheckedImage="{StaticResource ToggleOffImageSource}" />
         <!-- FAKE LOCATIONS -->
         <StackLayout
             Grid.Row="3"
@@ -304,21 +278,8 @@
             Checked="{Binding AllowGpsLocation, Mode=TwoWay}"
             Command="{Binding ToggleAllowGpsLocationCommand}"
             Style="{StaticResource SettingsToggleButtonStyle}"
-            IsVisible="{Binding UseFakeLocation, Converter={StaticResource InverseBoolConverter}}">
-            <controls:ToggleButton.CheckedImage>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="iOS" Value="switchOn.png" />
-                    <On Platform="Android" Value="switch_on.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets/switchOn.png" />
-                </OnPlatform>
-            </controls:ToggleButton.CheckedImage>
-            <controls:ToggleButton.UnCheckedImage>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="iOS" Value="switchOff.png" />
-                    <On Platform="Android" Value="switch_off.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets/switchOff.png" />
-                </OnPlatform>
-            </controls:ToggleButton.UnCheckedImage>
-        </controls:ToggleButton>
+            IsVisible="{Binding UseFakeLocation, Converter={StaticResource InverseBoolConverter}}"
+            CheckedImage="{StaticResource ToggleOnImageSource}"
+            UnCheckedImage="{StaticResource ToggleOffImageSource}" />
     </Grid>
 </ContentPage>

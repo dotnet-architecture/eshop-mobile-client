@@ -272,13 +272,8 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
-                Aspect="AspectFill">
-                <Image.Source>
-                    <OnPlatform x:TypeArguments="ImageSource">
-                        <On Platform="iOS, Android" Value="banner.png" />
-                        <On Platform="UWP, WinRT, WinPhone" Value="Assets\banner.png" />
-                    </OnPlatform>
-                </Image.Source>
+                Aspect="AspectFill"
+                Source="banner.png">
             </Image>
             <Grid
                 Grid.Row="0"
@@ -319,15 +314,7 @@
                 Grid.Column="2"
                 Grid.Row="1"
                 Style="{StaticResource SettingsPanelStyle}">
-                <Image
-                    Style="{StaticResource SettingsImageStyle}">
-                    <Image.Source>
-                        <OnPlatform x:TypeArguments="ImageSource">
-                            <On Platform="iOS, Android" Value="app_settings" />
-                            <On Platform="UWP, WinRT, WinPhone" Value="Assets/app_settings.png" />
-                        </OnPlatform>
-                    </Image.Source>
-                </Image>
+                <Image Style="{StaticResource SettingsImageStyle}" Source="{StaticResource SettingsIconImageSource}" />
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer
                         Command="{Binding SettingsCommand}"

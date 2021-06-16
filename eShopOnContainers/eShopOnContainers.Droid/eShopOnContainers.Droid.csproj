@@ -79,15 +79,6 @@
     <Compile Include="Extensions\LocationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\CommonResources\Fonts\Montserrat-Bold.ttf">
-      <Link>Assets\Montserrat-Bold.ttf</Link>
-    </AndroidAsset>
-    <AndroidAsset Include="..\CommonResources\Fonts\Montserrat-Regular.ttf">
-      <Link>Assets\Montserrat-Regular.ttf</Link>
-    </AndroidAsset>
-    <AndroidAsset Include="..\CommonResources\Fonts\SourceSansPro-Regular.ttf">
-      <Link>Assets\SourceSansPro-Regular.ttf</Link>
-    </AndroidAsset>
     <None Include="app.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

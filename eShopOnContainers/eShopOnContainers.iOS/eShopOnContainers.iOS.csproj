@@ -65,15 +65,6 @@
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <BundleResource Include="..\CommonResources\Fonts\Montserrat-Bold.ttf">
-      <Link>Resources\fonts\Montserrat-Bold.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\CommonResources\Fonts\Montserrat-Regular.ttf">
-      <Link>Resources\fonts\Montserrat-Regular.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\CommonResources\Fonts\SourceSansPro-Regular.ttf">
-      <Link>Resources\fonts\SourceSansPro-Regular.ttf</Link>
-    </BundleResource>
     <None Include="app.config" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -81,9 +72,6 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <Compile Include="Effects\CircleEffect.cs" />
-    <BundleResource Include="Resources\menu_campaigns.png" />
-    <BundleResource Include="Resources\menu_campaigns%402x.png" />
-    <BundleResource Include="Resources\menu_campaigns%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-60%403x.png" />
@@ -121,69 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\fake_product_05.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_cart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_cart%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_cart%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_filter%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_filter%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_profile.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_profile%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_profile%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\product_add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\product_add%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\product_add%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\app_settings%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\app_settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\app_settings%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOff.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOff%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOff%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOn%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOn%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

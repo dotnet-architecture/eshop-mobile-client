@@ -23,5 +23,22 @@
 
   <ItemGroup>
     <Folder Include="Models\Permissions\" />
+    <Folder Include="Fonts\">
+    </Folder>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Fonts\" />
+    <None Remove="Fonts\Montserrat-Bold.ttf" />
+    <None Remove="Fonts\Montserrat-Regular.ttf" />
+    <None Remove="Fonts\SourceSansPro-Regular.ttf" />
+    <None Remove="Fonts\Font_Awesome_5_Free-Regular-400.otf" />
+    <None Remove="Fonts\Font_Awesome_5_Free-Solid-900.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Montserrat-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\Montserrat-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\SourceSansPro-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\Font_Awesome_5_Free-Regular-400.otf" />
+    <EmbeddedResource Include="Fonts\Font_Awesome_5_Free-Solid-900.otf" />
   </ItemGroup>
 </Project>

@@ -53,6 +53,9 @@
                 Animation="{StaticResource ProductsAnimation}" />
         </EventTrigger>
     </ContentPage.Triggers>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{StaticResource SettingsIconImageSource}" />
+    </ContentPage.ToolbarItems>
     <Grid  
         ColumnSpacing="0"
         RowSpacing="0">

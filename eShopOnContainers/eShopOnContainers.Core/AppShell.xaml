@@ -10,40 +10,9 @@
     </FlyoutItem>
 
     <TabBar Route="Main">
-        <ShellContent Title="Catalog" ContentTemplate="{DataTemplate views:CatalogView}">
-            <ShellContent.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS, Android" Value="menu_filter.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets\menu_filter.png" />
-                </OnPlatform>
-            </ShellContent.Icon>
-        </ShellContent>
-
-        <ShellContent Title="Profile" ContentTemplate="{DataTemplate views:ProfileView}">
-            <ShellContent.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS, Android" Value="menu_profile.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets\menu_profile.png" />
-                </OnPlatform>
-            </ShellContent.Icon>
-        </ShellContent>
-
-        <ShellContent Title="Basket" ContentTemplate="{DataTemplate views:BasketView}">
-            <ShellContent.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS, Android" Value="menu_cart.png" />
-                    <On Platform="UWP, WinRT, WinPhone" Value="Assets\menu_cart.png" />
-                </OnPlatform>
-            </ShellContent.Icon>
-        </ShellContent>
-
-        <ShellContent Title="Campaign" ContentTemplate="{DataTemplate views:CampaignView}">
-            <ShellContent.Icon>
-            <OnPlatform x:TypeArguments="FileImageSource">
-                <On Platform="iOS, Android" Value="menu_campaigns.png" />
-                <On Platform="UWP, WinRT, WinPhone" Value="Assets\menu_campaigns.png" />
-            </OnPlatform>
-        </ShellContent.Icon>
-        </ShellContent>
+        <ShellContent Title="Catalog" Icon="{StaticResource CatalogIconImageSource}" ContentTemplate="{DataTemplate views:CatalogView}" />
+        <ShellContent Title="Profile" Icon="{StaticResource ProfileIconImageSource}" ContentTemplate="{DataTemplate views:ProfileView}" />
+        <ShellContent Title="Basket" Icon="{StaticResource BasketIconImageSource}" ContentTemplate="{DataTemplate views:BasketView}" />
+        <ShellContent Title="Campaign" Icon="{StaticResource CampaignIconImageSource}" ContentTemplate="{DataTemplate views:CampaignView}" />
     </TabBar>
 </Shell>
