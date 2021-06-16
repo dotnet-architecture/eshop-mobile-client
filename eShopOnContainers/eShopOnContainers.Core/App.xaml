@@ -17,6 +17,7 @@
             <Color x:Key="GreenColor">#00A69C</Color>
             <Color x:Key="DarkGreenColor">#00857D</Color>
             <Color x:Key="GrayColor">#e2e2e2</Color>
+            <Color x:Key="DisabledColor">Gray</Color>
             <Color x:Key="ErrorColor">#ff5252</Color>
             <Color x:Key="TextColor">#757575</Color>
             <Color x:Key="InverseTextColor">#FFFFFF</Color>
@@ -82,27 +83,35 @@
             </OnPlatform>
             
             <!-- FONTS -->
-            <OnPlatform x:Key="MontserratRegular"
-                        x:TypeArguments="x:String">
-                <On Platform="iOS" Value="Montserrat-Regular" />
-                <On Platform="Android" Value="Montserrat-Regular.ttf#Montserrat" />
-                <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Montserrat-Regular.ttf#Montserrat" />
-            </OnPlatform>
+            <x:String x:Key="MontserratRegular" >Montserrat-Regular</x:String>
+            <x:String x:Key="MontserratBold">Montserrat-Bold</x:String>
+            <x:String x:Key="SourceSansProRegular">SourceSansPro-Regular</x:String>
+            <x:String x:Key="FontAwesomeRegular">FontAwesome-Regular</x:String>
+            <x:String x:Key="FontAwesomeSolid">FontAwesome-Solid</x:String>
 
-            <OnPlatform x:Key="MontserratBold"
-                        x:TypeArguments="x:String">
-                <On Platform="iOS" Value="Montserrat-Bold" />
-                <On Platform="Android" Value="Montserrat-Bold.ttf#Montserrat" />
-                <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Montserrat-Bold.ttf#Montserrat" />
-            </OnPlatform>
+            <x:String x:Key="SettingsIcon">&#xf013;</x:String>
+            <x:String x:Key="CatalogIcon">&#xf03a;</x:String>
+            <x:String x:Key="ProfileIcon">&#xf2bd;</x:String>
+            <x:String x:Key="BasketIcon">&#xf07a;</x:String>
+            <x:String x:Key="CampaignIcon">&#xf155;</x:String>
+            <x:String x:Key="FilterIcon">&#xf0b0;</x:String>
+            <x:String x:Key="AddIcon">&#xf067;</x:String>
+            <x:String x:Key="CircleIcon">&#xf111;</x:String>
+            <x:String x:Key="ToggleOffIcon">&#xf204;</x:String>
+            <x:String x:Key="ToggleOnIcon">&#xf205;</x:String>
 
-            <OnPlatform x:Key="SourceSansProRegular"
-                        x:TypeArguments="x:String">
-                <On Platform="iOS" Value="SourceSansPro-Regular" />
-                <On Platform="Android" Value="SourceSansPro-Regular.ttf#Source Sans Pro" />
-                <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/SourceSansPro-Regular.ttf#Source Sans Pro" />
-            </OnPlatform>
-            
+            <FontImageSource x:Key="SettingsIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource SettingsIcon}" />
+            <FontImageSource x:Key="CatalogIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CatalogIcon}" />
+            <FontImageSource x:Key="ProfileIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ProfileIcon}" />
+            <FontImageSource x:Key="BasketIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource BasketIcon}" />
+            <FontImageSource x:Key="CampaignIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CampaignIcon}" />
+            <FontImageSource x:Key="FilterIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource FilterIcon}" />
+            <FontImageSource x:Key="AddIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" />
+            <FontImageSource x:Key="AddIconWhiteImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" Color="{StaticResource WhiteColor}" />
+            <FontImageSource x:Key="CircleIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CircleIcon}" />
+            <FontImageSource x:Key="ToggleOffImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ToggleOffIcon}" Color="{StaticResource DisabledColor}" />
+            <FontImageSource x:Key="ToggleOnImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ToggleOnIcon}" Color="{StaticResource AccentColor}"/>
+
             <OnPlatform x:TypeArguments="x:Double"
                         x:Key="BaseButtonFontSize">
                 <On Platform="iOS" Value="18" />

@@ -57,7 +57,7 @@
                 </BoxView>
                 <Image 
                     Aspect="AspectFit" 
-                    Source="product_add.png"
+                    Source="{StaticResource AddIconWhiteImageSource}"
                     Style="{StaticResource AddImageStyle}" />
             </Grid>
             <!-- IOS & UWP -->
