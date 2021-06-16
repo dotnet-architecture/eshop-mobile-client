@@ -53,6 +53,7 @@ namespace eShopOnContainers.UWP
 
                 var assembliesToInclude = new List<Assembly>()
                 {
+                    typeof(eShopOnContainers.App).GetTypeInfo().Assembly,
                     typeof(CachedImage).GetTypeInfo().Assembly,
                     typeof(FFImageLoading.Forms.Platform.CachedImageRenderer).GetTypeInfo().Assembly,
                 };

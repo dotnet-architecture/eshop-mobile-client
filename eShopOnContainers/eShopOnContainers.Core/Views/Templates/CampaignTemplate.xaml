@@ -57,20 +57,9 @@
             <ffimageloading:CachedImage 
                 Grid.Row="0"
                 Source="{Binding PictureUri}"     
-                Aspect="AspectFill">
-                <ffimageloading:CachedImage.LoadingPlaceholder>
-                    <OnPlatform x:TypeArguments="ImageSource">
-                        <On Platform="iOS, Android" Value="default_campaign" />
-                        <On Platform="UWP, WinRT, WinPhone" Value="Assets/default_campaign.png" />
-                    </OnPlatform>
-                </ffimageloading:CachedImage.LoadingPlaceholder>
-                <ffimageloading:CachedImage.ErrorPlaceholder>
-                    <OnPlatform x:TypeArguments="ImageSource">
-                        <On Platform="iOS, Android" Value="noimage" />
-                        <On Platform="UWP, WinRT, WinPhone" Value="Assets/noimage.png" />
-                    </OnPlatform>
-                </ffimageloading:CachedImage.ErrorPlaceholder>
-            </ffimageloading:CachedImage>
+                Aspect="AspectFill"
+                LoadingPlaceholder="default_campaign.png"
+                ErrorPlaceholder="noimage.png" />
             <!-- NAME -->
             <Label 
                 Grid.Row="1"

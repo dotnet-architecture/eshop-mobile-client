@@ -4,7 +4,9 @@
              xmlns:converters="clr-namespace:eShopOnContainers.Core.Converters;assembly=eShopOnContainers.Core"
              xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             x:Class="eShopOnContainers.App">
+             xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="eShopOnContainers.App"
+             windows:Application.ImageDirectory="Assets">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -86,8 +88,18 @@
             <x:String x:Key="MontserratRegular" >Montserrat-Regular</x:String>
             <x:String x:Key="MontserratBold">Montserrat-Bold</x:String>
             <x:String x:Key="SourceSansProRegular">SourceSansPro-Regular</x:String>
-            <x:String x:Key="FontAwesomeRegular">FontAwesome-Regular</x:String>
-            <x:String x:Key="FontAwesomeSolid">FontAwesome-Solid</x:String>
+
+            <OnPlatform x:Key="FontAwesomeRegular"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS, Android" Value="FontAwesome-Regular" />
+                <On Platform="UWP" Value="Assets/Fonts/Font_Awesome_5_Free-Regular-400.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="FontAwesomeSolid"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS, Android" Value="FontAwesome-Solid" />
+                <On Platform="UWP" Value="Assets/Fonts/Font_Awesome_5_Free-Solid-900.otf#Font Awesome 5 Free" />
+            </OnPlatform>
 
             <x:String x:Key="SettingsIcon">&#xf013;</x:String>
             <x:String x:Key="CatalogIcon">&#xf03a;</x:String>
