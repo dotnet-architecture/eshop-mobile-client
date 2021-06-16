@@ -1,49 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView
+<Grid
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:effects="clr-namespace:eShopOnContainers.Core.Effects"
     x:Class="eShopOnContainers.Core.Controls.AddBasketButton">
-    <ContentView.Resources>
-        <ResourceDictionary>
-            
-            <Style x:Key="AddBackgroundImageStyle" 
-               TargetType="{x:Type Image}">
-                <Setter Property="HorizontalOptions"
-                        Value="Center" />
-                <Setter Property="VerticalOptions"
-                        Value="Center" />
-                <Setter Property="HeightRequest"
-                        Value="128" />
-                <Setter Property="WidthRequest"
-                        Value="128" />
-            </Style>
-            
-            <Style x:Key="AddImageStyle" 
-               TargetType="{x:Type Image}">
-                <Setter Property="HorizontalOptions"
-                        Value="Center" />
-                <Setter Property="HeightRequest"
-                        Value="24" />
-                <Setter Property="WidthRequest"
-                        Value="24" />
-            </Style>
-
-        </ResourceDictionary>
-    </ContentView.Resources>
-    <ContentView.Content>
-        <Grid>
-            <BoxView  
-                    BackgroundColor="{StaticResource LightGreenColor}"
-                    HeightRequest="48"
-                    WidthRequest="48"
-                    CornerRadius="24" />
-            <Image 
-                    Aspect="AspectFit"
-                    Source="{StaticResource AddIconWhiteImageSource}"
-                    Style="{StaticResource AddImageStyle}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"  />
-        </Grid>
-    </ContentView.Content>
-</ContentView>
+        <Ellipse  
+                Fill="#83D01B"
+                StrokeThickness="0"
+                HeightRequest="48"
+                WidthRequest="48"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+        <Image 
+                Aspect="AspectFit"
+                Source="{StaticResource AddIconWhiteImageSource}"
+                HeightRequest="24"
+                WidthRequest="24"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"  />
+</Grid>
