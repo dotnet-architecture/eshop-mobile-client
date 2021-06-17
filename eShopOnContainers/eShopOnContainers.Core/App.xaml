@@ -73,6 +73,10 @@
                 <On Platform="Android" Value="{ StaticResource AndroidListViewBackgroundColor }" />
             </OnPlatform>
 
+            <!-- Theme Colors -->
+            <Color x:Key="LightBackgroundColor">#E7E7E7</Color>
+            <Color x:Key="DarkBackgroundColor">#222222</Color>
+
             <!-- SIZES -->
             <OnPlatform x:TypeArguments="x:Double"
                         x:Key="BaseButtonBorderRadius">
@@ -112,14 +116,14 @@
             <x:String x:Key="ToggleOffIcon">&#xf204;</x:String>
             <x:String x:Key="ToggleOnIcon">&#xf205;</x:String>
 
-            <FontImageSource x:Key="SettingsIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource SettingsIcon}" />
-            <FontImageSource x:Key="CatalogIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CatalogIcon}" />
-            <FontImageSource x:Key="ProfileIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ProfileIcon}" />
-            <FontImageSource x:Key="BasketIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource BasketIcon}" />
-            <FontImageSource x:Key="CampaignIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CampaignIcon}" />
-            <FontImageSource x:Key="FilterIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource FilterIcon}" />
+            <FontImageSource x:Key="SettingsIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource SettingsIcon}" Color="{AppThemeBinding Light={StaticResource DarkGreenColor}, Dark={StaticResource LightGreenColor}}" />
+            <FontImageSource x:Key="CatalogIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CatalogIcon}" Color="{AppThemeBinding Light={StaticResource DarkGreenColor}, Dark={StaticResource LightGreenColor}}" />
+            <FontImageSource x:Key="ProfileIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ProfileIcon}" Color="{AppThemeBinding Light={StaticResource DarkGreenColor}, Dark={StaticResource LightGreenColor}}" />
+            <FontImageSource x:Key="BasketIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource BasketIcon}" Color="{AppThemeBinding Light={StaticResource DarkGreenColor}, Dark={StaticResource LightGreenColor}}" />
+            <FontImageSource x:Key="CampaignIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CampaignIcon}" Color="{AppThemeBinding Light={StaticResource DarkGreenColor}, Dark={StaticResource LightGreenColor}}" />
+            <FontImageSource x:Key="FilterIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource FilterIcon}" Color="{AppThemeBinding Light={StaticResource DarkGreenColor}, Dark={StaticResource LightGreenColor}}" />
             <FontImageSource x:Key="AddIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" />
-            <FontImageSource x:Key="AddIconWhiteImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" Color="{StaticResource WhiteColor}" />
+            <FontImageSource x:Key="AddIconLightImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" Color="{StaticResource WhiteColor}" />
             <FontImageSource x:Key="CircleIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CircleIcon}" />
             <FontImageSource x:Key="ToggleOffImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ToggleOffIcon}" Color="{StaticResource DisabledColor}" />
             <FontImageSource x:Key="ToggleOnImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ToggleOnIcon}" Color="{StaticResource AccentColor}"/>
@@ -321,6 +325,9 @@
 
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="ios:Page.UseSafeArea" Value="True"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource DarkBackgroundColor}, Dark={StaticResource LightBackgroundColor}}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource GreenColor}" />
             </Style>
 
         </ResourceDictionary>
