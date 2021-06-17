@@ -72,7 +72,7 @@
             <Image
                 Grid.Column="0"
                 Grid.Row="0"
-                Source="{Binding PictureUrl, Converter={StaticResource ImageConverter}}"        
+                Source="{Binding PictureUrl}"        
                 HeightRequest="108" 
                 WidthRequest="108"
                 Aspect="AspectFit"

@@ -5,6 +5,7 @@
              xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="eShopOnContainers.App"
              windows:Application.ImageDirectory="Assets">
     <Application.Resources>
@@ -113,6 +114,7 @@
             <x:String x:Key="ToggleOnIcon">&#xf205;</x:String>
 
             <FontImageSource x:Key="SettingsIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource SettingsIcon}" />
+            <FontImageSource x:Key="SettingsIconLightImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource SettingsIcon}" Color="{StaticResource WhiteColor}" />
             <FontImageSource x:Key="CatalogIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CatalogIcon}" />
             <FontImageSource x:Key="ProfileIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ProfileIcon}" />
             <FontImageSource x:Key="BasketIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource BasketIcon}" />
@@ -191,14 +193,14 @@
             </OnPlatform>
             
             <!-- CONVERTERS -->
-            <converters:CountToBoolConverter x:Key="CountToBoolConverter" />
+            <xct:IntToBoolConverter x:Key="CountToBoolConverter" />
+            <xct:InvertedBoolConverter x:Key="InverseBoolConverter" />
+            <xct:TextCaseConverter x:Key="ToUpperConverter" Type="Upper" />
+            <xct:IsNullOrEmptyConverter x:Key="StringNullOrEmptyBoolConverter" />
             <converters:DatetimeConverter x:Key="DatetimeConverter" />
-            <converters:ImageConverter x:Key="ImageConverter" />
-            <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+            <xct:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
             <converters:InverseCountToBoolConverter x:Key="InverseCountToBoolConverter" />
-            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:ItemsToHeightConverter x:Key="ItemsToHeightConverter" />
-            <converters:ToUpperConverter x:Key="ToUpperConverter" />
 
             <!-- EXPLICIT STYLES -->
             <Style x:Key="ValidationErrorLabelStyle"

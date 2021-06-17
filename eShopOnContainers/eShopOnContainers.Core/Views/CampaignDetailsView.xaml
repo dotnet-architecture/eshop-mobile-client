@@ -10,7 +10,6 @@
              Title="Campaign Details">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter" />
             
             <Style x:Key="CampaignTitleStyle" 
                    TargetType="{x:Type Label}">
@@ -121,7 +120,7 @@
                         </Grid.RowDefinitions>
                         <Image
                         Grid.Row="0"
-                        Source="{Binding Campaign.PictureUri, Converter={StaticResource ImageConverter}}"        
+                        Source="{Binding Campaign.PictureUri}"        
                         Style="{StaticResource CampaignImageStyle}"/>
                         <Label 
                         Grid.Row="1"

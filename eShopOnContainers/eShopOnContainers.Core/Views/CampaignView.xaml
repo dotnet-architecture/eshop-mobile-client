@@ -5,7 +5,7 @@
              xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
 		     xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
              xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
-             xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
              xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
              xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
@@ -69,7 +69,7 @@
                 CachingStrategy="RecycleElement"
                 Style="{StaticResource CampaignsListStyle}">
                 <ListView.Behaviors>
-                    <behaviors:EventToCommandBehavior                    
+                    <xct:EventToCommandBehavior                    
                         EventName="ItemTapped"
                         Command="{Binding GetCampaignDetailsCommand}"
                         EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />

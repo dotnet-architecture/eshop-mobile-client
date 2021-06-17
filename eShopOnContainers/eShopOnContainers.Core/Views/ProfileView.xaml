@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:eShopOnContainers.Core.Views;assembly=eShopOnContainers.Core"
 			 xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
              xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
-             xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
 			 viewModelBase:ViewModelLocator.AutoWireViewModel="true"
              x:DataType="viewmodels:ProfileViewModel"
@@ -84,7 +84,7 @@
                     SeparatorVisibility="None"
                     CachingStrategy="RecycleElement">
                     <ListView.Behaviors>
-                        <behaviors:EventToCommandBehavior           
+                        <xct:EventToCommandBehavior           
                             EventName="ItemTapped"
                             Command="{Binding OrderDetailCommand}"
                             EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />

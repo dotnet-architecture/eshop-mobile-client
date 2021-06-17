@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using eShopOnContainers.Core.Services.Dependency;
 using Xamarin.Essentials;
+using System.Runtime.CompilerServices;
 
 namespace eShopOnContainers.Core.ViewModels
 {
@@ -190,7 +191,6 @@ namespace eShopOnContainers.Core.ViewModels
             set
             {
                 _allowGpsLocation = value;
-                UpdateAllowGpsLocation();
                 RaisePropertyChanged(() => AllowGpsLocation);
             }
         }
@@ -204,6 +204,16 @@ namespace eShopOnContainers.Core.ViewModels
         public ICommand ToggleSendLocationCommand => new Command(async () => await ToggleSendLocationAsync());
 
         public ICommand ToggleAllowGpsLocationCommand => new Command(ToggleAllowGpsLocation);
+
+        protected override async void OnPropertyChanged ([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged (propertyName);
+
+            if (propertyName == nameof (AllowGpsLocation))
+            {
+                await UpdateAllowGpsLocation ();
+            }
+        }
 
         private async Task ToggleMockServicesAsync()
         {
