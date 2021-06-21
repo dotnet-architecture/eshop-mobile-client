@@ -13,39 +13,21 @@
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <Style x:Key="OrderTitleStyle" 
-                   TargetType="{x:Type Label}">
-                <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
-                <Setter Property="FontSize"
-                        Value="{StaticResource MediumSize}" />
+            <Style x:Key="TitleStyle" 
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MediumSizeFontStyle}">
                 <Setter Property="TextColor"
                         Value="Gray" />
             </Style>
 
             <Style x:Key="OrderContentStyle"    
-                   TargetType="{x:Type Label}"
-                   BasedOn="{StaticResource OrderTitleStyle}">
-                <Setter Property="TextColor"
-                        Value="Black" />
-            </Style>
-
-            <Style x:Key="ShippingAddressStyle"    
-                   TargetType="{x:Type Label}"
-                   BasedOn="{StaticResource OrderTitleStyle}">
-                <Setter Property="FontSize"
-                        Value="{StaticResource LargeSize}" />
-                <Setter Property="TextColor"
-                        Value="Black" />
+                   TargetType="{x:Type Label}">
             </Style>
 
             <Style x:Key="AddressStyle"    
-                   TargetType="{x:Type Label}"
-                   BasedOn="{StaticResource OrderTitleStyle}">
+                   TargetType="{x:Type Label}">
                 <Setter Property="FontSize"
                         Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor"
-                        Value="Black" />
             </Style>
 
             <Style x:Key="OrderTotalStyle" 
@@ -149,7 +131,7 @@
                         Margin="12">
                         <Label 
                         Text="ORDER NUMBER"
-                        Style="{StaticResource OrderTitleStyle}"/>
+                        Style="{StaticResource TitleStyle}"/>
                         <Label 
                         Text="{Binding Order.OrderNumber, Converter={StaticResource ToUpperConverter}}"
                         Style="{StaticResource OrderContentStyle}"/>
@@ -160,7 +142,7 @@
                     Margin="12">
                         <Label 
                         Text="TOTAL"
-                        Style="{StaticResource OrderTitleStyle}"/>
+                        Style="{StaticResource TitleStyle}"/>
                         <Label 
                         Text="{Binding Order.Total, StringFormat='${0:N}', Converter={StaticResource ToUpperConverter}}" 
                         Style="{StaticResource OrderContentStyle}"/>
@@ -171,7 +153,7 @@
                     Margin="12">
                         <Label 
                         Text="DATE"
-                        Style="{StaticResource OrderTitleStyle}"/>
+                        Style="{StaticResource TitleStyle}"/>
                         <Label 
                         Text="{Binding Order.OrderDate, Converter={StaticResource DatetimeConverter}}"
                         Style="{StaticResource OrderContentStyle}"/>
@@ -182,7 +164,7 @@
                     Margin="12">
                         <Label 
                         Text="STATUS"
-                        Style="{StaticResource OrderTitleStyle}"/>
+                        Style="{StaticResource TitleStyle}"/>
                         <Label 
                         Text="{Binding OrderStatusText}"
                         Style="{StaticResource OrderContentStyle}"/>
@@ -201,7 +183,7 @@
                 <Label
                     Grid.Row="0"
                     Text="SHIPPING ADDRESS"
-                    Style="{StaticResource ShippingAddressStyle}"/>
+                    Style="{StaticResource TitleStyle}"/>
                 <StackLayout
                     Grid.Row="1">
                     <Label

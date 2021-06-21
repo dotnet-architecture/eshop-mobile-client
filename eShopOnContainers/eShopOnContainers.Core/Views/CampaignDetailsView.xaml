@@ -33,8 +33,6 @@
                    BasedOn="{StaticResource CampaignTitleStyle}">
                 <Setter Property="FontSize" 
                         Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
             </Style>
 
             <Style x:Key="CampaignImageStyle" 
@@ -167,7 +165,6 @@
         <!-- INDICATOR -->
         <ActivityIndicator
             Grid.Row="0"
-            Color="{StaticResource LightGreenColor}"
             IsRunning="{Binding IsBusy}"  
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center"

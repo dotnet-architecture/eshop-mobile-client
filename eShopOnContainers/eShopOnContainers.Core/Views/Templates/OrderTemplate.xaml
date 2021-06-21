@@ -7,27 +7,16 @@
         <ResourceDictionary>
 
             <Style x:Key="OrderTitleStyle" 
-               TargetType="{x:Type Label}">
-                <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
-                <Setter Property="FontSize"
-                        Value="{StaticResource MediumSize}" />
+               TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MediumSizeFontStyle}">
                 <Setter Property="TextColor"
                         Value="Gray" />
-            </Style>
-
-            <Style x:Key="OrderContentStyle" 
-               TargetType="{x:Type Label}"
-                   BasedOn="{StaticResource OrderTitleStyle}">
-                <Setter Property="TextColor"
-                        Value="Black" />
             </Style>
 
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid
-            BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -45,8 +34,7 @@
                     Text="ORDER NUMBER"
                     Style="{StaticResource OrderTitleStyle}"/>
                 <Label 
-                    Text="{Binding OrderNumber, Converter={StaticResource ToUpperConverter}}"
-                    Style="{StaticResource OrderContentStyle}"/>
+                    Text="{Binding OrderNumber, Converter={StaticResource ToUpperConverter}}"/>
             </StackLayout>
             <StackLayout
                 Grid.Column="0"
@@ -56,8 +44,7 @@
                     Text="TOTAL"
                     Style="{StaticResource OrderTitleStyle}"/>
                 <Label 
-                    Text="{Binding Total, StringFormat='${0:N}', Converter={StaticResource ToUpperConverter}}" 
-                    Style="{StaticResource OrderContentStyle}"/>
+                    Text="{Binding Total, StringFormat='${0:N}', Converter={StaticResource ToUpperConverter}}"/>
             </StackLayout>
             <StackLayout
                 Grid.Column="1"
@@ -67,8 +54,7 @@
                     Text="DATE"
                     Style="{StaticResource OrderTitleStyle}"/>
                 <Label 
-                    Text="{Binding OrderDate, Converter={StaticResource DatetimeConverter}}"
-                    Style="{StaticResource OrderContentStyle}"/>
+                    Text="{Binding OrderDate, Converter={StaticResource DatetimeConverter}}"/>
             </StackLayout>
             <StackLayout
                 Grid.Column="1"
@@ -78,8 +64,7 @@
                     Text="STATUS"
                     Style="{StaticResource OrderTitleStyle}"/>
                 <Label 
-                    Text="{Binding OrderStatus, Converter={StaticResource ToUpperConverter}}"
-                    Style="{StaticResource OrderContentStyle}"/>
+                    Text="{Binding OrderStatus, Converter={StaticResource ToUpperConverter}}"/>
             </StackLayout>
             <Grid 
                 Grid.Column="0"
