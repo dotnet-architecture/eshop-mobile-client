@@ -70,8 +70,7 @@
 
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid
-        BackgroundColor="{StaticResource BackgroundColor}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="60" />
@@ -100,11 +99,11 @@
                         Grid.Row="0"
                         Margin="12">
                         <Label 
-                        Text="ORDER NUMBER"
-                        Style="{StaticResource OrderTitleStyle}"/>
+                            Text="ORDER NUMBER"
+                            Style="{StaticResource OrderTitleStyle}"/>
                         <Label 
-                        Text="{Binding Order.OrderNumber, Converter={StaticResource ToUpperConverter}}"
-                        Style="{StaticResource OrderContentStyle}"/>
+                            Text="{Binding Order.OrderNumber, Converter={StaticResource ToUpperConverter}}"
+                            Style="{StaticResource OrderContentStyle}"/>
                     </StackLayout>
                     <StackLayout
                         Grid.Column="0"

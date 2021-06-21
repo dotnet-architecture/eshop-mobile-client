@@ -41,8 +41,6 @@
                         Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize"
                         Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor"
-                        Value="Black" />
                 <Setter Property="HorizontalOptions"
                         Value="Center" />
                 <Setter Property="Margin"
@@ -51,8 +49,7 @@
 
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid 
-        BackgroundColor="{StaticResource BackgroundColor}">
+    <Grid>
         <!-- SHOPPING CART -->
         <Grid       
             IsVisible="{Binding BasketItems.Count, Converter={StaticResource CountToBoolConverter}}">

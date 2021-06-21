@@ -5,6 +5,7 @@
              xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="eShopOnContainers.App"
              windows:Application.ImageDirectory="Assets">
     <Application.Resources>
@@ -13,7 +14,6 @@
             <!-- COLORS -->
             <Color x:Key="WhiteColor">#ffffff</Color>
             <Color x:Key="BlackColor">#000000</Color>
-            <Color x:Key="BackgroundColor">#F4F6FA</Color>
             <Color x:Key="AccentColor">#00857D</Color>
             <Color x:Key="LightGreenColor">#83D01B</Color>
             <Color x:Key="GreenColor">#00A69C</Color>
@@ -73,6 +73,14 @@
                 <On Platform="Android" Value="{ StaticResource AndroidListViewBackgroundColor }" />
             </OnPlatform>
 
+            <!-- Theme Colors -->
+            <Color x:Key="LightBackgroundColor">#E7E7E7</Color>
+            <Color x:Key="DarkBackgroundColor">#222222</Color>
+            <Color x:Key="LightFontColor">#222222</Color>
+            <Color x:Key="DarkFontColor">#E7E7E7</Color>
+            <Color x:Key="LightSeparatorColor">#222222</Color>
+            <Color x:Key="DarkSeparatorColor">#E7E7E7</Color>
+
             <!-- SIZES -->
             <OnPlatform x:TypeArguments="x:Double"
                         x:Key="BaseButtonBorderRadius">
@@ -119,7 +127,7 @@
             <FontImageSource x:Key="CampaignIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CampaignIcon}" />
             <FontImageSource x:Key="FilterIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource FilterIcon}" />
             <FontImageSource x:Key="AddIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" />
-            <FontImageSource x:Key="AddIconWhiteImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" Color="{StaticResource WhiteColor}" />
+            <FontImageSource x:Key="AddIconLightImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource AddIcon}" Color="{StaticResource WhiteColor}" />
             <FontImageSource x:Key="CircleIconImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource CircleIcon}" />
             <FontImageSource x:Key="ToggleOffImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ToggleOffIcon}" Color="{StaticResource DisabledColor}" />
             <FontImageSource x:Key="ToggleOnImageSource" FontFamily="{StaticResource FontAwesomeSolid}"  Glyph="{StaticResource ToggleOnIcon}" Color="{StaticResource AccentColor}"/>
@@ -213,24 +221,18 @@
                    TargetType="{x:Type Entry}">
                 <Setter Property="FontFamily"
                         Value="{StaticResource MontserratRegular}" />
-                <Setter Property="TextColor"
-                        Value="{StaticResource BlackColor}" />
-                <Setter Property="PlaceholderColor"
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="FontSize"
                         Value="{StaticResource LargeSize}" />
                 <Setter Property="HorizontalOptions"
                         Value="FillAndExpand" />
                 <Setter Property="FontAttributes"
                         Value="Bold" />
-                <Setter Property="BackgroundColor" 
-                        Value="Transparent" />
                 <Setter Property="Opacity"
                         Value="0.6" />
                 <Setter Property="behaviors:LineColorBehavior.ApplyLineColor"
                         Value="True" />
                 <Setter Property="behaviors:LineColorBehavior.LineColor"
-                        Value="{StaticResource BlackColor}" />
+                        Value="{AppThemeBinding Dark={StaticResource DarkSeparatorColor}, Light={StaticResource LightSeparatorColor}}" />
                 <Style.Triggers>
                     <Trigger TargetType="Entry"
                              Property="IsFocused" 
@@ -238,6 +240,22 @@
                         <Setter Property="Opacity" Value="1" />
                     </Trigger>
                 </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MediumSizeFontStyle" 
+               TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource MediumSize}" />
+            </Style>
+
+            <Style x:Key="LittleSizeFontStyle" 
+               TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource LittleSize}" />
             </Style>
 
             <Style x:Key="UwpEntryStyle"
@@ -286,12 +304,13 @@
 
              <Style TargetType="Label" ApplyToDerivedTypes="True" CanCascade="True">
                 <Setter Property="FontSize" Value="{ StaticResource BaseFontSize }" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}" />
             </Style>
 
             <Style TargetType="Entry" ApplyToDerivedTypes="True" CanCascade="True">
-                <Setter Property="TextColor" Value="{ StaticResource TextColor }" />
-                <Setter Property="PlaceholderColor" Value="{ StaticResource LightTextColor }" />
-                <Setter Property="BackgroundColor" Value="{ StaticResource EntryBackgroundColor }" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}" />
+                <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark={StaticResource DarkBackgroundColor}, Light={StaticResource LightBackgroundColor}}" />
             </Style>
 
             <Style TargetType="ImageCell" ApplyToDerivedTypes="True" CanCascade="True">
@@ -319,8 +338,21 @@
                 <Setter Property="BarTextColor" Value="{StaticResource WhiteColor}"/>
             </Style>
 
+            <Style TargetType="TabBar" ApplyToDerivedTypes="True">
+                <Setter Property="Shell.TabBarTitleColor"
+                        Value="{StaticResource LightGreenColor}" />
+            </Style>
+
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="ios:Page.UseSafeArea" Value="True"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource GreenColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource WhiteColor}" />
+            </Style>
+
+            <Style TargetType="xct:Popup" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
             </Style>
 
         </ResourceDictionary>

@@ -28,8 +28,6 @@
                         Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize"
                         Value="{StaticResource BigSize}" />
-                <Setter Property="TextColor"
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="HorizontalOptions"
                         Value="Center" />
                 <Setter Property="Margin"
@@ -62,7 +60,6 @@
     </ContentView.Resources>
     <ContentView.Content>
         <Grid
-            BackgroundColor="{StaticResource BackgroundColor}"
             Padding="0"
             Margin="0">
             <Grid.RowDefinitions>

@@ -24,11 +24,8 @@
             </Style>
 
             <Style x:Key="SettingsTitleStyle" 
-               TargetType="{x:Type Label}">
-                <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
-                <Setter Property="FontSize" 
-                        Value="{StaticResource MediumSize}" />
+               TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MediumSizeFontStyle}">
                 <Setter Property="HorizontalOptions" 
                         Value="Start" />
                 <Setter Property="VerticalOptions" 
@@ -40,17 +37,24 @@
 
             <Style x:Key="SettingsDescriptionStyle" 
                    TargetType="{x:Type Label}"
-                   BasedOn="{StaticResource SettingsTitleStyle}">
-                <Setter Property="FontSize" 
-                        Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+                   BasedOn="{StaticResource LittleSizeFontStyle}">
+                <Setter Property="HorizontalOptions" 
+                        Value="Start" />
+                <Setter Property="VerticalOptions" 
+                        Value="Center" />
+                <Setter Property="Margin" 
+                        Value="12, 0" />
             </Style>
 
             <Style x:Key="SettingsWarningMessageStyle" 
                    TargetType="{x:Type Label}"
-                   BasedOn="{StaticResource SettingsTitleStyle}">
-                <Setter Property="FontSize" 
-                        Value="{StaticResource LittleSize}" />
+                   BasedOn="{StaticResource LittleSizeFontStyle}">
+                <Setter Property="HorizontalOptions" 
+                        Value="Start" />
+                <Setter Property="VerticalOptions" 
+                        Value="Center" />
+                <Setter Property="Margin" 
+                        Value="12, 0" />
                 <Setter Property="TextColor" Value="{StaticResource ErrorColor}" />
             </Style>
 
@@ -123,7 +127,7 @@
     </ContentPage.Triggers>
 
     <!-- SETTINGS -->
-    <Grid x:Name="MockServices" BackgroundColor="{StaticResource BackgroundColor}">
+    <Grid x:Name="MockServices">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />

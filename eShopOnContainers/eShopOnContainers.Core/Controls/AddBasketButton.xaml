@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Grid
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
@@ -13,7 +13,7 @@
                 VerticalOptions="Center"/>
         <Image 
                 Aspect="AspectFit"
-                Source="{StaticResource AddIconWhiteImageSource}"
+                Source="{StaticResource AddIconLightImageSource}"
                 HeightRequest="24"
                 WidthRequest="24"
                 HorizontalOptions="Center"
