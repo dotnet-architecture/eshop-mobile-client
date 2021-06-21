@@ -54,7 +54,7 @@
         </EventTrigger>
     </ContentPage.Triggers>
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{StaticResource SettingsIconImageSource}" />
+        <ToolbarItem IconImageSource="{DynamicResource SettingsIconImageSource}" />
     </ContentPage.ToolbarItems>
     <Grid  
         ColumnSpacing="0"

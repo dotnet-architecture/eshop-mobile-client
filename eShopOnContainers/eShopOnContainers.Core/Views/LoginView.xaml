@@ -112,8 +112,7 @@
                 Animation="{StaticResource LoginAnimation}" />
         </EventTrigger>
     </ContentPage.Triggers>
-    <Grid
-      BackgroundColor="{StaticResource BackgroundColor}">
+    <Grid>
         <!-- MOCK AUTH -->
         <Grid
             x:Name="LoginPanel"

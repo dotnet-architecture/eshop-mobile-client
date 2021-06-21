@@ -7,15 +7,6 @@
     <ContentView.Resources>
         <ResourceDictionary>
 
-            <Style x:Key="OrderItemTitleStyle" 
-               TargetType="{x:Type Label}">
-                <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
-                <Setter Property="FontSize" 
-                        Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
-            </Style>
 
             <Style x:Key="OrderItemUnitPriceStyle" 
                TargetType="{x:Type Label}">
@@ -23,8 +14,6 @@
                         Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="HorizontalOptions" 
                         Value="Start" />
             </Style>
@@ -35,8 +24,6 @@
                         Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="HorizontalOptions" 
                         Value="End" />
             </Style>
@@ -57,8 +44,6 @@
              TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
                         Value="{StaticResource MontserratRegular}" />
-                <Setter Property="TextColor"
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="HorizontalOptions"
                         Value="End" />
                 <Setter Property="VerticalOptions"
@@ -68,8 +53,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Grid   
-            BackgroundColor="{StaticResource BackgroundColor}">
+        <Grid>
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS, Android" Value="0" />

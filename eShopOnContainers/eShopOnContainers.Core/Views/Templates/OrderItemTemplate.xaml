@@ -8,13 +8,8 @@
         <ResourceDictionary>
 
             <Style x:Key="OrderItemTitleStyle" 
-               TargetType="{x:Type Label}">
-                <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
-                <Setter Property="FontSize" 
-                        Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
+               TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MediumSizeFontStyle}">
                 <Setter Property="LineBreakMode" 
                         Value="HeadTruncation" />
             </Style>
@@ -25,8 +20,6 @@
                         Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="HorizontalOptions" 
                         Value="Start" />
             </Style>
@@ -37,8 +30,6 @@
                         Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
                 <Setter Property="HorizontalOptions" 
                         Value="End" />
             </Style>
@@ -118,7 +109,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Grid.Row="1"
-                BackgroundColor="Gray"/>
+                BackgroundColor="{StaticResource SeparatorLineColor}"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

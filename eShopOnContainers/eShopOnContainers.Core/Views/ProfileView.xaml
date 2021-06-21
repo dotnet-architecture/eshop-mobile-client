@@ -44,8 +44,7 @@
     <Grid    
         Padding="0"     
         ColumnSpacing="0"   
-        RowSpacing="0"
-        BackgroundColor="{StaticResource BackgroundColor}">
+        RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
