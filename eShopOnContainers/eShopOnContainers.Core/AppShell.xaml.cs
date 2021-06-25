@@ -25,6 +25,9 @@ namespace eShopOnContainers.Core
         private void InitializeRouting()
         {
             Routing.RegisterRoute ("Settings", typeof (SettingsView));
+            Routing.RegisterRoute ("OrderDetail", typeof (OrderDetailView));
+            Routing.RegisterRoute ("CampaignDetails", typeof(CampaignDetailsView));
+            Routing.RegisterRoute ("Checkout", typeof (CheckoutView));
         }
     }
 }
