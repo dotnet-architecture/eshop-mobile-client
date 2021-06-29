@@ -2,6 +2,7 @@
 using eShopOnContainers.Core.Services.Marketing;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -34,17 +35,19 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand GetCampaignDetailsCommand => new Command<CampaignItem>(async (item) => await GetCampaignDetailsAsync(item));
 
-        public override async Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync (IDictionary<string, string> query)
         {
             IsBusy = true;
             // Get campaigns by user
-            Campaigns = await _campaignService.GetAllCampaignsAsync(_settingsService.AuthAccessToken);
+            Campaigns = await _campaignService.GetAllCampaignsAsync (_settingsService.AuthAccessToken);
             IsBusy = false;
         }
 
         private async Task GetCampaignDetailsAsync(CampaignItem campaign)
         {
-            await NavigationService.NavigateToAsync<CampaignDetailsViewModel>(campaign.Id);
+            await NavigationService.NavigateToAsync(
+                "CampaignDetails",
+                new Dictionary<string, string> { { nameof (Campaign.Id), campaign.Id.ToString () } });
         }
     }
 }

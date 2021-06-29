@@ -1,4 +1,5 @@
 ﻿using eShopOnContainers.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace eShopOnContainers.Services
@@ -7,12 +8,6 @@ namespace eShopOnContainers.Services
     {
         Task InitializeAsync();
 
-        Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase;
-
-        Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : ViewModelBase;
-
-        Task RemoveLastFromBackStackAsync();
-
-        Task RemoveBackStackAsync();
+        Task NavigateToAsync (string route, IDictionary<string, string> routeParameters = null);
     }
 }

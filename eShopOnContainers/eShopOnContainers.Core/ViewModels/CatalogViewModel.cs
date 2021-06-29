@@ -1,6 +1,7 @@
 ﻿using eShopOnContainers.Core.Models.Catalog;
 using eShopOnContainers.Core.Services.Catalog;
 using eShopOnContainers.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -82,14 +83,14 @@ namespace eShopOnContainers.Core.ViewModels
 
 		public ICommand ClearFilterCommand => new Command(async () => await ClearFilterAsync());
 
-        public override async Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync (IDictionary<string, string> query)
         {
             IsBusy = true;
 
             // Get Catalog, Brands and Types
-            Products = await _catalogService.GetCatalogAsync();
-            Brands = await _catalogService.GetCatalogBrandAsync();
-            Types = await _catalogService.GetCatalogTypeAsync();
+            Products = await _catalogService.GetCatalogAsync ();
+            Brands = await _catalogService.GetCatalogBrandAsync ();
+            Types = await _catalogService.GetCatalogTypeAsync ();
 
             IsBusy = false;
         }

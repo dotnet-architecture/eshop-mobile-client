@@ -4,6 +4,7 @@ using eShopOnContainers.Core.Services.Basket;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.Services.User;
 using eShopOnContainers.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,38 +64,36 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand CheckoutCommand => new Command(async () => await CheckoutAsync());
 
-        public override async Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync (IDictionary<string, string> query)
         {
             if (BasketItems == null)
-                BasketItems = new ObservableCollection<BasketItem>();
+                BasketItems = new ObservableCollection<BasketItem> ();
 
             var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
 
             // Update Basket
-            var basket = await _basketService.GetBasketAsync(userInfo.UserId, authToken);
+            var basket = await _basketService.GetBasketAsync (userInfo.UserId, authToken);
 
-            if (basket != null && basket.Items != null && basket.Items.Any())
+            if (basket != null && basket.Items != null && basket.Items.Any ())
             {
                 BadgeCount = 0;
-                BasketItems.Clear();
+                BasketItems.Clear ();
 
                 foreach (var basketItem in basket.Items)
                 {
                     BadgeCount += basketItem.Quantity;
-                    await AddBasketItemAsync(basketItem);
+                    await AddBasketItemAsync (basketItem);
                 }
             }
 
-            MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem>(this, MessageKeys.AddProduct);
-            MessagingCenter.Subscribe<CatalogViewModel, CatalogItem>(this, MessageKeys.AddProduct, async (sender, arg) =>
+            MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem> (this, MessageKeys.AddProduct);
+            MessagingCenter.Subscribe<CatalogViewModel, CatalogItem> (this, MessageKeys.AddProduct, async (sender, arg) =>
             {
                 BadgeCount++;
 
-                await AddCatalogItemAsync(arg);
+                await AddCatalogItemAsync (arg);
             });
-
-            await base.InitializeAsync(navigationData);
         }
 
         private async Task AddCatalogItemAsync(CatalogItem item)
@@ -150,9 +149,10 @@ namespace eShopOnContainers.Core.ViewModels
 
         private async Task CheckoutAsync()
         {
-            if (BasketItems.Any())
+            if (BasketItems?.Any() ?? false)
             {
-                await NavigationService.NavigateToAsync<CheckoutViewModel>(BasketItems);
+                _basketService.LocalBasketItems = BasketItems;
+                await NavigationService.NavigateToAsync ("Checkout");
             }
         }
     }
