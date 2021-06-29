@@ -1,7 +1,9 @@
-﻿using eShopOnContainers.Core.Models.Orders;
+﻿using eShopOnContainers.Core.Extensions;
+using eShopOnContainers.Core.Models.Orders;
 using eShopOnContainers.Core.Services.Order;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -56,19 +58,19 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand ToggleCancelOrderCommand => new Command(async () => await ToggleCancelOrderAsync());
 
-        public override async Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync (IDictionary<string, string> query)
         {
-            if (navigationData is Order)
+            var orderNumber = query.GetValueAsInt (nameof (Order.OrderNumber));
+
+            if (orderNumber.ContainsKeyAndValue)
             {
                 IsBusy = true;
 
-                var order = navigationData as Order;
-
                 // Get order detail info
                 var authToken = _settingsService.AuthAccessToken;
-                Order = await _orderService.GetOrderAsync(order.OrderNumber, authToken);
+                Order = await _orderService.GetOrderAsync (orderNumber.Value, authToken);
                 IsSubmittedOrder = Order.OrderStatus == OrderStatus.Submitted;
-                OrderStatusText = Order.OrderStatus.ToString().ToUpper();
+                OrderStatusText = Order.OrderStatus.ToString ().ToUpper ();
 
                 IsBusy = false;
             }

@@ -4,10 +4,8 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using FFImageLoading;
 using System;
 using Xamarin.Forms.Platform.Android;
-using FFImageLoading.Forms.Platform;
 
 namespace eShopOnContainers.Droid.Activities
 {
@@ -33,7 +31,6 @@ namespace eShopOnContainers.Droid.Activities
             SupportActionBar.SetDisplayShowTitleEnabled(false);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            CachedImageRenderer.Init(true);
 
             LoadApplication(new App());
 
@@ -49,7 +46,6 @@ namespace eShopOnContainers.Droid.Activities
         /// </summary>
         public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
         {
-            ImageService.Instance.InvalidateMemoryCache();
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             base.OnTrimMemory(level);
         }
