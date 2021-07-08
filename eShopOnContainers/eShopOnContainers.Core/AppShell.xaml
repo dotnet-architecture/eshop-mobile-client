@@ -12,7 +12,5 @@
     <TabBar Route="Main">
         <ShellContent Title="Catalog" Icon="{StaticResource CatalogIconImageSource}" ContentTemplate="{DataTemplate views:CatalogView}" />
         <ShellContent Title="Profile" Icon="{StaticResource ProfileIconImageSource}" ContentTemplate="{DataTemplate views:ProfileView}" />
-        <ShellContent Title="Basket" Icon="{StaticResource BasketIconImageSource}" ContentTemplate="{DataTemplate views:BasketView}" />
-        <ShellContent Title="Campaign" Icon="{StaticResource CampaignIconImageSource}" ContentTemplate="{DataTemplate views:CampaignView}" />
     </TabBar>
 </Shell>

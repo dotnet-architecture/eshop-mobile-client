@@ -19,14 +19,14 @@ namespace eShopOnContainers.Core.ViewModels
         private ObservableCollection<BasketItem> _basketItems;
         private decimal _total;
 
-        private ISettingsService _settingsService;
         private IBasketService _basketService;
+        private ISettingsService _settingsService;
         private IUserService _userService;
 
         public BasketViewModel()
         {
-            _settingsService = DependencyService.Get<ISettingsService>();
             _basketService = DependencyService.Get<IBasketService> ();
+            _settingsService = DependencyService.Get<ISettingsService>();
             _userService = DependencyService.Get<IUserService> ();
         }
 
@@ -87,13 +87,7 @@ namespace eShopOnContainers.Core.ViewModels
                 }
             }
 
-            MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem> (this, MessageKeys.AddProduct);
-            MessagingCenter.Subscribe<CatalogViewModel, CatalogItem> (this, MessageKeys.AddProduct, async (sender, arg) =>
-            {
-                BadgeCount++;
-
-                await AddCatalogItemAsync (arg);
-            });
+            RaisePropertyChanged (() => BasketItems);
         }
 
         private async Task AddCatalogItemAsync(CatalogItem item)

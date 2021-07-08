@@ -1,4 +1,5 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
+﻿using eShopOnContainers.Core.ViewModels;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace eShopOnContainers.Core.Views
 {
@@ -7,6 +8,20 @@ namespace eShopOnContainers.Core.Views
         public FiltersView()
         {
             InitializeComponent();
+        }
+
+        protected override object GetLightDismissResult ()
+        {
+            return false;
+        }
+
+        void OnFilterClicked (System.Object sender, System.EventArgs e)
+        {
+            if(BindingContext is CatalogViewModel viewModel)
+            {
+                viewModel.FilterCommand.Execute (null);
+                this.Dismiss (true);
+            }
         }
     }
 }

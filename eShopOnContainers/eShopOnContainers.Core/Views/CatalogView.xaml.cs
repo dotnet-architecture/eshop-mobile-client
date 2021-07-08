@@ -11,36 +11,33 @@ namespace eShopOnContainers.Core.Views
     {
         private FiltersView _filterView = new FiltersView();
 
-        private bool _filterShown;
-
         public CatalogView()
         {
             InitializeComponent();
+        }
 
-            SlideMenu = _filterView;
+        protected override void OnAppearing ()
+        {
+            base.OnAppearing ();
 
-            MessagingCenter.Subscribe<CatalogViewModel>(this, MessageKeys.Filter, (sender) =>
+            Products.Scrolled -= Products_Scrolled;
+            Products.Scrolled += Products_Scrolled;
+        }
+
+        protected override void OnDisappearing ()
+        {
+            base.OnDisappearing ();
+            Products.Scrolled -= Products_Scrolled;
+        }
+
+        private void Products_Scrolled (object sender, ScrolledEventArgs e)
+        {
+            var modifiedScrollDistance = (e.ScrollY / 3d);
+            if (modifiedScrollDistance <  CampaignButton.Height)
             {
-                Filter();
-            });
-        }
-
-        public Action HideMenuAction
-        {
-            get;
-            set;
-        }
-
-        public Action ShowMenuAction
-        {
-            get;
-            set;
-        }
-
-        public Popup SlideMenu
-        {
-            get;
-            set;
+                CampaignButton.TranslationY = Math.Max(0, modifiedScrollDistance);
+                CampaignButton.Opacity = 1.0d - (CampaignButton.TranslationY / CampaignButton.Height);
+            }
         }
 
         protected override void OnBindingContextChanged()
@@ -52,22 +49,7 @@ namespace eShopOnContainers.Core.Views
 
         private void OnFilterChanged(object sender, EventArgs e)
         {
-            Filter();
-        }
-
-        private void Filter()
-        {
-            if(!_filterShown)
-            {
-                _filterShown = true;
-                Navigation.ShowPopup (SlideMenu);
-                ShowMenuAction?.Invoke();
-            }
-            else
-            {
-                _filterShown = false;
-                SlideMenu.Dismiss (null);
-            }
+            Navigation.ShowPopup (_filterView);
         }
     }
 }

@@ -7,6 +7,7 @@
                 xmlns:converters="clr-namespace:eShopOnContainers.Core.Converters;assembly=eShopOnContainers.Core"
                 xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
                 xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
                 viewModelBase:ViewModelLocator.AutoWireViewModel="true"
                 x:DataType="viewmodels:LoginViewModel"
@@ -188,7 +189,7 @@
                         </OnPlatform>
                     </Entry.Style>
                     <Entry.Behaviors>
-						<behaviors:EventToCommandBehavior
+						<xct:EventToCommandBehavior
 							EventName="TextChanged"
 							Command="{Binding ValidateUserNameCommand}" />
 					</Entry.Behaviors>
@@ -217,7 +218,7 @@
                         </OnPlatform>
                     </Entry.Style>
 					<Entry.Behaviors>
-						<behaviors:EventToCommandBehavior
+						<xct:EventToCommandBehavior
 							EventName="TextChanged"
 							Command="{Binding ValidatePasswordCommand}" />
 					</Entry.Behaviors>
@@ -313,7 +314,7 @@
                 Grid.Column="2"
                 Grid.Row="1"
                 Style="{StaticResource SettingsPanelStyle}">
-                <Image Style="{StaticResource SettingsImageStyle}" Source="{StaticResource SettingsIconImageSource}" />
+                <Image Style="{StaticResource SettingsImageStyle}" Source="{StaticResource SettingsIconLightImageSource}" />
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer
                         Command="{Binding SettingsCommand}"
@@ -321,24 +322,20 @@
                 </Grid.GestureRecognizers>
             </Grid>
             <!-- WEBVIEW -->
-            <AbsoluteLayout
+            <WebView     
+                Source="{Binding LoginUrl}"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 IsVisible="{Binding IsLogin}">
-                <WebView     
-                    Source="{Binding LoginUrl}"
-                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                    AbsoluteLayout.LayoutFlags="All">
-                    <WebView.Behaviors>
-                        <behaviors:EventToCommandBehavior 
-                            EventName="Navigating"
-                            EventArgsConverter="{StaticResource WebNavigatingEventArgsConverter}"
-                            Command="{Binding NavigateCommand}" />
-                    </WebView.Behaviors>
-                </WebView>
-            </AbsoluteLayout>
+                <WebView.Behaviors>
+                    <xct:EventToCommandBehavior 
+                        EventName="Navigating"
+                        EventArgsConverter="{StaticResource WebNavigatingEventArgsConverter}"
+                        Command="{Binding NavigateCommand}" />
+                </WebView.Behaviors>
+            </WebView>
         </Grid>
         <!-- INDICATOR -->
         <ActivityIndicator      
