@@ -3,9 +3,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     x:Class="eShopOnContainers.Core.Views.FiltersView"
-    IsLightDismissEnabled="False"
-    HeightRequest="250">
+    x:DataType="viewmodels:CatalogViewModel"
+    VerticalOptions="End">
   <xct:Popup.Resources>
     <ResourceDictionary>
 
@@ -15,12 +16,6 @@
                 Value="48" />
         <Setter Property="BackgroundColor"
                 Value="Transparent" />
-        <Setter Property="HorizontalOptions"
-                Value="Fill" />
-        <Setter Property="VerticalOptions"
-                Value="Fill" />	
-        <Setter Property="Margin"                
-                Value="0, 2" />
       </Style>
              
       <Style x:Key="FilterButtonStyle"  
@@ -37,10 +32,6 @@
                 Value="0" />
         <Setter Property="BorderWidth"
                 Value="0" />
-        <Setter Property="HorizontalOptions"
-                Value="Fill" />
-        <Setter Property="VerticalOptions"
-                Value="Fill" />
       </Style>
 
       <Style
@@ -58,8 +49,9 @@
   <Grid    
     Padding="0"            
     ColumnSpacing="0"    
-    RowSpacing="0"
-    Margin="48, 24">
+    RowSpacing="8"
+    Margin="24"
+    VerticalOptions="End">
     <Grid.RowDefinitions>      
       <RowDefinition Height="60" />
       <RowDefinition Height="60" /> 
@@ -98,7 +90,7 @@
       Grid.Row="2"
       Text="Apply" 
       Style="{StaticResource FilterButtonStyle}"
-      Command="{Binding FilterCommand}"/>   
+      Clicked="OnFilterClicked"/>   
     <Button
       Grid.Row="3"
       Text="Clear"

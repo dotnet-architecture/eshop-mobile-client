@@ -42,57 +42,73 @@
             <triggers:BeginAnimation Animation="{StaticResource ProductsAnimation}" />
         </EventTrigger>
     </ContentPage.Triggers>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{DynamicResource SettingsIconImageSource}" />
-    </ContentPage.ToolbarItems>
-    <Grid ColumnSpacing="0" RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <!--  FILTERS  -->
-        <Grid BackgroundColor="{StaticResource LightGreenColor}">
-            <Label Style="{StaticResource FilterLabelStyle}" Text="FILTER" />
-            <Grid.GestureRecognizers>
-                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFilterChanged" />
-            </Grid.GestureRecognizers>
-        </Grid>
-        <!--  CATALOG  -->
-        <Grid Grid.Row="1">
-            <Grid IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-                <Label
+    <Shell.TitleView>
+        <Grid Padding="8,0" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="44" />
+                <ColumnDefinition Width="44" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Text="Catalog"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                Grid.ColumnSpan="3" />
+            <ImageButton
+                Source="{DynamicResource FilterIconForTitleImageSource}"
+                Clicked="OnFilterChanged"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Column="1">
+                <ImageButton.Triggers>
+                    <DataTrigger TargetType="ImageButton"
+                                 Binding="{Binding IsFilter, Mode=OneWay}" Value="True">
+                        <Setter Property="Source" Value="{DynamicResource FilterHighlightIconImageSource}" />
+                    </DataTrigger>
+                </ImageButton.Triggers>
+            </ImageButton>
+            <xtc:BadgeView BadgePosition="TopRight" AutoHide="True" FontSize="Micro" Text="{Binding BadgeCount, Mode=OneWay}"
+                           Grid.Column="2">
+                <xtc:BadgeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ViewBasketCommand}" />
+                </xtc:BadgeView.GestureRecognizers>
+                <ImageButton
+                    Source="{DynamicResource BasketIconForTitleImageSource}"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding Products, Converter={StaticResource ListIsNullOrEmptyConverter}}"
-                    Text="NO PRODUCTS FOUND"
-                    VerticalOptions="Center" />
-            </Grid>
-            <ListView
-                x:Name="Products"
-                CachingStrategy="RecycleElement"
-                HasUnevenRows="True"
-                IsVisible="{Binding Products, Converter={StaticResource ListIsNotNullOrEmptyConverter}}"
-                ItemsSource="{Binding Products}"
-                SeparatorVisibility="None"
-                Style="{StaticResource ProductsListStyle}">
-                <ListView.Behaviors>
-                    <xtc:EventToCommandBehavior
-                        Command="{Binding AddCatalogItemCommand}"
-                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
-                        EventName="ItemTapped" />
-                </ListView.Behaviors>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <templates:ProductTemplate />
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    VerticalOptions="Center"/>
+            </xtc:BadgeView>
         </Grid>
+    </Shell.TitleView>
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <!--  CATALOG  -->
+        <Label
+            HorizontalOptions="Center"
+            IsVisible="{Binding Products, Converter={StaticResource ListIsNullOrEmptyConverter}}"
+            Text="NO PRODUCTS FOUND"
+            VerticalOptions="Center" />
+        <ListView
+            x:Name="Products"
+            CachingStrategy="RecycleElement"
+            IsVisible="{Binding Products, Converter={StaticResource ListIsNotNullOrEmptyConverter}}"
+            ItemsSource="{Binding Products}"
+            SeparatorVisibility="None"
+            Style="{StaticResource ProductsListStyle}">
+            <ListView.Behaviors>
+                <xtc:EventToCommandBehavior
+                    Command="{Binding AddCatalogItemCommand}"
+                    EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                    EventName="ItemTapped" />
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <templates:ProductTemplate />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <!--  INDICATOR  -->
         <ActivityIndicator
-            Grid.Row="0"
-            Grid.RowSpan="2"
             HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
@@ -105,5 +121,13 @@
                 </OnPlatform>
             </ActivityIndicator.WidthRequest>
         </ActivityIndicator>
+
+        <Button x:Name="CampaignButton"
+                Text="Sale"
+                TextColor="{StaticResource WhiteColor}"
+                BackgroundColor="{StaticResource LightGreenColor}"
+                Padding="16,0"
+                Margin="0,0,16,16"
+                HorizontalOptions="End" VerticalOptions="End" />
     </Grid>
 </views:ContentPageBase>

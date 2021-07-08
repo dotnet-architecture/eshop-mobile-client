@@ -133,6 +133,13 @@
                 x:Key="BasketIconImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 Glyph="{StaticResource BasketIcon}" />
+
+            <FontImageSource
+                x:Key="BasketIconForTitleImageSource"
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                Glyph="{StaticResource BasketIcon}"
+                Size="22"
+                Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
                 x:Key="CampaignIconImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
@@ -141,6 +148,17 @@
                 x:Key="FilterIconImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 Glyph="{StaticResource FilterIcon}" />
+            <FontImageSource
+                x:Key="FilterHighlightIconImageSource"
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                Glyph="{StaticResource FilterIcon}"
+                Color="{StaticResource AccentColor}"/>
+            <FontImageSource
+                x:Key="FilterIconForTitleImageSource"
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                Glyph="{StaticResource FilterIcon}"
+                Size="22"
+                Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
                 x:Key="AddIconImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
@@ -342,11 +360,6 @@
                 CanCascade="True"
                 TargetType="ActivityIndicator">
                 <Setter Property="Color" Value="{StaticResource ActivityIndicatorColor}" />
-            </Style>
-
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource GreenColor}" />
-                <Setter Property="BarTextColor" Value="{StaticResource WhiteColor}" />
             </Style>
 
             <Style ApplyToDerivedTypes="True" TargetType="TabBar">

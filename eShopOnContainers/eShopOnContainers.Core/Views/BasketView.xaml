@@ -38,66 +38,51 @@
     </ContentPage.Resources>
     <Grid>
         <!--  SHOPPING CART  -->
-        <Grid IsVisible="{Binding BasketItems.Count, Converter={StaticResource CountToBoolConverter}}">
+        <Grid IsVisible="{Binding BasketItems, Converter={StaticResource ListIsNotNullOrEmptyConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <!--  CART ITEMS  -->
-            <Grid Grid.Row="0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <!--  HEADER  -->
-                    <Grid Grid.Row="0">
-                        <Label Style="{StaticResource ShoppingCartStyle}" Text="SHOPPING CART" />
-                    </Grid>
-                    <ScrollView Grid.Row="1">
-                        <StackLayout>
-                            <!--  ITEMS  -->
-                            <ListView
-                                CachingStrategy="RecycleElement"
-                                HasUnevenRows="True"
-                                HeightRequest="{Binding BasketItems.Count, Converter={StaticResource ItemsToHeightConverter}}"
-                                ItemsSource="{Binding BasketItems}"
-                                SeparatorVisibility="None"
-                                VerticalOptions="FillAndExpand">
-                                <ListView.Behaviors>
-                                    <xtc:EventToCommandBehavior
-                                        Command="{Binding AddCommand}"
-                                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
-                                        EventName="ItemTapped" />
-                                </ListView.Behaviors>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <templates:BasketItemTemplate />
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                            <!--  TOTAL  -->
-                            <StackLayout Margin="0,0,0,24">
-                                <Label
-                                    Grid.Row="0"
-                                    Style="{StaticResource CartTotalStyle}"
-                                    Text="TOTAL"
-                                    TextColor="{StaticResource BlackColor}" />
-                                <Label
-                                    Grid.Row="1"
-                                    Style="{StaticResource CartTotalStyle}"
-                                    Text="{Binding Total, StringFormat='${0:N}'}"
-                                    TextColor="{StaticResource GreenColor}" />
-                            </StackLayout>
-                        </StackLayout>
-                    </ScrollView>
-                </Grid>
-            </Grid>
+            <ListView
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True"
+                HeightRequest="{Binding BasketItems.Count, Converter={StaticResource ItemsToHeightConverter}}"
+                ItemsSource="{Binding BasketItems}"
+                SeparatorVisibility="None"
+                VerticalOptions="FillAndExpand"
+                Grid.Row="0">
+                <ListView.Behaviors>
+                    <xtc:EventToCommandBehavior
+                        Command="{Binding AddCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                        EventName="ItemTapped" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <templates:BasketItemTemplate />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--  TOTAL  -->
+            <StackLayout Margin="0,0,0,24" Grid.Row="1">
+                <Label
+                    Grid.Row="0"
+                    Style="{StaticResource CartTotalStyle}"
+                    Text="TOTAL"
+                    TextColor="{StaticResource BlackColor}" />
+                <Label
+                    Grid.Row="1"
+                    Style="{StaticResource CartTotalStyle}"
+                    Text="{Binding Total, StringFormat='${0:N}'}"
+                    TextColor="{StaticResource GreenColor}" />
+            </StackLayout>
             <!--  CHECKOUT  -->
             <Grid
-                Grid.Row="1"
+                Grid.Row="2"
                 Padding="0"
                 BackgroundColor="{StaticResource LightGreenColor}"
                 ColumnSpacing="0"

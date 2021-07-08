@@ -1,8 +1,13 @@
-﻿using eShopOnContainers.Core.Models.Catalog;
+﻿using eShopOnContainers.Core.Models.Basket;
+using eShopOnContainers.Core.Models.Catalog;
+using eShopOnContainers.Core.Services.Basket;
 using eShopOnContainers.Core.Services.Catalog;
+using eShopOnContainers.Core.Services.Settings;
+using eShopOnContainers.Core.Services.User;
 using eShopOnContainers.Core.ViewModels.Base;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -16,11 +21,18 @@ namespace eShopOnContainers.Core.ViewModels
         private CatalogBrand _brand;
         private ObservableCollection<CatalogType> _types;
         private CatalogType _type;
+        private int _badgeCount;
         private ICatalogService _catalogService;
+        private IBasketService _basketService;
+        private ISettingsService _settingsService;
+        private IUserService _userService;
 
         public CatalogViewModel()
         {
             _catalogService = DependencyService.Get<ICatalogService> ();
+            _basketService = DependencyService.Get<IBasketService> ();
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _userService = DependencyService.Get<IUserService> ();
         }
 
         public ObservableCollection<CatalogItem> Products
@@ -77,11 +89,23 @@ namespace eShopOnContainers.Core.ViewModels
 
         public bool IsFilter { get { return Brand != null || Type != null; } }
 
+        public int BadgeCount
+        {
+            get { return _badgeCount; }
+            set
+            {
+                _badgeCount = value;
+                RaisePropertyChanged (() => BadgeCount);
+            }
+        }
+
         public ICommand AddCatalogItemCommand => new Command<CatalogItem>(AddCatalogItem);
 
         public ICommand FilterCommand => new Command(async () => await FilterAsync());
 
 		public ICommand ClearFilterCommand => new Command(async () => await ClearFilterAsync());
+
+        public ICommand ViewBasketCommand => new Command (async () => await ViewBasket ());
 
         public override async Task InitializeAsync (IDictionary<string, string> query)
         {
@@ -92,13 +116,36 @@ namespace eShopOnContainers.Core.ViewModels
             Brands = await _catalogService.GetCatalogBrandAsync ();
             Types = await _catalogService.GetCatalogTypeAsync ();
 
+            var authToken = _settingsService.AuthAccessToken;
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
+
+            var basket = await _basketService.GetBasketAsync (userInfo.UserId, authToken);
+
+            BadgeCount = basket?.Items?.Count () ?? 0;
+
             IsBusy = false;
         }
 
-        private void AddCatalogItem(CatalogItem catalogItem)
+        private async void AddCatalogItem(CatalogItem catalogItem)
         {
-            // Add new item to Basket
-            MessagingCenter.Send(this, MessageKeys.AddProduct, catalogItem);
+            var authToken = _settingsService.AuthAccessToken;
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
+            var basket = await _basketService.GetBasketAsync (userInfo.UserId, authToken);
+            if(basket != null)
+            {
+                basket.Items.Add (
+                    new BasketItem
+                    {
+                        ProductId = catalogItem.Id,
+                        ProductName = catalogItem.Name,
+                        PictureUrl = catalogItem.PictureUri,
+                        UnitPrice = catalogItem.Price,
+                        Quantity = 1
+                    });
+
+                await _basketService.UpdateBasketAsync (basket, authToken);
+                BadgeCount = basket.Items.Count ();
+            }
         }
 
         private async Task FilterAsync()
@@ -111,9 +158,6 @@ namespace eShopOnContainers.Core.ViewModels
                 {
                     Products = await _catalogService.FilterAsync(Brand.Id, Type.Id);
                 }
-
-                // Filter catalog products
-                MessagingCenter.Send(this, MessageKeys.Filter);
             }
             finally
             {
@@ -130,6 +174,11 @@ namespace eShopOnContainers.Core.ViewModels
             Products = await _catalogService.GetCatalogAsync();
 
             IsBusy = false;
+        }
+
+        private Task ViewBasket()
+        {
+            return NavigationService.NavigateToAsync ("Basket");
         }
     }
 }
