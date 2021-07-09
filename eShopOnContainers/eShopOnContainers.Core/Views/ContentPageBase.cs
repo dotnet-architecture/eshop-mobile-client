@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using eShopOnContainers.Core.ViewModels.Base;
 using Xamarin.Forms;
 
@@ -10,12 +10,11 @@ namespace eShopOnContainers.Core.Views
         {
             base.OnAppearing ();
 
-            if(BindingContext is ViewModelBase vmb)
+            if (BindingContext is ViewModelBase vmb)
             {
-                if (!vmb.IsInitialized)
+                if (vmb.IsInitialized && vmb.MultipleInitialization)
                 {
-                    await vmb.InitializeAsync (null /*TODO: This will be cleaned up with shell nav parameters later*/);
-                    vmb.IsInitialized = true;
+                    await vmb.InitializeAsync (null);
                 }
             }
         }

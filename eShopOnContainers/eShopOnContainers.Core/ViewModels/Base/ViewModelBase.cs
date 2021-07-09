@@ -28,6 +28,22 @@ namespace eShopOnContainers.Core.ViewModels.Base
             }
         }
 
+        private bool _multipleInitialization;
+
+        public bool MultipleInitialization
+        {
+            get
+            {
+                return _multipleInitialization;
+            }
+
+            set
+            {
+                _multipleInitialization = value;
+                OnPropertyChanged (nameof (MultipleInitialization));
+            }
+        }
+
         private bool _isBusy;
 
         public bool IsBusy
@@ -72,7 +88,11 @@ namespace eShopOnContainers.Core.ViewModels.Base
                 }
             }
 
-            await InitializeAsync (query);
+            if(!IsInitialized)
+            {
+                await InitializeAsync (query);
+                IsInitialized = true;
+            }
         }
     }
 }

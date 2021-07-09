@@ -29,6 +29,8 @@ namespace eShopOnContainers.Core.ViewModels
 
         public CatalogViewModel()
         {
+            this.MultipleInitialization = true;
+
             _catalogService = DependencyService.Get<ICatalogService> ();
             _basketService = DependencyService.Get<IBasketService> ();
             _settingsService = DependencyService.Get<ISettingsService> ();
