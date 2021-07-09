@@ -236,11 +236,13 @@
 					Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
             </StackLayout>
-            <Image
-                Source="eshop_logo.png"
-                Aspect="AspectFit"
-                HorizontalOptions="Center"
-                Grid.Row="2" />
+            <Frame CornerRadius="16" HasShadow="False" Padding="0" IsClippedToBounds="True"
+                   HorizontalOptions="Center"
+                   Grid.Row="2" >
+                <Image
+                    Source="eshop_logo.png"
+                    Aspect="AspectFit" />
+            </Frame>
             <!-- LOGIN BUTTON -->
             <Grid
                 BackgroundColor="{StaticResource LightGreenColor}"
