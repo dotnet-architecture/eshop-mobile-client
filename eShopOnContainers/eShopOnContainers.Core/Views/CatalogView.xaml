@@ -42,43 +42,9 @@
             <triggers:BeginAnimation Animation="{StaticResource ProductsAnimation}" />
         </EventTrigger>
     </ContentPage.Triggers>
-    <Shell.TitleView>
-        <Grid Padding="8,0" ColumnSpacing="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="44" />
-                <ColumnDefinition Width="44" />
-            </Grid.ColumnDefinitions>
-            <Label
-                Text="Catalog"
-                HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                Grid.ColumnSpan="3" />
-            <ImageButton
-                Source="{DynamicResource FilterIconForTitleImageSource}"
-                Clicked="OnFilterChanged"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Grid.Column="1">
-                <ImageButton.Triggers>
-                    <DataTrigger TargetType="ImageButton"
-                                 Binding="{Binding IsFilter, Mode=OneWay}" Value="True">
-                        <Setter Property="Source" Value="{DynamicResource FilterHighlightIconImageSource}" />
-                    </DataTrigger>
-                </ImageButton.Triggers>
-            </ImageButton>
-            <xtc:BadgeView BadgePosition="TopRight" AutoHide="True" FontSize="Micro" Text="{Binding BadgeCount, Mode=OneWay}"
-                           Grid.Column="2">
-                <xtc:BadgeView.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ViewBasketCommand}" />
-                </xtc:BadgeView.GestureRecognizers>
-                <ImageButton
-                    Source="{DynamicResource BasketIconForTitleImageSource}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
-            </xtc:BadgeView>
-        </Grid>
-    </Shell.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{DynamicResource FilterIconForTitleImageSource}" Clicked="OnFilterChanged" />
+    </ContentPage.ToolbarItems>
     <Grid ColumnSpacing="0" RowSpacing="0">
         <!--  CATALOG  -->
         <Label
@@ -122,12 +88,23 @@
             </ActivityIndicator.WidthRequest>
         </ActivityIndicator>
 
-        <Button x:Name="CampaignButton"
-                Text="Sale"
-                TextColor="{StaticResource WhiteColor}"
+        <xtc:BadgeView
+            x:Name="ShoppingCart"
+            BadgePosition="TopRight"
+            AutoHide="True"
+            FontSize="Micro"
+            Text="{Binding BadgeCount, Mode=OneWay}"
+            Padding="16,0"
+            Margin="0,0,16,16"
+            HorizontalOptions="End"
+            VerticalOptions="End">
+            <ImageButton
+                Source="{DynamicResource BasketIconForTitleImageSource}"
+                Command="{Binding ViewBasketCommand}"
                 BackgroundColor="{StaticResource LightGreenColor}"
-                Padding="16,0"
-                Margin="0,0,16,16"
-                HorizontalOptions="End" VerticalOptions="End" />
+                Padding="16"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+        </xtc:BadgeView>
     </Grid>
 </views:ContentPageBase>

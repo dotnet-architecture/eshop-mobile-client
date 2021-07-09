@@ -5,12 +5,16 @@
     xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
     x:Class="eShopOnContainers.Core.AppShell">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior TextOverride="" />
+    </Shell.BackButtonBehavior>
+
     <FlyoutItem >
         <ShellContent ContentTemplate="{DataTemplate views:LoginView}" Route="Login" />
     </FlyoutItem>
 
     <TabBar Route="Main">
-        <ShellContent Title="Catalog" Icon="{StaticResource CatalogIconImageSource}" ContentTemplate="{DataTemplate views:CatalogView}" />
-        <ShellContent Title="Profile" Icon="{StaticResource ProfileIconImageSource}" ContentTemplate="{DataTemplate views:ProfileView}" />
+        <ShellContent Title="CATALOG" Icon="{StaticResource CatalogIconImageSource}" ContentTemplate="{DataTemplate views:CatalogView}" />
+        <ShellContent Title="PROFILE" Icon="{StaticResource ProfileIconImageSource}" ContentTemplate="{DataTemplate views:ProfileView}" />
     </TabBar>
 </Shell>

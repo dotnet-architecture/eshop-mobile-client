@@ -123,6 +123,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
@@ -176,7 +177,7 @@
               Style="{StaticResource TitleLabelStyle}"/>
             <!-- LOGIN FORM -->
             <StackLayout   
-                Grid.Row="2"
+                Grid.Row="3"
                 Margin="24">
                 <Label
                   Text="User name or email"
@@ -235,10 +236,15 @@
 					Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
             </StackLayout>
+            <Image
+                Source="eshop_logo.png"
+                Aspect="AspectFit"
+                HorizontalOptions="Center"
+                Grid.Row="2" />
             <!-- LOGIN BUTTON -->
             <Grid
                 BackgroundColor="{StaticResource LightGreenColor}"
-                Grid.Row="3"
+                Grid.Row="4"
                 Padding="0"
                 ColumnSpacing="0"
                 RowSpacing="0">

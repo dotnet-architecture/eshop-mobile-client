@@ -8,7 +8,7 @@
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
     xmlns:xtc="http://xamarin.com/schemas/2020/toolkit"
-    Title="Cart"
+    Title="CART"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     x:DataType="viewmodels:BasketViewModel">
     <ContentPage.Resources>
@@ -42,7 +42,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="60" />
-                <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <!--  CART ITEMS  -->
             <ListView
@@ -59,6 +58,25 @@
                         EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
                         EventName="ItemTapped" />
                 </ListView.Behaviors>
+                <ListView.Header>
+                    <!--  TOTAL  -->
+                    <StackLayout Orientation="Horizontal" Padding="8" Grid.Row="0">
+                        <Label
+                            Style="{StaticResource CartTotalStyle}"
+                            Text="TOTAL"
+                            TextColor="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"
+                            HorizontalTextAlignment="End"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            Style="{StaticResource CartTotalStyle}"
+                            Text="{Binding Total, StringFormat='${0:N}'}"
+                            TextColor="{StaticResource GreenColor}"
+                            HorizontalTextAlignment="Start"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -67,22 +85,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <!--  TOTAL  -->
-            <StackLayout Margin="0,0,0,24" Grid.Row="1">
-                <Label
-                    Grid.Row="0"
-                    Style="{StaticResource CartTotalStyle}"
-                    Text="TOTAL"
-                    TextColor="{StaticResource BlackColor}" />
-                <Label
-                    Grid.Row="1"
-                    Style="{StaticResource CartTotalStyle}"
-                    Text="{Binding Total, StringFormat='${0:N}'}"
-                    TextColor="{StaticResource GreenColor}" />
-            </StackLayout>
             <!--  CHECKOUT  -->
             <Grid
-                Grid.Row="2"
+                Grid.Row="1"
                 Padding="0"
                 BackgroundColor="{StaticResource LightGreenColor}"
                 ColumnSpacing="0"

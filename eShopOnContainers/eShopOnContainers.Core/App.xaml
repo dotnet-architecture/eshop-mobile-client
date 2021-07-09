@@ -69,8 +69,10 @@
             </OnPlatform>
 
             <!--  Theme Colors  -->
-            <Color x:Key="LightBackgroundColor">#E7E7E7</Color>
+            <Color x:Key="LightBackgroundColor">#FFFFFF</Color>
             <Color x:Key="DarkBackgroundColor">#222222</Color>
+            <Color x:Key="LightForegroundColor">#222222</Color>
+            <Color x:Key="DarkForegorundColor">#FFFFFF</Color>
             <Color x:Key="LightFontColor">#222222</Color>
             <Color x:Key="DarkFontColor">#E7E7E7</Color>
             <Color x:Key="LightSeparatorColor">#222222</Color>
@@ -157,6 +159,12 @@
                 x:Key="FilterIconForTitleImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 Glyph="{StaticResource FilterIcon}"
+                Size="22"
+                Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
+            <FontImageSource
+                x:Key="SettingsIconForTitleImageSource"
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                Glyph="{StaticResource SettingsIcon}"
                 Size="22"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
@@ -367,11 +375,10 @@
             </Style>
 
             <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+                <Setter Property="NavigationPage.BackButtonTitle" Value="" />
                 <Setter Property="ios:Page.UseSafeArea" Value="True" />
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
-                <Setter Property="Shell.TitleColor" Value="{StaticResource WhiteColor}" />
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource GreenColor}" />
-                <Setter Property="Shell.ForegroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource LightForegroundColor}, Dark={StaticResource DarkForegorundColor}}" />
             </Style>
 
             <Style ApplyToDerivedTypes="True" TargetType="xct:Popup">

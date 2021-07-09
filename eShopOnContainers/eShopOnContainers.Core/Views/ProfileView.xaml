@@ -24,66 +24,49 @@
             <Style x:Key="MyOrdersLabelStyle" TargetType="{x:Type Label}">
                 <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="Margin" Value="0, 12" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,12" />
             </Style>
 
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid
-        Padding="0"
-        ColumnSpacing="0"
-        RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <!--  LOG OUT BUTTON  -->
-        <Button
-            Grid.Row="0"
-            BackgroundColor="{StaticResource GrayColor}"
-            Command="{Binding LogoutCommand}"
-            Text="LOG OUT"
-            TextColor="{StaticResource BlackColor}" />
-        <!--  ORDERS  -->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="LOGOUT" Command="{Binding LogoutCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <!--  ORDERS  -->
+    <Grid>
+        <Grid IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
             <Label
-                Grid.Row="0"
-                Style="{StaticResource MyOrdersLabelStyle}"
-                Text="MY ORDERS" />
-            <Grid Grid.Row="1">
-                <Grid IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-                    <Label
-                        HorizontalOptions="Center"
-                        IsVisible="{Binding Orders, Converter={StaticResource ListIsNullOrEmptyConverter}}"
-                        Text="NO ORDERS"
-                        VerticalOptions="Center" />
-                </Grid>
-                <ListView
-                    CachingStrategy="RecycleElement"
-                    HasUnevenRows="True"
-                    ItemsSource="{Binding Orders}"
-                    SeparatorVisibility="None">
-                    <ListView.Behaviors>
-                        <xct:EventToCommandBehavior
-                            Command="{Binding OrderDetailCommand}"
-                            EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
-                            EventName="ItemTapped" />
-                    </ListView.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <templates:OrderTemplate />
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+                HorizontalOptions="Center"
+                IsVisible="{Binding Orders, Converter={StaticResource ListIsNullOrEmptyConverter}}"
+                Text="NO ORDERS"
+                VerticalOptions="Center" />
         </Grid>
+        <ListView
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            ItemsSource="{Binding Orders}"
+            SeparatorVisibility="None">
+            <ListView.Behaviors>
+                <xct:EventToCommandBehavior
+                    Command="{Binding OrderDetailCommand}"
+                    EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                    EventName="ItemTapped" />
+            </ListView.Behaviors>
+            <ListView.Header>
+                <Label
+                    Style="{StaticResource MyOrdersLabelStyle}"
+                    Text="MY ORDERS" />
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <templates:OrderTemplate />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </views:ContentPageBase>
