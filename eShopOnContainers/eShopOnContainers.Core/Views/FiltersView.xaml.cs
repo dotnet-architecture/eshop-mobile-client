@@ -1,5 +1,7 @@
-﻿using eShopOnContainers.Core.ViewModels;
+﻿using System.Threading.Tasks;
+using eShopOnContainers.Core.ViewModels;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Views
 {
