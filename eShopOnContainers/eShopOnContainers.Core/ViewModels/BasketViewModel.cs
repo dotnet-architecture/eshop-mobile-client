@@ -1,4 +1,4 @@
-using eShopOnContainers.Core.Models.Basket;
+﻿using eShopOnContainers.Core.Models.Basket;
 using eShopOnContainers.Core.Models.Catalog;
 using eShopOnContainers.Core.Services.Basket;
 using eShopOnContainers.Core.Services.Settings;
@@ -149,15 +149,6 @@ namespace eShopOnContainers.Core.ViewModels
             {
                 Total += (orderItem.Quantity * orderItem.UnitPrice);
             }
-
-            var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
-
-            await _basketService.UpdateBasketAsync(new CustomerBasket
-            {
-                BuyerId = userInfo.UserId,
-                Items = BasketItems.ToList()
-            }, authToken);
         }
 
         private async Task CheckoutAsync()
