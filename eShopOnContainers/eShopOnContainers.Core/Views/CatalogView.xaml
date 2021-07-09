@@ -10,7 +10,7 @@
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     xmlns:views="clr-namespace:eShopOnContainers.Core.Views;assembly=eShopOnContainers.Core"
     xmlns:xtc="http://xamarin.com/schemas/2020/toolkit"
-    Title="Catalog"
+    Title="CATALOG"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     x:DataType="viewmodels:CatalogViewModel">
     <ContentPage.Resources>

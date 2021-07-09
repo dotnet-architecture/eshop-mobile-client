@@ -8,7 +8,7 @@
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     xmlns:views="clr-namespace:eShopOnContainers.Core.Views;assembly=eShopOnContainers.Core"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    Title="My profile"
+    Title="MY PROFILE"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     x:DataType="viewmodels:ProfileViewModel">
     <ContentPage.Resources>

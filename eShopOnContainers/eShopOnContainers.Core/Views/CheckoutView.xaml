@@ -6,7 +6,7 @@
     xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
     xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
-    Title="Checkout"
+    Title="CHECKOUT"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     x:DataType="viewmodels:CheckoutViewModel">
     <ContentPage.Resources>
