@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView
+<SwipeView
     xmlns="http://xamarin.com/schemas/2014/forms"     
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
-    x:Class="eShopOnContainers.Core.Views.Templates.BasketItemTemplate"     
-    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
-    <ContentView.Resources>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:eShopOnContainers.Core.ViewModels"
+    x:Class="eShopOnContainers.Core.Views.Templates.BasketItemTemplate">
+    <SwipeView.Resources>
         <ResourceDictionary>
-
-
             <Style x:Key="OrderItemUnitPriceStyle" 
                TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
@@ -51,9 +49,15 @@
             </Style>
             
         </ResourceDictionary>
-    </ContentView.Resources>
-    <ContentView.Content>
-        <Grid>
+    </SwipeView.Resources>
+    <SwipeView.RightItems>
+        <SwipeItems>
+            <SwipeItem Text="Delete" BackgroundColor="Red"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel }}, Path=DeleteCommand}"
+                CommandParameter="{Binding}"/>
+        </SwipeItems>
+    </SwipeView.RightItems>
+    <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource DarkBackgroundColor}, Light={StaticResource LightBackgroundColor}}">
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS, Android" Value="0" />
@@ -135,5 +139,4 @@
                 Grid.Row="2"
                 BackgroundColor="Gray"/>
         </Grid>
-    </ContentView.Content>
-</ContentView>
+</SwipeView>

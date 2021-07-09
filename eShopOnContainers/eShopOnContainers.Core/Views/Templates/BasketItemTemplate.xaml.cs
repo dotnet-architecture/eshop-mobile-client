@@ -2,7 +2,7 @@
 
 namespace eShopOnContainers.Core.Views.Templates
 {
-    public partial class BasketItemTemplate : ContentView
+    public partial class BasketItemTemplate
     {
         public BasketItemTemplate()
         {
