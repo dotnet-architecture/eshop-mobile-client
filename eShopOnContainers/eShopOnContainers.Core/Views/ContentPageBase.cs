@@ -6,16 +6,20 @@ namespace eShopOnContainers.Core.Views
 {
     public abstract class ContentPageBase : ContentPage
     {
+        public ContentPageBase()
+        {
+            NavigationPage.SetBackButtonTitle (this, string.Empty);
+        }
+
         protected override async void OnAppearing ()
         {
             base.OnAppearing ();
 
-            if(BindingContext is ViewModelBase vmb)
+            if (BindingContext is ViewModelBase vmb)
             {
-                if (!vmb.IsInitialized)
+                if (vmb.IsInitialized && vmb.MultipleInitialization)
                 {
-                    await vmb.InitializeAsync (null /*TODO: This will be cleaned up with shell nav parameters later*/);
-                    vmb.IsInitialized = true;
+                    await vmb.InitializeAsync (null);
                 }
             }
         }

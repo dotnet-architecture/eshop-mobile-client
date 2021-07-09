@@ -10,7 +10,7 @@
              xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
              viewModelBase:ViewModelLocator.AutoWireViewModel="true"
              x:DataType="viewmodels:SettingsViewModel"
-             Title="Settings"
+             Title="SETTINGS"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="False">

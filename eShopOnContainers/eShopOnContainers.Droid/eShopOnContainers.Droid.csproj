@@ -98,6 +98,10 @@
     <AndroidResource Include="Resources\drawable-hdpi\menu_filter.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\menu_filter.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\menu_filter.png" />
+    <AndroidResource Include="Resources\drawable\eshop_logo.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

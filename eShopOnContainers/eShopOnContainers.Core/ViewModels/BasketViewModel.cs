@@ -62,6 +62,8 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand AddCommand => new Command<BasketItem>(async (item) => await AddItemAsync(item));
 
+        public ICommand DeleteCommand => new Command<BasketItem> (async (item) => await DeleteBasketItemAsync (item));
+
         public ICommand CheckoutCommand => new Command(async () => await CheckoutAsync());
 
         public override async Task InitializeAsync (IDictionary<string, string> query)
@@ -117,6 +119,23 @@ namespace eShopOnContainers.Core.ViewModels
             await ReCalculateTotalAsync();
         }
 
+        private async Task DeleteBasketItemAsync (BasketItem item)
+        {
+            BasketItems.Remove (item);
+
+            var authToken = _settingsService.AuthAccessToken;
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
+            var basket = await _basketService.GetBasketAsync (userInfo.UserId, authToken);
+            if (basket != null)
+            {
+                basket.Items.Remove (item);
+                await _basketService.UpdateBasketAsync (basket, authToken);
+                BadgeCount = basket.Items.Count ();
+            }
+
+            await ReCalculateTotalAsync ();
+        }
+
         private async Task ReCalculateTotalAsync()
         {
             Total = 0;
@@ -130,15 +149,6 @@ namespace eShopOnContainers.Core.ViewModels
             {
                 Total += (orderItem.Quantity * orderItem.UnitPrice);
             }
-
-            var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
-
-            await _basketService.UpdateBasketAsync(new CustomerBasket
-            {
-                BuyerId = userInfo.UserId,
-                Items = BasketItems.ToList()
-            }, authToken);
         }
 
         private async Task CheckoutAsync()

@@ -78,6 +78,7 @@
     <BundleResource Include="Resources\Icon-Small-40%403x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\eshop_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

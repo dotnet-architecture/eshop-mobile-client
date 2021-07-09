@@ -6,7 +6,9 @@
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     x:Class="eShopOnContainers.Core.Views.FiltersView"
     x:DataType="viewmodels:CatalogViewModel"
-    VerticalOptions="End">
+    Size="0,240"
+    VerticalOptions="Center"
+    HorizontalOptions="Center">
   <xct:Popup.Resources>
     <ResourceDictionary>
 
@@ -46,12 +48,11 @@
           
     </ResourceDictionary>
   </xct:Popup.Resources>
-  <Grid    
+  <Grid
     Padding="0"            
     ColumnSpacing="0"    
     RowSpacing="8"
-    Margin="24"
-    VerticalOptions="End">
+    VerticalOptions="Center">
     <Grid.RowDefinitions>      
       <RowDefinition Height="60" />
       <RowDefinition Height="60" /> 

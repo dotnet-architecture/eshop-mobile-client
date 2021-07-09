@@ -10,7 +10,7 @@
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    Title="Campaigns"
+    Title="CAMPAIGNS"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     x:DataType="viewmodels:CampaignViewModel">
     <ContentPage.Resources>
