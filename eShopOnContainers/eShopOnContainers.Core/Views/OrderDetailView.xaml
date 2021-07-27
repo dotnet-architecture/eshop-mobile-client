@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<views:ContentPageBase
     x:Class="eShopOnContainers.Core.Views.OrderDetailView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
     xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
     xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
+    xmlns:views="clr-namespace:eShopOnContainers.Core.Views;assembly=eShopOnContainers.Core"
     xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
-    Title="{Binding Order.OrderNumber}"
+    Title="{Binding Order.OrderNumber, StringFormat='ORDER {0}'}"
     viewModelBase:ViewModelLocator.AutoWireViewModel="true"
     x:DataType="viewmodels:OrderDetailViewModel">
     <ContentPage.Resources>
@@ -206,4 +207,4 @@
             </Grid>
         </ScrollView>
     </Grid>
-</ContentPage>
+</views:ContentPageBase>
