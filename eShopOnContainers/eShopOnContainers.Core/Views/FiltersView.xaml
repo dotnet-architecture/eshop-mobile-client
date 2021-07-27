@@ -45,6 +45,10 @@
         <Setter Property="BackgroundColor"
                 Value="{StaticResource GrayColor}" />
       </Style>
+
+            <Style x:Key="UWPBackgroundStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
+            </Style>
           
     </ResourceDictionary>
   </xct:Popup.Resources>
@@ -52,11 +56,11 @@
     Padding="8"            
     ColumnSpacing="0"    
     RowSpacing="8">
-    <Grid.BackgroundColor>
-        <OnPlatform x:TypeArguments="Color" Default="Transparent" >
-            <On Platform="UWP" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
+    <Grid.Style>
+        <OnPlatform x:TypeArguments="Style" >
+            <On Platform="UWP" Value="{StaticResource UWPBackgroundStyle}" />
         </OnPlatform>
-    </Grid.BackgroundColor>
+    </Grid.Style>
     <Grid.RowDefinitions>      
       <RowDefinition Height="60" />
       <RowDefinition Height="60" />

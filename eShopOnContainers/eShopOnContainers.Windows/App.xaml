@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:eShopOnContainers.UWP"
     xmlns:converters="using:eShopOnContainers.Windows.Converters"
-    xmlns:controls="using:eShopOnContainers.Windows.Controls"
-    RequestedTheme="Light">
+    xmlns:controls="using:eShopOnContainers.Windows.Controls">
     <Application.Resources>
         <ResourceDictionary>
             

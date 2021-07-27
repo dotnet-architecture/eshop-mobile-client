@@ -126,7 +126,7 @@
             <FontImageSource
                 x:Key="CatalogIconImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
-                Glyph="{StaticResource CatalogIcon}" />
+                Glyph="{StaticResource CatalogIcon}"/>
             <FontImageSource
                 x:Key="ProfileIconImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
@@ -372,7 +372,18 @@
 
             <Style ApplyToDerivedTypes="True" TargetType="TabBar">
                 <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource LightGreenColor}" />
+                <Setter Property="Shell.TabBarForegroundColor">
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="UWP" Value="{StaticResource LightGreenColor}" />
+                    </OnPlatform>
+                </Setter>
+                <Setter Property="Shell.TabBarUnselectedColor">
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="UWP" Value="Gray" />
+                    </OnPlatform>
+                </Setter>
             </Style>
+
 
             <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
                 <Setter Property="NavigationPage.BackButtonTitle" Value="" />
