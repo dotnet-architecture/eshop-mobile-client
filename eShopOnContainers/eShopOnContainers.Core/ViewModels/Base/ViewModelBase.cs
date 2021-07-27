@@ -79,19 +79,10 @@ namespace eShopOnContainers.Core.ViewModels.Base
 
         public async void ApplyQueryAttributes (IDictionary<string, string> query)
         {
-            //TODO: Remove
-            if (query != null)
-            {
-                foreach (var item in query)
-                {
-                    System.Diagnostics.Debug.WriteLine ($"{item.Key} - {item.Value}");
-                }
-            }
-
             if(!IsInitialized)
             {
-                await InitializeAsync (query);
                 IsInitialized = true;
+                await InitializeAsync (query);
             }
         }
     }
