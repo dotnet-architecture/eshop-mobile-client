@@ -17,7 +17,7 @@ namespace eShopOnContainers.Core.Views
 
             if (BindingContext is ViewModelBase vmb)
             {
-                if (vmb.IsInitialized && vmb.MultipleInitialization)
+                if (!vmb.IsInitialized || vmb.MultipleInitialization)
                 {
                     await vmb.InitializeAsync (null);
                 }

@@ -174,7 +174,7 @@ namespace eShopOnContainers.Core.ViewModels
             {
                 _settingsService.AuthAccessToken = GlobalSetting.Instance.AuthToken;
 
-                await NavigationService.NavigateToAsync ("//Main");
+                await NavigationService.NavigateToAsync ("//Main/Catalog");
             }
 
             IsBusy = false;
@@ -241,7 +241,7 @@ namespace eShopOnContainers.Core.ViewModels
                     {
                         _settingsService.AuthAccessToken = accessToken;
                         _settingsService.AuthIdToken = authResponse.IdentityToken;
-                        await NavigationService.NavigateToAsync ("//Main");
+                        await NavigationService.NavigateToAsync ("//Main/Catalog");
                     }
                 }
             }

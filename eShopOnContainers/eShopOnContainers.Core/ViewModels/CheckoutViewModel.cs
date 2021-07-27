@@ -157,7 +157,7 @@ namespace eShopOnContainers.Core.ViewModels
                 basketViewModel.BadgeCount = 0;
 
                 // Navigate to Orders
-                await NavigationService.NavigateToAsync("//Main", new Dictionary<string, string> { { "TabIndex", "1" } });
+                await NavigationService.NavigateToAsync("//Main/Catalog");
 
                 // Show Dialog
                 await DialogService.ShowAlertAsync("Order sent successfully!", "Checkout", "Ok");
