@@ -90,6 +90,8 @@
 
         <xtc:BadgeView
             x:Name="ShoppingCart"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}"
+            TextColor="{AppThemeBinding Light={StaticResource LightForegroundColor}, Dark={StaticResource DarkForegroundColor}}"
             BadgePosition="TopRight"
             AutoHide="True"
             FontSize="Micro"
@@ -103,6 +105,7 @@
                 Command="{Binding ViewBasketCommand}"
                 BackgroundColor="{StaticResource LightGreenColor}"
                 Padding="16"
+                CornerRadius="8"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"/>
         </xtc:BadgeView>
