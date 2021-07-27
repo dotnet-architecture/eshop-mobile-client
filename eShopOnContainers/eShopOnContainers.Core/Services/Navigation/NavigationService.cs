@@ -27,7 +27,7 @@ namespace eShopOnContainers.Services
             if (string.IsNullOrEmpty(_settingsService.AuthAccessToken))
                 return NavigateToAsync("//Login");
             else
-                return NavigateToAsync("//Main");
+                return NavigateToAsync("//Main/Catalog");
         }
 
         public Task NavigateToAsync (string route, IDictionary<string, string> routeParameters = null)
