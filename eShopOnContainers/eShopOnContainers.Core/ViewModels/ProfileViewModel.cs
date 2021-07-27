@@ -20,6 +20,8 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ProfileViewModel()
         {
+            this.MultipleInitialization = true;
+
             _settingsService = DependencyService.Get<ISettingsService> ();
             _orderService = DependencyService.Get<IOrderService> ();
         }
