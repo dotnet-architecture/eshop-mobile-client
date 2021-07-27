@@ -6,7 +6,7 @@
     xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     x:Class="eShopOnContainers.Core.Views.FiltersView"
     x:DataType="viewmodels:CatalogViewModel"
-    Size="0,240"
+    Size="240,320"
     VerticalOptions="Center"
     HorizontalOptions="Center">
   <xct:Popup.Resources>
@@ -49,13 +49,18 @@
     </ResourceDictionary>
   </xct:Popup.Resources>
   <Grid
-    Padding="0"            
+    Padding="8"            
     ColumnSpacing="0"    
-    RowSpacing="8"
-    VerticalOptions="Center">
+    RowSpacing="8">
+    <Grid.BackgroundColor>
+        <OnPlatform x:TypeArguments="Color" Default="Transparent" >
+            <On Platform="UWP" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
+        </OnPlatform>
+    </Grid.BackgroundColor>
     <Grid.RowDefinitions>      
       <RowDefinition Height="60" />
-      <RowDefinition Height="60" /> 
+      <RowDefinition Height="60" />
+      <RowDefinition Height="*" /> 
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
@@ -88,14 +93,14 @@
       </Picker.HeightRequest> 
     </Picker>
     <Button 
-      Grid.Row="2"
+      Grid.Row="3"
       Text="Apply" 
       Style="{StaticResource FilterButtonStyle}"
       Clicked="OnFilterClicked"/>   
     <Button
-      Grid.Row="3"
+      Grid.Row="4"
       Text="Clear"
-      IsVisible="{Binding IsFilter}"
+      IsEnabled="{Binding IsFilter}"
       Style="{StaticResource ClearFilterButtonStyle}"
       Command="{Binding ClearFilterCommand}"/>
 </Grid>
