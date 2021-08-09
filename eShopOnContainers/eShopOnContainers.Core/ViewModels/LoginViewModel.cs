@@ -43,10 +43,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ValidatableObject<string> UserName
         {
-            get
-            {
-                return _userName;
-            }
+            get => _userName;
             set
             {
                 _userName = value;
@@ -56,10 +53,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ValidatableObject<string> Password
         {
-            get
-            {
-                return _password;
-            }
+            get => _password;
             set
             {
                 _password = value;
@@ -69,10 +63,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public bool IsMock
         {
-            get
-            {
-                return _isMock;
-            }
+            get => _isMock;
             set
             {
                 _isMock = value;
@@ -82,10 +73,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public bool IsValid
         {
-            get
-            {
-                return _isValid;
-            }
+            get => _isValid;
             set
             {
                 _isValid = value;
@@ -95,10 +83,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public bool IsLogin
         {
-            get
-            {
-                return _isLogin;
-            }
+            get => _isLogin;
             set
             {
                 _isLogin = value;
@@ -108,10 +93,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public string LoginUrl
         {
-            get
-            {
-                return _authUrl;
-            }
+            get => _authUrl;
             set
             {
                 _authUrl = value;

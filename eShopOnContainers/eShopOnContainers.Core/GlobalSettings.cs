@@ -25,7 +25,7 @@ namespace eShopOnContainers.Core
 
         public string BaseIdentityEndpoint
         {
-            get { return _baseIdentityEndpoint; }
+            get => _baseIdentityEndpoint;
             set
             {
                 _baseIdentityEndpoint = value;
@@ -35,7 +35,7 @@ namespace eShopOnContainers.Core
 
         public string BaseGatewayShoppingEndpoint
         {
-            get { return _baseGatewayShoppingEndpoint; }
+            get => _baseGatewayShoppingEndpoint;
             set
             {
                 _baseGatewayShoppingEndpoint = value;
@@ -45,7 +45,7 @@ namespace eShopOnContainers.Core
 
         public string BaseGatewayMarketingEndpoint
         {
-            get { return _baseGatewayMarketingEndpoint; }
+            get => _baseGatewayMarketingEndpoint;
             set
             {
                 _baseGatewayMarketingEndpoint = value;

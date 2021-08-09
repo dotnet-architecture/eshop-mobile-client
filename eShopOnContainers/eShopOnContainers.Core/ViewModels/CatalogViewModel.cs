@@ -17,6 +17,7 @@ namespace eShopOnContainers.Core.ViewModels
     public class CatalogViewModel : ViewModelBase
     {
         private ObservableCollection<CatalogItem> _products;
+        private CatalogItem _selectedProduct;
         private ObservableCollection<CatalogBrand> _brands;
         private CatalogBrand _brand;
         private ObservableCollection<CatalogType> _types;
@@ -39,7 +40,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ObservableCollection<CatalogItem> Products
         {
-            get { return _products; }
+            get => _products;
             set
             {
                 _products = value;
@@ -47,9 +48,21 @@ namespace eShopOnContainers.Core.ViewModels
             }
         }
 
+        public CatalogItem SelectedProduct
+        {
+            get => _selectedProduct;
+            set
+            {
+                if (value == null)
+                    return;
+                _selectedProduct = null;
+                RaisePropertyChanged(() => SelectedProduct);
+            }
+        }
+
         public ObservableCollection<CatalogBrand> Brands
         {
-            get { return _brands; }
+            get => _brands;
             set
             {
                 _brands = value;
@@ -59,7 +72,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public CatalogBrand Brand
         {
-            get { return _brand; }
+            get => _brand;
             set
             {
                 _brand = value;
@@ -70,7 +83,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ObservableCollection<CatalogType> Types
         {
-            get { return _types; }
+            get => _types;
             set
             {
                 _types = value;
@@ -80,7 +93,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public CatalogType Type
         {
-            get { return _type; }
+            get => _type;
             set
             {
                 _type = value;
@@ -93,11 +106,11 @@ namespace eShopOnContainers.Core.ViewModels
 
         public int BadgeCount
         {
-            get { return _badgeCount; }
+            get => _badgeCount;
             set
             {
                 _badgeCount = value;
-                RaisePropertyChanged (() => BadgeCount);
+                RaisePropertyChanged(() => BadgeCount);
             }
         }
 

@@ -17,6 +17,7 @@ namespace eShopOnContainers.Core.ViewModels
         private readonly ISettingsService _settingsService;
         private readonly IOrderService _orderService;
         private ObservableCollection<Order> _orders;
+        private Order _selectedOrder;
 
         public ProfileViewModel()
         {
@@ -28,11 +29,23 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ObservableCollection<Order> Orders
         {
-            get { return _orders; }
+            get => _orders;
             set
             {
                 _orders = value;
                 RaisePropertyChanged(() => Orders);
+            }
+        }
+
+        public Order SelectedOrder
+        {
+            get => _selectedOrder;
+            set
+            {
+                if (value == null)
+                    return;
+                _selectedOrder = null;
+                RaisePropertyChanged(() => SelectedOrder);
             }
         }
 

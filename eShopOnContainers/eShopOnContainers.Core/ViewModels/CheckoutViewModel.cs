@@ -37,7 +37,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ObservableCollection<BasketItem> OrderItems
         {
-            get { return _orderItems; }
+            get => _orderItems;
             set
             {
                 _orderItems = value;
@@ -47,7 +47,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public Order Order
         {
-            get { return _order; }
+            get => _order;
             set
             {
                 _order = value;
@@ -57,7 +57,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public Address ShippingAddress
         {
-            get { return _shippingAddress; }
+            get => _shippingAddress;
             set
             {
                 _shippingAddress = value;

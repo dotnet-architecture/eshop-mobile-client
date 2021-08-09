@@ -1,8 +1,7 @@
 ﻿using eShopOnContainers.Core;
-using eShopOnContainers.Core.Models.Location;
-using eShopOnContainers.Core.Services.Dependency;
 using eShopOnContainers.Core.Services.Location;
 using eShopOnContainers.Core.Services.Settings;
+using eShopOnContainers.Core.Services.Theme;
 using eShopOnContainers.Core.ViewModels.Base;
 using eShopOnContainers.Services;
 using System;
@@ -12,16 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
-[assembly: ExportFont ("Font_Awesome_5_Free-Regular-400.otf", Alias = "FontAwesome-Regular")]
-[assembly: ExportFont ("Font_Awesome_5_Free-Solid-900.otf", Alias = "FontAwesome-Solid")]
-[assembly: ExportFont ("Montserrat-Bold.ttf", Alias = "Montserrat-Bold")]
-[assembly: ExportFont ("Montserrat-Regular.ttf", Alias = "Montserrat-Regular")]
-[assembly: ExportFont ("SourceSansPro-Regular.ttf", Alias = "SourceSansPro-Regular")]
-[assembly: ExportFont ("SourceSansPro-Solid.ttf", Alias = "SourceSansPro-Solid")]
 
 namespace eShopOnContainers
 {
@@ -64,12 +53,52 @@ namespace eShopOnContainers
                 await SendCurrentLocation();
             }
 
-            base.OnResume();
+            OnResume();
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            SetStatusBar();
+            RequestedThemeChanged -= App_RequestedThemeChanged;
+        }
+
+        protected override void OnResume()
+        {
+            SetStatusBar();
+            RequestedThemeChanged += App_RequestedThemeChanged;
+        }
+
+        private void App_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                SetStatusBar();
+            });
+        }
+
+        void SetStatusBar()
+        {
+            var nav = Current.MainPage as NavigationPage;
+
+            var e = DependencyService.Get<ITheme>();
+            if (Current.RequestedTheme == OSAppTheme.Dark)
+            {
+                e?.SetStatusBarColor(Color.Black, false);
+                if (nav != null)
+                {
+                    nav.BarBackgroundColor = Color.Black;
+                    nav.BarTextColor = Color.White;
+                }
+            }
+            else
+            {
+                e?.SetStatusBarColor(Color.White, true);
+                if (nav != null)
+                {
+                    nav.BarBackgroundColor = Color.White;
+                    nav.BarTextColor = Color.Black;
+                }
+            }
         }
 
         private async Task GetGpsLocation()

@@ -14,8 +14,8 @@ namespace eShopOnContainers.Core.Animations.Base
 
         public VisualElement Target
         {
-            get { return (VisualElement)GetValue(TargetProperty); }
-            set { SetValue(TargetProperty, value); }
+            get => (VisualElement)GetValue(TargetProperty);
+            set => SetValue(TargetProperty, value);
         }
 
         public static readonly BindableProperty DurationProperty = BindableProperty.Create("Duration", typeof(string), typeof(AnimationBase), "1000",
@@ -23,8 +23,8 @@ namespace eShopOnContainers.Core.Animations.Base
 
         public string Duration
         {
-            get { return (string)GetValue(DurationProperty); }
-            set { SetValue(DurationProperty, value); }
+            get => (string)GetValue(DurationProperty);
+            set => SetValue(DurationProperty, value);
         }
 
         public static readonly BindableProperty EasingProperty = BindableProperty.Create("Easing", typeof(EasingType), typeof(AnimationBase), EasingType.Linear,
@@ -32,8 +32,8 @@ namespace eShopOnContainers.Core.Animations.Base
 
         public EasingType Easing
         {
-            get { return (EasingType)GetValue(EasingProperty); }
-            set { SetValue(EasingProperty, value); }
+            get => (EasingType)GetValue(EasingProperty);
+            set => SetValue(EasingProperty, value);
         }
 
         public static readonly BindableProperty RepeatForeverProperty = BindableProperty.Create("RepeatForever", typeof(bool), typeof(AnimationBase), false,
@@ -41,8 +41,8 @@ namespace eShopOnContainers.Core.Animations.Base
 
         public bool RepeatForever
         {
-            get { return (bool)GetValue(RepeatForeverProperty); }
-            set { SetValue(RepeatForeverProperty, value); }
+            get => (bool)GetValue(RepeatForeverProperty);
+            set => SetValue(RepeatForeverProperty, value);
         }
 
         public static readonly BindableProperty DelayProperty = BindableProperty.Create("Delay", typeof(int), typeof(AnimationBase), 0,
@@ -50,8 +50,8 @@ namespace eShopOnContainers.Core.Animations.Base
 
         public int Delay
         {
-            get { return (int)GetValue(DelayProperty); }
-            set { SetValue(DelayProperty, value); }
+            get => (int)GetValue(DelayProperty);
+            set => SetValue(DelayProperty, value);
         }
 
         protected abstract Task BeginAnimation();

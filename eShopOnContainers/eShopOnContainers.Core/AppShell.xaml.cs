@@ -30,5 +30,7 @@ namespace eShopOnContainers.Core
             Routing.RegisterRoute ("CampaignDetails", typeof(CampaignDetailsView));
             Routing.RegisterRoute ("Checkout", typeof (CheckoutView));
         }
+
+
     }
 }

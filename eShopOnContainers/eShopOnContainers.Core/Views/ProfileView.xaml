@@ -47,6 +47,7 @@
         <ListView
             CachingStrategy="RecycleElement"
             HasUnevenRows="True"
+            SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
             ItemsSource="{Binding Orders}"
             SeparatorVisibility="None">
             <ListView.Behaviors>

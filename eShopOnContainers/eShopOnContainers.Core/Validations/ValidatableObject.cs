@@ -14,24 +14,18 @@ namespace eShopOnContainers.Core.Validations
         public List<IValidationRule<T>> Validations => _validations;
 
 		public List<string> Errors
-		{
-			get
-			{
-				return _errors;
-			}
-			set
-			{
-				_errors = value;
-				RaisePropertyChanged(() => Errors);
-			}
-		}
+        {
+            get => _errors;
+            set
+            {
+                _errors = value;
+                RaisePropertyChanged(() => Errors);
+            }
+        }
 
         public T Value
         {
-            get
-            {
-                return _value;
-            }
+            get => _value;
             set
             {
                 _value = value;
@@ -41,10 +35,7 @@ namespace eShopOnContainers.Core.Validations
 
         public bool IsValid
         {
-            get
-            {
-                return _isValid;
-            }
+            get => _isValid;
             set
             {
                 _isValid = value;

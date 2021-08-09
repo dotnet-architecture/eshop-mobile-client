@@ -15,8 +15,8 @@ namespace eShopOnContainers.Core.Animations
 
         public double Opacity
         {
-            get { return (double)GetValue(OpacityProperty); }
-            set { SetValue(OpacityProperty, value); }
+            get => (double)GetValue(OpacityProperty);
+            set => SetValue(OpacityProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -55,8 +55,8 @@ namespace eShopOnContainers.Core.Animations
 
         public FadeDirection Direction
         {
-            get { return (FadeDirection)GetValue(DirectionProperty); }
-            set { SetValue(DirectionProperty, value); }
+            get => (FadeDirection)GetValue(DirectionProperty);
+            set => SetValue(DirectionProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -115,8 +115,8 @@ namespace eShopOnContainers.Core.Animations
 
         public FadeDirection Direction
         {
-            get { return (FadeDirection)GetValue(DirectionProperty); }
-            set { SetValue(DirectionProperty, value); }
+            get => (FadeDirection)GetValue(DirectionProperty);
+            set => SetValue(DirectionProperty, value);
         }
 
         protected override Task BeginAnimation()
