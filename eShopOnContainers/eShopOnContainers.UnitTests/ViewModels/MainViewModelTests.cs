@@ -1,4 +1,4 @@
-using eShopOnContainers.Core.Models.Navigation;
+﻿using eShopOnContainers.Core.Models.Navigation;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
@@ -13,7 +13,7 @@ namespace eShopOnContainers.UnitTests
         public MainViewModelTests()
         {
             ViewModelLocator.UpdateDependencies(true);
-            ViewModelLocator.RegisterSingleton<ISettingsService, MockSettingsService>();
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
         }
 
         [Fact]
