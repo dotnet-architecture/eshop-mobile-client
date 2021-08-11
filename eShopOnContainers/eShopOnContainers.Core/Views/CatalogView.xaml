@@ -55,6 +55,7 @@
         <ListView
             x:Name="Products"
             CachingStrategy="RecycleElement"
+            SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
             IsVisible="{Binding Products, Converter={StaticResource ListIsNotNullOrEmptyConverter}}"
             ItemsSource="{Binding Products}"
             SeparatorVisibility="None"

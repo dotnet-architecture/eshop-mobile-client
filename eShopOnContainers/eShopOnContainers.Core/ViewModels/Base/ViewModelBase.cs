@@ -16,15 +16,12 @@ namespace eShopOnContainers.Core.ViewModels.Base
 
         public bool IsInitialized
         {
-            get
-            {
-                return _isInitialized;
-            }
+            get => _isInitialized;
 
             set
             {
                 _isInitialized = value;
-                OnPropertyChanged (nameof (IsInitialized));
+                OnPropertyChanged(nameof(IsInitialized));
             }
         }
 
@@ -32,15 +29,12 @@ namespace eShopOnContainers.Core.ViewModels.Base
 
         public bool MultipleInitialization
         {
-            get
-            {
-                return _multipleInitialization;
-            }
+            get => _multipleInitialization;
 
             set
             {
                 _multipleInitialization = value;
-                OnPropertyChanged (nameof (MultipleInitialization));
+                OnPropertyChanged(nameof(MultipleInitialization));
             }
         }
 
@@ -48,15 +42,12 @@ namespace eShopOnContainers.Core.ViewModels.Base
 
         public bool IsBusy
         {
-            get
-            {
-                return _isBusy;
-            }
+            get => _isBusy;
 
             set
             {
                 _isBusy = value;
-                OnPropertyChanged (nameof (IsBusy));
+                OnPropertyChanged(nameof(IsBusy));
             }
         }
 
