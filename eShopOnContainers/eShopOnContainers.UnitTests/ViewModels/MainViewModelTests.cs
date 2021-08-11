@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.Core.Models.Navigation;
+using eShopOnContainers.Core.Models.Navigation;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
@@ -21,22 +21,6 @@ namespace eShopOnContainers.UnitTests
         {
             var mainViewModel = new MainViewModel();
             Assert.NotNull(mainViewModel.SettingsCommand);
-        }
-
-        [Fact]
-        public async Task ViewModelInitializationSendsChangeTabMessageTest()
-        {
-            bool messageReceived = false;
-            var mainViewModel = new MainViewModel();
-            var tabParam = new TabParameter { TabIndex = 2 };
-
-            Xamarin.Forms.MessagingCenter.Subscribe<MainViewModel, int>(this, MessageKeys.ChangeTab, (sender, arg) =>
-            {
-                messageReceived = true;
-            });
-            await mainViewModel.InitializeAsync(tabParam);
-
-            Assert.True(messageReceived);
         }
 
         [Fact]

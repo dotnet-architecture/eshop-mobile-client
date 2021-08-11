@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.Core.Models.Catalog;
+using eShopOnContainers.Core.Models.Catalog;
 using eShopOnContainers.Core.Services.Catalog;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels;
@@ -172,41 +172,6 @@ namespace eShopOnContainers.UnitTests
             await catalogViewModel.InitializeAsync(null);
 
             Assert.True(invoked);
-        }
-
-        [Fact]
-        public void AddCatalogItemCommandSendsAddProductMessageTest()
-        {
-            bool messageReceived = false;
-            var catalogService = new CatalogMockService();
-            var catalogViewModel = new CatalogViewModel(catalogService);
-
-            Xamarin.Forms.MessagingCenter.Subscribe<CatalogViewModel, CatalogItem>(this, MessageKeys.AddProduct, (sender, arg) =>
-            {
-                messageReceived = true;
-            });
-            catalogViewModel.AddCatalogItemCommand.Execute(null);
-
-            Assert.True(messageReceived);
-        }
-
-        [Fact]
-        public async Task FilterCommandSendsFilterMessageTest()
-        {
-            bool messageReceived = false;
-            var catalogService = new CatalogMockService();
-            var catalogViewModel = new CatalogViewModel(catalogService);
-            await catalogViewModel.InitializeAsync(null);
-            catalogViewModel.Brand = catalogViewModel.Brands.FirstOrDefault();
-            catalogViewModel.Type = catalogViewModel.Types.FirstOrDefault();
-
-            Xamarin.Forms.MessagingCenter.Subscribe<CatalogViewModel>(this, MessageKeys.Filter, (sender) =>
-            {
-                messageReceived = true;
-            });
-            catalogViewModel.FilterCommand.Execute(null);
-
-            Assert.True(messageReceived);
         }
 
         [Fact]
