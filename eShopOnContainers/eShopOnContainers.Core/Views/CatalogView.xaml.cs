@@ -1,43 +1,19 @@
 ﻿using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
-using SlideOverKit;
 using System;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Views
 {
-    public partial class CatalogView : ContentPage, IMenuContainerPage
+    public partial class CatalogView : ContentPageBase
     {
         private FiltersView _filterView = new FiltersView();
 
         public CatalogView()
         {
             InitializeComponent();
-
-            SlideMenu = _filterView;
-
-            MessagingCenter.Subscribe<CatalogViewModel>(this, MessageKeys.Filter, (sender) =>
-            {
-                Filter();
-            });
-        }
-
-        public Action HideMenuAction
-        {
-            get;
-            set;
-        }
-
-        public Action ShowMenuAction
-        {
-            get;
-            set;
-        }
-
-        public SlideMenuView SlideMenu
-        {
-            get;
-            set;
         }
 
         protected override void OnBindingContextChanged()
@@ -49,19 +25,7 @@ namespace eShopOnContainers.Core.Views
 
         private void OnFilterChanged(object sender, EventArgs e)
         {
-            Filter();
-        }
-
-        private void Filter()
-        {
-            if (SlideMenu.IsShown)
-            {
-                HideMenuAction?.Invoke();
-            }
-            else
-            {
-                ShowMenuAction?.Invoke();
-            }
+            Navigation.ShowPopup (_filterView);
         }
     }
 }

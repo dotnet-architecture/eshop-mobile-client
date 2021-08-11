@@ -1,4 +1,5 @@
-﻿using eShopOnContainers.Core.Models.Location;
+﻿using eShopOnContainers.Core;
+using eShopOnContainers.Core.Models.Location;
 using eShopOnContainers.Core.Services.Dependency;
 using eShopOnContainers.Core.Services.Location;
 using eShopOnContainers.Core.Services.Settings;
@@ -7,11 +8,21 @@ using eShopOnContainers.Services;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+
+[assembly: ExportFont ("Font_Awesome_5_Free-Regular-400.otf", Alias = "FontAwesome-Regular")]
+[assembly: ExportFont ("Font_Awesome_5_Free-Solid-900.otf", Alias = "FontAwesome-Solid")]
+[assembly: ExportFont ("Montserrat-Bold.ttf", Alias = "Montserrat-Bold")]
+[assembly: ExportFont ("Montserrat-Regular.ttf", Alias = "Montserrat-Regular")]
+[assembly: ExportFont ("SourceSansPro-Regular.ttf", Alias = "SourceSansPro-Regular")]
+[assembly: ExportFont ("SourceSansPro-Solid.ttf", Alias = "SourceSansPro-Solid")]
+
 namespace eShopOnContainers
 {
     public partial class App : Application
@@ -23,10 +34,8 @@ namespace eShopOnContainers
             InitializeComponent();
 
             InitApp();
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                InitNavigation();
-            }
+
+            MainPage = new AppShell ();
         }
 
         private void InitApp()
@@ -46,10 +55,6 @@ namespace eShopOnContainers
         {
             base.OnStart();
 
-            if (Device.RuntimePlatform != Device.UWP)
-            {
-                await InitNavigation();
-            }
             if (_settingsService.AllowGpsLocation && !_settingsService.UseFakeLocation)
             {
                 await GetGpsLocation();
@@ -69,33 +74,32 @@ namespace eShopOnContainers
 
         private async Task GetGpsLocation()
         {
-            var dependencyService = ViewModelLocator.Resolve<IDependencyService>();
-            var locator = dependencyService.Get<ILocationServiceImplementation>();
-
-            if (locator.IsGeolocationEnabled && locator.IsGeolocationAvailable)
+            try
             {
-                locator.DesiredAccuracy = 50;
+                var request = new GeolocationRequest (GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync (request, CancellationToken.None).ConfigureAwait(false);
 
-                try
+                if (location != null)
                 {
-                    var position = await locator.GetPositionAsync();
-                    _settingsService.Latitude = position.Latitude.ToString();
-                    _settingsService.Longitude = position.Longitude.ToString();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
+                    _settingsService.Latitude = location.Latitude.ToString ();
+                    _settingsService.Longitude = location.Longitude.ToString ();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                _settingsService.AllowGpsLocation = false;
+                if (ex is FeatureNotEnabledException || ex is FeatureNotEnabledException || ex is PermissionException)
+                {
+                    _settingsService.AllowGpsLocation = false;
+                }
+
+                // Unable to get location
+                Debug.WriteLine(ex);
             }
         }
 
         private async Task SendCurrentLocation()
         {
-            var location = new Location
+            var location = new Core.Models.Location.Location
             {
                 Latitude = double.Parse(_settingsService.Latitude, CultureInfo.InvariantCulture),
                 Longitude = double.Parse(_settingsService.Longitude, CultureInfo.InvariantCulture)

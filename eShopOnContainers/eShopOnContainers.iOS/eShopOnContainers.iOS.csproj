@@ -65,17 +65,6 @@
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <BundleResource Include="..\CommonResources\Fonts\Montserrat-Bold.ttf">
-      <Link>Resources\fonts\Montserrat-Bold.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\CommonResources\Fonts\Montserrat-Regular.ttf">
-      <Link>Resources\fonts\Montserrat-Regular.ttf</Link>
-    </BundleResource>
-    <BundleResource Include="..\CommonResources\Fonts\SourceSansPro-Regular.ttf">
-      <Link>Resources\fonts\SourceSansPro-Regular.ttf</Link>
-    </BundleResource>
-    <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />
-    <Compile Include="Renderers\SlideDownMenuPageRenderer.cs" />
     <None Include="app.config" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -83,18 +72,13 @@
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork@2x" />
     <Compile Include="Effects\CircleEffect.cs" />
-    <BundleResource Include="Resources\menu_campaigns.png" />
-    <BundleResource Include="Resources\menu_campaigns%402x.png" />
-    <BundleResource Include="Resources\menu_campaigns%403x.png" />
-    <Compile Include="Services\LocationServiceImplementation.cs" />
-    <Compile Include="Services\PermissionsService.cs" />
-    <Compile Include="Services\GeolocationSingleUpdateDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-60%403x.png" />
     <BundleResource Include="Resources\Icon-Small-40%403x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\eshop_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -103,14 +87,13 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.3.4" />
-    <PackageReference Include="SlideOverKit" Version="2.1.6.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="PCLCrypto" Version="2.0.147" />
     <PackageReference Include="IdentityModel" Version="3.0.0" />
-    <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
-    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.7.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\fake_product_01.png" />
@@ -126,69 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\fake_product_05.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_cart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_cart%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_cart%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_filter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_filter%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_filter%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_profile.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_profile%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\menu_profile%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\product_add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\product_add%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\product_add%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\app_settings%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\app_settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\app_settings%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOff.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOff%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOff%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOn%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\switchOn%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

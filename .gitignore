@@ -254,3 +254,5 @@ paket-files/
 
 # FAKE - F# Make
 .fake/
+
+*.DS_Store

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
+    x:Class="eShopOnContainers.Core.AppShell">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior TextOverride="" />
+    </Shell.BackButtonBehavior>
+
+    <FlyoutItem >
+        <ShellContent ContentTemplate="{DataTemplate views:LoginView}" Route="Login" />
+    </FlyoutItem>
+
+    <TabBar Route="Main">
+        <ShellContent Title="CATALOG" Route="Catalog" Icon="{StaticResource CatalogIconImageSource}" ContentTemplate="{DataTemplate views:CatalogView}" />
+        <ShellContent Title="PROFILE" Route="Profile" Icon="{StaticResource ProfileIconImageSource}" ContentTemplate="{DataTemplate views:ProfileView}" />
+    </TabBar>
+</Shell>

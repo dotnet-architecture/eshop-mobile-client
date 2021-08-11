@@ -1,4 +1,5 @@
-﻿using eShopOnContainers.Core.Models.User;
+﻿using eShopOnContainers.Core.Extensions;
+using eShopOnContainers.Core.Models.User;
 using eShopOnContainers.Core.Services.Identity;
 using eShopOnContainers.Core.Services.OpenUrl;
 using eShopOnContainers.Core.Services.Settings;
@@ -6,6 +7,7 @@ using eShopOnContainers.Core.Validations;
 using eShopOnContainers.Core.ViewModels.Base;
 using IdentityModel.Client;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -26,14 +28,11 @@ namespace eShopOnContainers.Core.ViewModels
         private IOpenUrlService _openUrlService;
         private IIdentityService _identityService;
 
-        public LoginViewModel(
-            ISettingsService settingsService,
-            IOpenUrlService openUrlService,
-            IIdentityService identityService)
+        public LoginViewModel()
         {
-            _settingsService = settingsService;
-            _openUrlService = openUrlService;
-            _identityService = identityService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _openUrlService = DependencyService.Get<IOpenUrlService> ();
+            _identityService = DependencyService.Get<IIdentityService> ();
 
             _userName = new ValidatableObject<string>();
             _password = new ValidatableObject<string>();
@@ -124,7 +123,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand SignInCommand => new Command(async () => await SignInAsync());
 
-        public ICommand RegisterCommand => new Command(Register);
+        public ICommand RegisterCommand => new Command(async () => await RegisterAsync());
 
         public ICommand NavigateCommand => new Command<string>(async (url) => await NavigateAsync(url));
 
@@ -134,19 +133,16 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand ValidatePasswordCommand => new Command(() => ValidatePassword());
 
-        public override Task InitializeAsync(object navigationData)
+        public override Task InitializeAsync (IDictionary<string, string> query)
         {
-            if (navigationData is LogoutParameter)
-            {
-                var logoutParameter = (LogoutParameter)navigationData;
+            var logout = query.GetValueAsBool ("Logout");
 
-                if (logoutParameter.Logout)
-                {
-                    Logout();
-                }
+            if(logout.ContainsKeyAndValue && logout.Value == true)
+            {
+                Logout ();
             }
 
-            return base.InitializeAsync(navigationData);
+            return Task.CompletedTask;
         }
 
         private async Task MockSignInAsync()
@@ -178,8 +174,7 @@ namespace eShopOnContainers.Core.ViewModels
             {
                 _settingsService.AuthAccessToken = GlobalSetting.Instance.AuthToken;
 
-                await NavigationService.NavigateToAsync<MainViewModel>();
-                await NavigationService.RemoveLastFromBackStackAsync();
+                await NavigationService.NavigateToAsync ("//Main/Catalog");
             }
 
             IsBusy = false;
@@ -198,9 +193,9 @@ namespace eShopOnContainers.Core.ViewModels
             IsBusy = false;
         }
 
-        private void Register()
+        private Task RegisterAsync()
         {
-            _openUrlService.OpenUrl(GlobalSetting.Instance.RegisterWebsite);
+            return _openUrlService.OpenUrl(GlobalSetting.Instance.RegisterWebsite);
         }
 
         private void Logout()
@@ -246,16 +241,20 @@ namespace eShopOnContainers.Core.ViewModels
                     {
                         _settingsService.AuthAccessToken = accessToken;
                         _settingsService.AuthIdToken = authResponse.IdentityToken;
-                        await NavigationService.NavigateToAsync<MainViewModel>();
-                        await NavigationService.RemoveLastFromBackStackAsync();
+                        await NavigationService.NavigateToAsync ("//Main/Catalog");
                     }
                 }
             }
         }
 
-        private async Task SettingsAsync()
+        private Task SettingsAsync()
         {
-            await NavigationService.NavigateToAsync<SettingsViewModel>();
+            return NavigationService.NavigateToAsync(
+                "Settings",
+                new Dictionary<string, string>
+                {
+                    { "reset", "true" },
+                });
         }
 
         private bool Validate()

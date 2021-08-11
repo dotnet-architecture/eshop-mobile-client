@@ -11,8 +11,8 @@
     <AssemblyName>eShopOnContainers.Windows</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -91,27 +91,12 @@
     <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="..\CommonResources\Fonts\Montserrat-Bold.ttf">
-      <Link>Assets\Fonts\Montserrat-Bold.ttf</Link>
-    </Content>
-    <Content Include="..\CommonResources\Fonts\Montserrat-Regular.ttf">
-      <Link>Assets\Fonts\Montserrat-Regular.ttf</Link>
-    </Content>
-    <Content Include="..\CommonResources\Fonts\SourceSansPro-Regular.ttf">
-      <Link>Assets\Fonts\SourceSansPro-Regular.ttf</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TabItem.xaml.cs">
       <DependentUpon>TabItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\TabBadgeColorConverter.cs" />
-    <Compile Include="Converters\TabBadgeTextConverter.cs" />
-    <Compile Include="Converters\TabIconConverter.cs" />
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="Extensions\VisualTreeExtensions.cs" />
     <Compile Include="Helpers\ColorHelper.cs" />
@@ -120,9 +105,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderers\CustomTabbedPageRenderer.cs" />
-    <Compile Include="Renderers\SlideDownMenuPageRenderer.cs" />
-    <Compile Include="Services\LocationServiceImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -130,11 +112,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\app_settings.png" />
     <Content Include="Assets\banner.png" />
     <Content Include="Assets\circle_button_background.png" />
     <AndroidResource Include="Assets\default_campaign.png" />
     <Content Include="Assets\default_product.png" />
+    <Content Include="Assets\eshop_logo.png" />
     <Content Include="Assets\fake_campaign_01.png" />
     <Content Include="Assets\fake_campaign_02.png" />
     <Content Include="Assets\fake_product_01.png" />
@@ -142,14 +124,7 @@
     <Content Include="Assets\fake_product_03.png" />
     <Content Include="Assets\fake_product_04.png" />
     <Content Include="Assets\fake_product_05.png" />
-    <Content Include="Assets\menu_campaigns.png" />
-    <Content Include="Assets\menu_cart.png" />
-    <Content Include="Assets\menu_filter.png" />
-    <Content Include="Assets\menu_profile.png" />
     <Content Include="Assets\noimage.png" />
-    <Content Include="Assets\product_add.png" />
-    <Content Include="Assets\switchOff.png" />
-    <Content Include="Assets\switchOn.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -174,13 +149,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +158,17 @@
       <Project>{76c5f2a7-6cd5-49ea-9f33-ec44de6539c7}</Project>
       <Name>eShopOnContainers.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.19041.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Fonts\Font_Awesome_5_Free-Regular-400.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Fonts\Font_Awesome_5_Free-Solid-900.otf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

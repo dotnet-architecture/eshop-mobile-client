@@ -27,16 +27,12 @@ namespace eShopOnContainers.Core.ViewModels
         private IOrderService _orderService;
         private IUserService _userService;
 
-        public CheckoutViewModel(
-            ISettingsService settingsService,
-            IBasketService basketService,
-            IOrderService orderService,
-            IUserService userService)
+        public CheckoutViewModel()
         {
-            _settingsService = settingsService;
-            _basketService = basketService;
-            _orderService = orderService;
-            _userService = userService;
+            _settingsService = DependencyService.Get<ISettingsService> ();
+            _basketService = DependencyService.Get<IBasketService> ();
+            _orderService = DependencyService.Get<IOrderService> ();
+            _userService = DependencyService.Get<IUserService> ();
         }
 
         public ObservableCollection<BasketItem> OrderItems
@@ -71,72 +67,69 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand CheckoutCommand => new Command(async () => await CheckoutAsync());
 
-        public override async Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync (IDictionary<string, string> query)
         {
-            if (navigationData is ObservableCollection<BasketItem>)
+            IsBusy = true;
+
+            var basketItems = _basketService.LocalBasketItems;
+            OrderItems = new ObservableCollection<BasketItem>(basketItems);
+
+            var authToken = _settingsService.AuthAccessToken;
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
+
+            // Create Shipping Address
+            ShippingAddress = new Address
             {
-                IsBusy = true;
+                Id = !string.IsNullOrEmpty (userInfo?.UserId) ? new Guid (userInfo.UserId) : Guid.NewGuid (),
+                Street = userInfo?.Street,
+                ZipCode = userInfo?.ZipCode,
+                State = userInfo?.State,
+                Country = userInfo?.Country,
+                City = userInfo?.Address
+            };
 
-                // Get navigation data
-                var orderItems = ((ObservableCollection<BasketItem>)navigationData);
+            // Create Payment Info
+            var paymentInfo = new PaymentInfo
+            {
+                CardNumber = userInfo?.CardNumber,
+                CardHolderName = userInfo?.CardHolder,
+                CardType = new CardType { Id = 3, Name = "MasterCard" },
+                SecurityNumber = userInfo?.CardSecurityNumber
+            };
 
-                OrderItems = orderItems;
+            var orderItems = CreateOrderItems (basketItems);
 
-                var authToken = _settingsService.AuthAccessToken;
-                var userInfo = await _userService.GetUserInfoAsync(authToken);
+            // Create new Order
+            Order = new Order
+            {
+                BuyerId = userInfo.UserId,
+                OrderItems = orderItems,
+                OrderStatus = OrderStatus.Submitted,
+                OrderDate = DateTime.Now,
+                CardHolderName = paymentInfo.CardHolderName,
+                CardNumber = paymentInfo.CardNumber,
+                CardSecurityNumber = paymentInfo.SecurityNumber,
+                CardExpiration = DateTime.Now.AddYears (5),
+                CardTypeId = paymentInfo.CardType.Id,
+                ShippingState = _shippingAddress.State,
+                ShippingCountry = _shippingAddress.Country,
+                ShippingStreet = _shippingAddress.Street,
+                ShippingCity = _shippingAddress.City,
+                ShippingZipCode = _shippingAddress.ZipCode,
+                Total = CalculateTotal (orderItems),
+            };
 
-                // Create Shipping Address
-                ShippingAddress = new Address
-                {
-                    Id = !string.IsNullOrEmpty(userInfo?.UserId) ? new Guid(userInfo.UserId) : Guid.NewGuid(),
-                    Street = userInfo?.Street,
-                    ZipCode = userInfo?.ZipCode,
-                    State = userInfo?.State,
-                    Country = userInfo?.Country,
-                    City = userInfo?.Address
-                };
+            if (_settingsService.UseMocks)
+            {
+                // Get number of orders
+                var orders = await _orderService.GetOrdersAsync (authToken);
 
-                // Create Payment Info
-                var paymentInfo = new PaymentInfo
-                {
-                    CardNumber = userInfo?.CardNumber,
-                    CardHolderName = userInfo?.CardHolder,
-                    CardType = new CardType { Id = 3, Name = "MasterCard" },
-                    SecurityNumber = userInfo?.CardSecurityNumber
-                };
-
-                // Create new Order
-                Order = new Order
-                {
-                    BuyerId = userInfo.UserId,
-                    OrderItems = CreateOrderItems(orderItems),
-                    OrderStatus = OrderStatus.Submitted,
-                    OrderDate = DateTime.Now,
-                    CardHolderName = paymentInfo.CardHolderName,
-                    CardNumber = paymentInfo.CardNumber,
-                    CardSecurityNumber = paymentInfo.SecurityNumber,
-                    CardExpiration = DateTime.Now.AddYears(5),
-                    CardTypeId = paymentInfo.CardType.Id,
-                    ShippingState = _shippingAddress.State,
-                    ShippingCountry = _shippingAddress.Country,
-                    ShippingStreet = _shippingAddress.Street,
-                    ShippingCity = _shippingAddress.City,
-                    ShippingZipCode = _shippingAddress.ZipCode,
-                    Total = CalculateTotal(CreateOrderItems(orderItems))
-                };
-
-                if (_settingsService.UseMocks)
-                {
-                    // Get number of orders
-                    var orders = await _orderService.GetOrdersAsync(authToken);
-
-                    // Create the OrderNumber
-                    Order.OrderNumber = orders.Count + 1;
-                    RaisePropertyChanged(() => Order);
-                }
-
-                IsBusy = false;
+                // Create the OrderNumber
+                Order.OrderNumber = orders.Count + 1;
+                RaisePropertyChanged (() => Order);
             }
+
+            IsBusy = false;
         }
 
         private async Task CheckoutAsync()
@@ -164,12 +157,10 @@ namespace eShopOnContainers.Core.ViewModels
                 basketViewModel.BadgeCount = 0;
 
                 // Navigate to Orders
-                await NavigationService.NavigateToAsync<MainViewModel>(new TabParameter { TabIndex = 1 });
-                await NavigationService.RemoveLastFromBackStackAsync();
+                await NavigationService.NavigateToAsync("//Main/Catalog");
 
                 // Show Dialog
                 await DialogService.ShowAlertAsync("Order sent successfully!", "Checkout", "Ok");
-                await NavigationService.RemoveLastFromBackStackAsync();
             }
             catch
             {
@@ -177,7 +168,7 @@ namespace eShopOnContainers.Core.ViewModels
             }
         }
 
-        private List<OrderItem> CreateOrderItems(ObservableCollection<BasketItem> basketItems)
+        private List<OrderItem> CreateOrderItems(IEnumerable<BasketItem> basketItems)
         {
             var orderItems = new List<OrderItem>();
 

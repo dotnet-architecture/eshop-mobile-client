@@ -1,7 +1,9 @@
-﻿namespace eShopOnContainers.Core.Services.OpenUrl
+﻿using System.Threading.Tasks;
+
+namespace eShopOnContainers.Core.Services.OpenUrl
 {
     public interface IOpenUrlService
     {
-        void OpenUrl(string url);
+        Task OpenUrl(string url);
     }
 }

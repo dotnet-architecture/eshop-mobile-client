@@ -4,11 +4,12 @@
              x:Class="eShopOnContainers.Core.Views.CampaignDetailsView"
              xmlns:converters="clr-namespace:eShopOnContainers.Core.Converters;assembly=eShopOnContainers.Core"
 			 xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
+             xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
 			 viewModelBase:ViewModelLocator.AutoWireViewModel="true"
-             Title="Campaign Details">
+             x:DataType="viewmodels:CampaignDetailsViewModel"
+             Title="CAMPAIGN DETAILS">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter" />
             
             <Style x:Key="CampaignTitleStyle" 
                    TargetType="{x:Type Label}">
@@ -31,8 +32,6 @@
                    BasedOn="{StaticResource CampaignTitleStyle}">
                 <Setter Property="FontSize" 
                         Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor" 
-                        Value="{StaticResource BlackColor}" />
             </Style>
 
             <Style x:Key="CampaignImageStyle" 
@@ -119,7 +118,7 @@
                         </Grid.RowDefinitions>
                         <Image
                         Grid.Row="0"
-                        Source="{Binding Campaign.PictureUri, Converter={StaticResource ImageConverter}}"        
+                        Source="{Binding Campaign.PictureUri}"        
                         Style="{StaticResource CampaignImageStyle}"/>
                         <Label 
                         Grid.Row="1"
@@ -165,7 +164,6 @@
         <!-- INDICATOR -->
         <ActivityIndicator
             Grid.Row="0"
-            Color="{StaticResource LightGreenColor}"
             IsRunning="{Binding IsBusy}"  
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center"

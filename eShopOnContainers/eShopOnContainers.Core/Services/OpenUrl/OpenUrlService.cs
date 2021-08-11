@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.Services.OpenUrl
 {
     public class OpenUrlService : IOpenUrlService
     {
-        public void OpenUrl(string url)
+        public async Task OpenUrl(string url)
         {
-            Device.OpenUri(new Uri(url));
+            if (await Launcher.CanOpenAsync(url))
+            {
+                await Launcher.OpenAsync (url);
+            }
         }
     }
 }
