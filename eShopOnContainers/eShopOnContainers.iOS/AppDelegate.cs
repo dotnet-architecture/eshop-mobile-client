@@ -1,5 +1,4 @@
-﻿using FFImageLoading.Forms.Touch;
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 namespace eShopOnContainers.iOS
@@ -10,10 +9,8 @@ namespace eShopOnContainers.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
 
-            SlideOverKit.iOS.SlideOverKit.Init();
-            CachedImageRenderer.Init();
+            LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }

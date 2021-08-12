@@ -35,38 +35,38 @@ namespace eShopOnContainers.Core.Controls
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         public object CommandParameter
         {
-            get { return GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
         public bool Checked
         {
-            get { return (bool)GetValue(CheckedProperty); }
-            set { SetValue(CheckedProperty, value); }
+            get => (bool)GetValue(CheckedProperty);
+            set => SetValue(CheckedProperty, value);
         }
 
         public bool Animate
         {
-            get { return (bool)GetValue(AnimateProperty); }
-            set { SetValue(CheckedProperty, value); }
+            get => (bool)GetValue(AnimateProperty);
+            set => SetValue(CheckedProperty, value);
         }
 
         public ImageSource CheckedImage
         {
-            get { return (ImageSource)GetValue(CheckedImageProperty); }
-            set { SetValue(CheckedImageProperty, value); }
+            get => (ImageSource)GetValue(CheckedImageProperty);
+            set => SetValue(CheckedImageProperty, value);
         }
 
         public ImageSource UnCheckedImage
         {
-            get { return (ImageSource)GetValue(UnCheckedImageProperty); }
-            set { SetValue(UnCheckedImageProperty, value); }
+            get => (ImageSource)GetValue(UnCheckedImageProperty);
+            set => SetValue(UnCheckedImageProperty, value);
         }
 
         public ICommand ToogleCommand

@@ -1,5 +1,5 @@
-﻿using Acr.UserDialogs;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace eShopOnContainers.Services
 {
@@ -7,7 +7,7 @@ namespace eShopOnContainers.Services
     {
         public Task ShowAlertAsync(string message, string title, string buttonLabel)
         {
-            return UserDialogs.Instance.AlertAsync(message, title, buttonLabel);
+            return App.Current.MainPage.DisplayAlert (title, message, buttonLabel);
         }
     }
 }

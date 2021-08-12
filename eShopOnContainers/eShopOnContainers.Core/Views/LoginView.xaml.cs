@@ -1,5 +1,6 @@
 ﻿using eShopOnContainers.Core.ViewModels;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;

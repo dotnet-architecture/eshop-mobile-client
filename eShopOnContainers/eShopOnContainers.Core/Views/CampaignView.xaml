@@ -1,75 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="eShopOnContainers.Core.Views.CampaignView"   
-             xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
-		     xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
-             xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
-             xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
-             xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
-			 viewModelBase:ViewModelLocator.AutoWireViewModel="true"
-             Title="Campaigns">
+<views:ContentPageBase
+    x:Class="eShopOnContainers.Core.Views.CampaignView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
+    xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
+    xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
+    xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
+    xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
+    xmlns:views="clr-namespace:eShopOnContainers.Core.Views"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="CAMPAIGNS"
+    viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+    x:DataType="viewmodels:CampaignViewModel">
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <Style x:Key="CampaignsListStyle" 
-               TargetType="{x:Type ListView}">
-                <Setter Property="RowHeight"
-                        Value="400" />
-                <Setter Property="VerticalOptions"
-                        Value="Center" />
-                <Setter Property="Margin"
-                        Value="0" />
+            <Style x:Key="CampaignsListStyle" TargetType="{x:Type ListView}">
+                <Setter Property="RowHeight" Value="400" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0" />
             </Style>
-            <animations:StoryBoard 
-                x:Key="CampaignsAnimation"    
-                Target="{x:Reference Campaigns}">
-                <animations:FadeInAnimation 
+            <animations:StoryBoard x:Key="CampaignsAnimation" Target="{x:Reference Campaigns}">
+                <animations:FadeInAnimation
+                    Delay="250"
                     Direction="Up"
-                    Duration="1500"
-                    Delay="250"/>
+                    Duration="1500" />
             </animations:StoryBoard>
-            
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Triggers>
-        <EventTrigger 
-            Event="Appearing">
-            <triggers:BeginAnimation   
-                Animation="{StaticResource CampaignsAnimation}" />
+        <EventTrigger Event="Appearing">
+            <triggers:BeginAnimation Animation="{StaticResource CampaignsAnimation}" />
         </EventTrigger>
     </ContentPage.Triggers>
-    <Grid  
-        ColumnSpacing="0"
-        RowSpacing="0">
+    <Grid ColumnSpacing="0" RowSpacing="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!-- CAMPAIGNS -->
-        <Grid  
-            Grid.Row="1">
-            <Grid 
-                IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
-                <Label 
-                    Text="NO CAMPAIGNS FOUND"      
-                    IsVisible="{Binding Campaigns.Count, Converter={StaticResource InverseCountToBoolConverter}}"
+        <!--  CAMPAIGNS  -->
+        <Grid Grid.Row="1">
+            <Grid IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+                <Label
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    IsVisible="{Binding Campaigns, Converter={StaticResource ListIsNullOrEmptyConverter}}"
+                    Text="NO CAMPAIGNS FOUND"
+                    VerticalOptions="Center" />
             </Grid>
-            <ListView 
-                x:Name="Campaigns"       
+            <ListView
+                x:Name="Campaigns"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True"
                 IsVisible="{Binding Campaigns.Count, Converter={StaticResource CountToBoolConverter}}"
                 ItemsSource="{Binding Campaigns}"
-                HasUnevenRows="True"
                 SeparatorVisibility="None"
-                CachingStrategy="RecycleElement"
                 Style="{StaticResource CampaignsListStyle}">
                 <ListView.Behaviors>
-                    <behaviors:EventToCommandBehavior                    
-                        EventName="ItemTapped"
+                    <xct:EventToCommandBehavior
                         Command="{Binding GetCampaignDetailsCommand}"
-                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"
+                        EventName="ItemTapped" />
                 </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -80,15 +72,15 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <!-- INDICATOR -->
+        <!--  INDICATOR  -->
         <ActivityIndicator
             Grid.Row="0"
             Grid.RowSpan="2"
-            Color="{StaticResource LightGreenColor}"
-            IsRunning="{Binding IsBusy}"  
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center"
-            HorizontalOptions="Center">
+            Color="{StaticResource LightGreenColor}">
             <ActivityIndicator.WidthRequest>
                 <OnPlatform x:TypeArguments="x:Double">
                     <On Platform="iOS, Android" Value="100" />
@@ -97,4 +89,4 @@
             </ActivityIndicator.WidthRequest>
         </ActivityIndicator>
     </Grid>
-</ContentPage>
+</views:ContentPageBase>

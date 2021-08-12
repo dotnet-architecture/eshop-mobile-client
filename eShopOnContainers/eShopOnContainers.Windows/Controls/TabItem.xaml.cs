@@ -11,8 +11,8 @@ namespace eShopOnContainers.Windows.Controls
 
         public string Icon
         {
-            get { return GetValue(IconProperty) as string; }
-            set { SetValue(IconProperty, value); }
+            get => GetValue(IconProperty) as string;
+            set => SetValue(IconProperty, value);
         }
 
         public static readonly DependencyProperty LabelProperty = 
@@ -20,8 +20,8 @@ namespace eShopOnContainers.Windows.Controls
 
         public string BadgeText
         {
-            get { return GetValue(BadgeTextProperty) as string; }
-            set { SetValue(BadgeTextProperty, value); }
+            get => GetValue(BadgeTextProperty) as string;
+            set => SetValue(BadgeTextProperty, value);
         }
 
         public static readonly DependencyProperty BadgeTextProperty =
@@ -29,8 +29,8 @@ namespace eShopOnContainers.Windows.Controls
 
         public SolidColorBrush BadgeColor
         {
-            get { return GetValue(BadgeColorProperty) as SolidColorBrush; }
-            set { SetValue(BadgeColorProperty, value); }
+            get => GetValue(BadgeColorProperty) as SolidColorBrush;
+            set => SetValue(BadgeColorProperty, value);
         }
 
         public static readonly DependencyProperty BadgeColorProperty =
@@ -38,8 +38,8 @@ namespace eShopOnContainers.Windows.Controls
 
         public string Label
         {
-            get { return GetValue(LabelProperty) as string; }
-            set { SetValue(LabelProperty, value); }
+            get => GetValue(LabelProperty) as string;
+            set => SetValue(LabelProperty, value);
         }
 
         public TabItem()

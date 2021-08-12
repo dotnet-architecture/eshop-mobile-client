@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<slideOverKit:SlideMenuView 
+<xct:Popup
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:slideOverKit="clr-namespace:SlideOverKit" 
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:viewmodels="clr-namespace:eShopOnContainers.Core.ViewModels"
     x:Class="eShopOnContainers.Core.Views.FiltersView"
-    MenuOrientations="TopToBottom"
-    BackgroundColor="{StaticResource BackgroundColor}"
-    HeightRequest="250"
-    IsFullScreen="True">
-  <slideOverKit:SlideMenuView.Resources>
+    x:DataType="viewmodels:CatalogViewModel"
+    Size="240,320"
+    VerticalOptions="Center"
+    HorizontalOptions="Center">
+  <xct:Popup.Resources>
     <ResourceDictionary>
 
       <Style x:Key="FilterPickerStyle"  
@@ -17,12 +18,6 @@
                 Value="48" />
         <Setter Property="BackgroundColor"
                 Value="Transparent" />
-        <Setter Property="HorizontalOptions"
-                Value="Fill" />
-        <Setter Property="VerticalOptions"
-                Value="Fill" />	
-        <Setter Property="Margin"                
-                Value="0, 2" />
       </Style>
              
       <Style x:Key="FilterButtonStyle"  
@@ -39,10 +34,6 @@
                 Value="0" />
         <Setter Property="BorderWidth"
                 Value="0" />
-        <Setter Property="HorizontalOptions"
-                Value="Fill" />
-        <Setter Property="VerticalOptions"
-                Value="Fill" />
       </Style>
 
       <Style
@@ -54,17 +45,26 @@
         <Setter Property="BackgroundColor"
                 Value="{StaticResource GrayColor}" />
       </Style>
+
+            <Style x:Key="UWPBackgroundStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}" />
+            </Style>
           
     </ResourceDictionary>
-  </slideOverKit:SlideMenuView.Resources>
-  <Grid    
-    Padding="0"            
+  </xct:Popup.Resources>
+  <Grid
+    Padding="8"            
     ColumnSpacing="0"    
-    RowSpacing="0"
-    Margin="48, 24">
+    RowSpacing="8">
+    <Grid.Style>
+        <OnPlatform x:TypeArguments="Style" >
+            <On Platform="UWP" Value="{StaticResource UWPBackgroundStyle}" />
+        </OnPlatform>
+    </Grid.Style>
     <Grid.RowDefinitions>      
       <RowDefinition Height="60" />
-      <RowDefinition Height="60" /> 
+      <RowDefinition Height="60" />
+      <RowDefinition Height="*" /> 
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
@@ -97,15 +97,15 @@
       </Picker.HeightRequest> 
     </Picker>
     <Button 
-      Grid.Row="2"
+      Grid.Row="3"
       Text="Apply" 
       Style="{StaticResource FilterButtonStyle}"
-      Command="{Binding FilterCommand}"/>   
+      Clicked="OnFilterClicked"/>   
     <Button
-      Grid.Row="3"
+      Grid.Row="4"
       Text="Clear"
-      IsVisible="{Binding IsFilter}"
+      IsEnabled="{Binding IsFilter}"
       Style="{StaticResource ClearFilterButtonStyle}"
       Command="{Binding ClearFilterCommand}"/>
 </Grid>
-</slideOverKit:SlideMenuView>
+</xct:Popup>

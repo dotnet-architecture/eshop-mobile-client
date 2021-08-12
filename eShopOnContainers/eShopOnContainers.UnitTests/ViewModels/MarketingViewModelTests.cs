@@ -1,9 +1,13 @@
-﻿using eShopOnContainers.Core.Services.Marketing;
+﻿using eShopOnContainers.Core.Models.Marketing;
+using eShopOnContainers.Core.Services.Dependency;
+using eShopOnContainers.Core.Services.Marketing;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
 using eShopOnContainers.UnitTests.Mocks;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xunit;
 
 namespace eShopOnContainers.UnitTests.ViewModels
@@ -13,24 +17,23 @@ namespace eShopOnContainers.UnitTests.ViewModels
         public MarketingViewModelTests()
         {
             ViewModelLocator.UpdateDependencies(true);
-            ViewModelLocator.RegisterSingleton<ISettingsService, MockSettingsService>();
         }
 
         [Fact]
         public void GetCampaignsIsNullTest()
         {
-            var settingsService = new MockSettingsService();
-            var campaignService = new CampaignMockService();
-            var campaignViewModel = new CampaignViewModel(settingsService, campaignService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService>(new CampaignMockService());
+            var campaignViewModel = new CampaignViewModel();
             Assert.Null(campaignViewModel.Campaigns);
         }
 
         [Fact]
         public async Task GetCampaignsIsNotNullTest()
         {
-            var settingsService = new MockSettingsService();
-            var campaignService = new CampaignMockService();
-            var campaignViewModel = new CampaignViewModel(settingsService, campaignService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService>(new CampaignMockService());
+            var campaignViewModel = new CampaignViewModel();
 
             await campaignViewModel.InitializeAsync(null);
 
@@ -40,29 +43,30 @@ namespace eShopOnContainers.UnitTests.ViewModels
         [Fact]
         public void GetCampaignDetailsCommandIsNotNullTest()
         {
-            var settingsService = new MockSettingsService();
-            var campaignService = new CampaignMockService();
-            var campaignViewModel = new CampaignViewModel(settingsService, campaignService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService>(new CampaignMockService());
+            var campaignViewModel = new CampaignViewModel();
+
             Assert.NotNull(campaignViewModel.GetCampaignDetailsCommand);
         }
 
         [Fact]
         public void GetCampaignDetailsByIdIsNullTest()
         {
-            var settingsService = new MockSettingsService();
-            var campaignService = new CampaignMockService();
-            var campaignViewModel = new CampaignDetailsViewModel(settingsService, campaignService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService>(new CampaignMockService());
+            var campaignViewModel = new CampaignDetailsViewModel();
             Assert.Null(campaignViewModel.Campaign);
         }
 
         [Fact]
         public async Task GetCampaignDetailsByIdIsNotNullTest()
         {
-            var settingsService = new MockSettingsService();
-            var campaignService = new CampaignMockService();
-            var campaignDetailsViewModel = new CampaignDetailsViewModel(settingsService, campaignService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService>(new CampaignMockService());
+            var campaignDetailsViewModel = new CampaignDetailsViewModel();
 
-            await campaignDetailsViewModel.InitializeAsync(1);
+            await campaignDetailsViewModel.InitializeAsync(new Dictionary<string, string> { { nameof(Campaign.Id), "1" } });
 
             Assert.NotNull(campaignDetailsViewModel.Campaign);
         }

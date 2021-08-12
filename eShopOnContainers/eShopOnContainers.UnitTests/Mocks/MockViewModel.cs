@@ -9,32 +9,26 @@ namespace eShopOnContainers.UnitTests
 		private ValidatableObject<string> _surname;
 
 		public ValidatableObject<string> Forename
-		{
-			get
-			{
-				return _forename;
-			}
-			set
-			{
-				_forename = value;
-				RaisePropertyChanged(() => Forename);
-			}
-		}
+        {
+            get => _forename;
+            set
+            {
+                _forename = value;
+                RaisePropertyChanged(() => Forename);
+            }
+        }
 
-		public ValidatableObject<string> Surname
-		{
-			get
-			{
-				return _surname;
-			}
-			set
-			{
-				_surname = value;
-				RaisePropertyChanged(() => Surname);
-			}
-		}
+        public ValidatableObject<string> Surname
+        {
+            get => _surname;
+            set
+            {
+                _surname = value;
+                RaisePropertyChanged(() => Surname);
+            }
+        }
 
-		public MockViewModel()
+        public MockViewModel()
 		{
 			_forename = new ValidatableObject<string>();
 			_surname = new ValidatableObject<string>();

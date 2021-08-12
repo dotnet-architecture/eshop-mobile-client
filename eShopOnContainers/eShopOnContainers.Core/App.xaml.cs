@@ -1,17 +1,17 @@
-﻿using eShopOnContainers.Core.Models.Location;
-using eShopOnContainers.Core.Services.Dependency;
+﻿using eShopOnContainers.Core;
 using eShopOnContainers.Core.Services.Location;
 using eShopOnContainers.Core.Services.Settings;
+using eShopOnContainers.Core.Services.Theme;
 using eShopOnContainers.Core.ViewModels.Base;
 using eShopOnContainers.Services;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace eShopOnContainers
 {
     public partial class App : Application
@@ -23,10 +23,8 @@ namespace eShopOnContainers
             InitializeComponent();
 
             InitApp();
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                InitNavigation();
-            }
+
+            MainPage = new AppShell ();
         }
 
         private void InitApp()
@@ -46,10 +44,6 @@ namespace eShopOnContainers
         {
             base.OnStart();
 
-            if (Device.RuntimePlatform != Device.UWP)
-            {
-                await InitNavigation();
-            }
             if (_settingsService.AllowGpsLocation && !_settingsService.UseFakeLocation)
             {
                 await GetGpsLocation();
@@ -59,43 +53,82 @@ namespace eShopOnContainers
                 await SendCurrentLocation();
             }
 
-            base.OnResume();
+            OnResume();
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            SetStatusBar();
+            RequestedThemeChanged -= App_RequestedThemeChanged;
         }
 
-        private async Task GetGpsLocation()
+        protected override void OnResume()
         {
-            var dependencyService = ViewModelLocator.Resolve<IDependencyService>();
-            var locator = dependencyService.Get<ILocationServiceImplementation>();
+            SetStatusBar();
+            RequestedThemeChanged += App_RequestedThemeChanged;
+        }
 
-            if (locator.IsGeolocationEnabled && locator.IsGeolocationAvailable)
+        private void App_RequestedThemeChanged(object sender, AppThemeChangedEventArgs e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                locator.DesiredAccuracy = 50;
+                SetStatusBar();
+            });
+        }
 
-                try
+        void SetStatusBar()
+        {
+            var nav = Current.MainPage as NavigationPage;
+
+            var e = DependencyService.Get<ITheme>();
+            if (Current.RequestedTheme == OSAppTheme.Dark)
+            {
+                e?.SetStatusBarColor(Color.Black, false);
+                if (nav != null)
                 {
-                    var position = await locator.GetPositionAsync();
-                    _settingsService.Latitude = position.Latitude.ToString();
-                    _settingsService.Longitude = position.Longitude.ToString();
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
+                    nav.BarBackgroundColor = Color.Black;
+                    nav.BarTextColor = Color.White;
                 }
             }
             else
             {
-                _settingsService.AllowGpsLocation = false;
+                e?.SetStatusBarColor(Color.White, true);
+                if (nav != null)
+                {
+                    nav.BarBackgroundColor = Color.White;
+                    nav.BarTextColor = Color.Black;
+                }
+            }
+        }
+
+        private async Task GetGpsLocation()
+        {
+            try
+            {
+                var request = new GeolocationRequest (GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync (request, CancellationToken.None).ConfigureAwait(false);
+
+                if (location != null)
+                {
+                    _settingsService.Latitude = location.Latitude.ToString ();
+                    _settingsService.Longitude = location.Longitude.ToString ();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is FeatureNotEnabledException || ex is FeatureNotEnabledException || ex is PermissionException)
+                {
+                    _settingsService.AllowGpsLocation = false;
+                }
+
+                // Unable to get location
+                Debug.WriteLine(ex);
             }
         }
 
         private async Task SendCurrentLocation()
         {
-            var location = new Location
+            var location = new Core.Models.Location.Location
             {
                 Latitude = double.Parse(_settingsService.Latitude, CultureInfo.InvariantCulture),
                 Longitude = double.Parse(_settingsService.Longitude, CultureInfo.InvariantCulture)

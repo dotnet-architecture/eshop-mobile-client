@@ -3,9 +3,12 @@ using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
 using eShopOnContainers.Core.Views;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Services
@@ -13,16 +16,6 @@ namespace eShopOnContainers.Services
     public class NavigationService : INavigationService
     {
         private readonly ISettingsService _settingsService;
-
-        public ViewModelBase PreviousPageViewModel
-        {
-            get
-            {
-                var mainPage = Application.Current.MainPage as CustomNavigationView;
-                var viewModel = mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2].BindingContext;
-                return viewModel as ViewModelBase;
-            }
-        }
 
         public NavigationService(ISettingsService settingsService)
         {
@@ -32,72 +25,27 @@ namespace eShopOnContainers.Services
         public Task InitializeAsync()
         {
             if (string.IsNullOrEmpty(_settingsService.AuthAccessToken))
-                return NavigateToAsync<LoginViewModel>();
+                return NavigateToAsync("//Login");
             else
-                return NavigateToAsync<MainViewModel>();
+                return NavigateToAsync("//Main/Catalog");
         }
 
-        public Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase
+        public Task NavigateToAsync (string route, IDictionary<string, string> routeParameters = null)
         {
-            return InternalNavigateToAsync(typeof(TViewModel), null);
-        }
+            var uri = new StringBuilder (route);
 
-        public Task NavigateToAsync<TViewModel>(object parameter) where TViewModel : ViewModelBase
-        {
-            return InternalNavigateToAsync(typeof(TViewModel), parameter);
-        }
-
-        public Task RemoveLastFromBackStackAsync()
-        {
-            var mainPage = Application.Current.MainPage as CustomNavigationView;
-
-            if (mainPage != null)
+            if (routeParameters != null)
             {
-                mainPage.Navigation.RemovePage(
-                    mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2]);
-            }
+                uri.Append ('?');
 
-            return Task.FromResult(true);
-        }
-
-        public Task RemoveBackStackAsync()
-        {
-            var mainPage = Application.Current.MainPage as CustomNavigationView;
-
-            if (mainPage != null)
-            {
-                for (int i = 0; i < mainPage.Navigation.NavigationStack.Count - 1; i++)
+                foreach (var routeParameter in routeParameters)
                 {
-                    var page = mainPage.Navigation.NavigationStack[i];
-                    mainPage.Navigation.RemovePage(page);
+                    uri.Append ($"{routeParameter.Key}={Uri.EscapeDataString (routeParameter.Value)}&");
                 }
+                uri.Remove (uri.Length - 1, 1);
             }
 
-            return Task.FromResult(true);
-        }
-
-        private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
-        {
-            Page page = CreatePage(viewModelType, parameter);
-
-            if (page is LoginView)
-            {
-                Application.Current.MainPage = new CustomNavigationView(page);
-            }
-            else
-            {
-                var navigationPage = Application.Current.MainPage as CustomNavigationView;
-                if (navigationPage != null)
-                {
-                    await navigationPage.PushAsync(page);
-                }
-                else
-                {
-                    Application.Current.MainPage = new CustomNavigationView(page);
-                }
-            }
-
-            await (page.BindingContext as ViewModelBase).InitializeAsync(parameter);
+            return Shell.Current.GoToAsync (uri.ToString ());
         }
 
         private Type GetPageTypeForViewModel(Type viewModelType)

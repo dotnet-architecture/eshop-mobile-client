@@ -14,15 +14,12 @@ using eShopOnContainers.Services;
 using System;
 using System.Globalization;
 using System.Reflection;
-using TinyIoC;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.ViewModels.Base
 {
     public static class ViewModelLocator
     {
-        private static TinyIoCContainer _container;
-
         public static readonly BindableProperty AutoWireViewModelProperty =
             BindableProperty.CreateAttached("AutoWireViewModel", typeof(bool), typeof(ViewModelLocator), default(bool), propertyChanged: OnAutoWireViewModelChanged);
 
@@ -40,35 +37,35 @@ namespace eShopOnContainers.Core.ViewModels.Base
 
         static ViewModelLocator()
         {
-            _container = new TinyIoCContainer();
+            // Services - by default, TinyIoC will register interface registrations as singletons.
+            var settingsService = new SettingsService ();
+            var requestProvider = new RequestProvider ();
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(settingsService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<INavigationService>(new NavigationService(settingsService));
+            Xamarin.Forms.DependencyService.RegisterSingleton<IDialogService>(new DialogService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IOpenUrlService>(new OpenUrlService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IRequestProvider>(requestProvider);
+            Xamarin.Forms.DependencyService.RegisterSingleton<IIdentityService>(new IdentityService(requestProvider));
+            Xamarin.Forms.DependencyService.RegisterSingleton<IDependencyService>(new Services.Dependency.DependencyService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IFixUriService>(new FixUriService(settingsService));
+            Xamarin.Forms.DependencyService.RegisterSingleton<ILocationService>(new LocationService(requestProvider));
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICatalogService>(new CatalogMockService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IBasketService>(new BasketMockService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IOrderService>(new OrderMockService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IUserService>(new UserMockService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService>(new CampaignMockService());
 
             // View models - by default, TinyIoC will register concrete classes as multi-instance.
-            _container.Register<BasketViewModel>();
-            _container.Register<CatalogViewModel>();
-            _container.Register<CheckoutViewModel>();
-            _container.Register<LoginViewModel>();
-            _container.Register<MainViewModel>();
-            _container.Register<OrderDetailViewModel>();
-            _container.Register<ProfileViewModel>();
-            _container.Register<SettingsViewModel>();
-            _container.Register<CampaignViewModel>();
-            _container.Register<CampaignDetailsViewModel>();
-
-            // Services - by default, TinyIoC will register interface registrations as singletons.
-            _container.Register<INavigationService, NavigationService>();
-            _container.Register<IDialogService, DialogService>();
-            _container.Register<IOpenUrlService, OpenUrlService>();
-            _container.Register<IIdentityService, IdentityService>();
-            _container.Register<IRequestProvider, RequestProvider>();
-            _container.Register<IDependencyService, Services.Dependency.DependencyService>();
-            _container.Register<ISettingsService, SettingsService>();
-            _container.Register<IFixUriService, FixUriService>();
-            _container.Register<ILocationService, LocationService>();
-            _container.Register<ICatalogService, CatalogMockService>();
-            _container.Register<IBasketService, BasketMockService>();
-            _container.Register<IOrderService, OrderMockService>();
-            _container.Register<IUserService, UserMockService>();
-            _container.Register<ICampaignService, CampaignMockService>();
+            Xamarin.Forms.DependencyService.Register<BasketViewModel> ();
+            Xamarin.Forms.DependencyService.Register<CatalogViewModel> ();
+            Xamarin.Forms.DependencyService.Register<CheckoutViewModel> ();
+            Xamarin.Forms.DependencyService.Register<LoginViewModel> ();
+            Xamarin.Forms.DependencyService.Register<MainViewModel> ();
+            Xamarin.Forms.DependencyService.Register<OrderDetailViewModel> ();
+            Xamarin.Forms.DependencyService.Register<ProfileViewModel> ();
+            Xamarin.Forms.DependencyService.Register<SettingsViewModel> ();
+            Xamarin.Forms.DependencyService.Register<CampaignViewModel> ();
+            Xamarin.Forms.DependencyService.Register<CampaignDetailsViewModel> ();
         }
 
         public static void UpdateDependencies(bool useMockServices)
@@ -76,34 +73,31 @@ namespace eShopOnContainers.Core.ViewModels.Base
             // Change injected dependencies
             if (useMockServices)
             {
-                _container.Register<ICatalogService, CatalogMockService>();
-                _container.Register<IBasketService, BasketMockService>();
-                _container.Register<IOrderService, OrderMockService>();
-                _container.Register<IUserService, UserMockService>();
-                _container.Register<ICampaignService, CampaignMockService>();
+                Xamarin.Forms.DependencyService.RegisterSingleton<ICatalogService>(new CatalogMockService());
+                Xamarin.Forms.DependencyService.RegisterSingleton<IBasketService> (new BasketMockService());
+                Xamarin.Forms.DependencyService.RegisterSingleton<IOrderService> (new OrderMockService());
+                Xamarin.Forms.DependencyService.RegisterSingleton<IUserService> (new UserMockService());
+                Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService> (new CampaignMockService());
 
                 UseMockService = true;
             }
             else
             {
-                _container.Register<ICatalogService, CatalogService>();
-                _container.Register<IBasketService, BasketService>();
-                _container.Register<IOrderService, OrderService>();
-                _container.Register<IUserService, UserService>();
-                _container.Register<ICampaignService, CampaignService>();
+                var requestProvider = Xamarin.Forms.DependencyService.Get<IRequestProvider> ();
+                var fixUriService = Xamarin.Forms.DependencyService.Get<IFixUriService> ();
+                Xamarin.Forms.DependencyService.RegisterSingleton<IBasketService> (new BasketService(requestProvider, fixUriService));
+                Xamarin.Forms.DependencyService.RegisterSingleton<ICampaignService> (new CampaignService(requestProvider, fixUriService));
+                Xamarin.Forms.DependencyService.RegisterSingleton<ICatalogService> (new CatalogService(requestProvider, fixUriService));
+                Xamarin.Forms.DependencyService.RegisterSingleton<IOrderService> (new OrderService(requestProvider));
+                Xamarin.Forms.DependencyService.RegisterSingleton<IUserService> (new UserService(requestProvider));
 
                 UseMockService = false;
             }
         }
 
-        public static void RegisterSingleton<TInterface, T>() where TInterface : class where T : class, TInterface
-        {
-            _container.Register<TInterface, T>().AsSingleton();
-        }
-
         public static T Resolve<T>() where T : class
         {
-            return _container.Resolve<T>();
+            return Xamarin.Forms.DependencyService.Get<T>();
         }
 
         private static void OnAutoWireViewModelChanged(BindableObject bindable, object oldValue, object newValue)
@@ -124,7 +118,9 @@ namespace eShopOnContainers.Core.ViewModels.Base
             {
                 return;
             }
-            var viewModel = _container.Resolve(viewModelType);
+
+            var viewModel = Activator.CreateInstance (viewModelType);
+
             view.BindingContext = viewModel;
         }
     }

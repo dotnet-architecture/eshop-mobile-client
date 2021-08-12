@@ -4,6 +4,7 @@ using eShopOnContainers.Core.Services.Basket;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.Services.User;
 using eShopOnContainers.Core.ViewModels.Base;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,23 +19,20 @@ namespace eShopOnContainers.Core.ViewModels
         private ObservableCollection<BasketItem> _basketItems;
         private decimal _total;
 
-        private ISettingsService _settingsService;
         private IBasketService _basketService;
+        private ISettingsService _settingsService;
         private IUserService _userService;
 
-        public BasketViewModel(
-            ISettingsService settingsService,
-            IBasketService basketService,
-            IUserService userService)
+        public BasketViewModel()
         {
-            _settingsService = settingsService;
-            _basketService = basketService;
-            _userService = userService;
+            _basketService = DependencyService.Get<IBasketService> ();
+            _settingsService = DependencyService.Get<ISettingsService>();
+            _userService = DependencyService.Get<IUserService> ();
         }
 
         public int BadgeCount
         {
-            get { return _badgeCount; }
+            get => _badgeCount;
             set
             {
                 _badgeCount = value;
@@ -44,7 +42,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ObservableCollection<BasketItem> BasketItems
         {
-            get { return _basketItems; }
+            get => _basketItems;
             set
             {
                 _basketItems = value;
@@ -54,7 +52,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public decimal Total
         {
-            get { return _total; }
+            get => _total;
             set
             {
                 _total = value;
@@ -64,40 +62,34 @@ namespace eShopOnContainers.Core.ViewModels
 
         public ICommand AddCommand => new Command<BasketItem>(async (item) => await AddItemAsync(item));
 
+        public ICommand DeleteCommand => new Command<BasketItem> (async (item) => await DeleteBasketItemAsync (item));
+
         public ICommand CheckoutCommand => new Command(async () => await CheckoutAsync());
 
-        public override async Task InitializeAsync(object navigationData)
+        public override async Task InitializeAsync (IDictionary<string, string> query)
         {
             if (BasketItems == null)
-                BasketItems = new ObservableCollection<BasketItem>();
+                BasketItems = new ObservableCollection<BasketItem> ();
 
             var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
 
             // Update Basket
-            var basket = await _basketService.GetBasketAsync(userInfo.UserId, authToken);
+            var basket = await _basketService.GetBasketAsync (userInfo.UserId, authToken);
 
-            if (basket != null && basket.Items != null && basket.Items.Any())
+            if (basket != null && basket.Items != null && basket.Items.Any ())
             {
                 BadgeCount = 0;
-                BasketItems.Clear();
+                BasketItems.Clear ();
 
                 foreach (var basketItem in basket.Items)
                 {
                     BadgeCount += basketItem.Quantity;
-                    await AddBasketItemAsync(basketItem);
+                    await AddBasketItemAsync (basketItem);
                 }
             }
 
-            MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem>(this, MessageKeys.AddProduct);
-            MessagingCenter.Subscribe<CatalogViewModel, CatalogItem>(this, MessageKeys.AddProduct, async (sender, arg) =>
-            {
-                BadgeCount++;
-
-                await AddCatalogItemAsync(arg);
-            });
-
-            await base.InitializeAsync(navigationData);
+            RaisePropertyChanged (() => BasketItems);
         }
 
         private async Task AddCatalogItemAsync(CatalogItem item)
@@ -127,6 +119,23 @@ namespace eShopOnContainers.Core.ViewModels
             await ReCalculateTotalAsync();
         }
 
+        private async Task DeleteBasketItemAsync (BasketItem item)
+        {
+            BasketItems.Remove (item);
+
+            var authToken = _settingsService.AuthAccessToken;
+            var userInfo = await _userService.GetUserInfoAsync (authToken);
+            var basket = await _basketService.GetBasketAsync (userInfo.UserId, authToken);
+            if (basket != null)
+            {
+                basket.Items.Remove (item);
+                await _basketService.UpdateBasketAsync (basket, authToken);
+                BadgeCount = basket.Items.Count ();
+            }
+
+            await ReCalculateTotalAsync ();
+        }
+
         private async Task ReCalculateTotalAsync()
         {
             Total = 0;
@@ -140,22 +149,14 @@ namespace eShopOnContainers.Core.ViewModels
             {
                 Total += (orderItem.Quantity * orderItem.UnitPrice);
             }
-
-            var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
-
-            await _basketService.UpdateBasketAsync(new CustomerBasket
-            {
-                BuyerId = userInfo.UserId,
-                Items = BasketItems.ToList()
-            }, authToken);
         }
 
         private async Task CheckoutAsync()
         {
-            if (BasketItems.Any())
+            if (BasketItems?.Any() ?? false)
             {
-                await NavigationService.NavigateToAsync<CheckoutViewModel>(BasketItems);
+                _basketService.LocalBasketItems = BasketItems;
+                await NavigationService.NavigateToAsync ("Checkout");
             }
         }
     }

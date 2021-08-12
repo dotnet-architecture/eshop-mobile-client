@@ -1,9 +1,11 @@
 ﻿using eShopOnContainers.Core;
+using eShopOnContainers.Core.Models.Orders;
 using eShopOnContainers.Core.Services.Order;
 using eShopOnContainers.Core.Services.Settings;
 using eShopOnContainers.Core.ViewModels;
 using eShopOnContainers.Core.ViewModels.Base;
 using eShopOnContainers.UnitTests.Mocks;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,27 +16,28 @@ namespace eShopOnContainers.UnitTests
         public OrderViewModelTests()
         {
             ViewModelLocator.UpdateDependencies(true);
-            ViewModelLocator.RegisterSingleton<ISettingsService, MockSettingsService>();
         }
 
         [Fact]
         public void OrderPropertyIsNullWhenViewModelInstantiatedTest()
         {
-            var settingsService = new MockSettingsService();
-            var orderService = new OrderMockService();
-            var orderViewModel = new OrderDetailViewModel(settingsService, orderService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
+            Xamarin.Forms.DependencyService.RegisterSingleton<IOrderService>(new OrderMockService());
+            var orderViewModel = new OrderDetailViewModel();
+
             Assert.Null(orderViewModel.Order);
         }
 
         [Fact]
         public async Task OrderPropertyIsNotNullAfterViewModelInitializationTest()
         {
-            var settingsService = new MockSettingsService();
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
             var orderService = new OrderMockService();
-            var orderViewModel = new OrderDetailViewModel(settingsService, orderService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<IOrderService>(orderService);
+            var orderViewModel = new OrderDetailViewModel();
 
             var order = await orderService.GetOrderAsync(1, GlobalSetting.Instance.AuthToken);
-            await orderViewModel.InitializeAsync(order);
+            await orderViewModel.InitializeAsync(new Dictionary<string, string> { { nameof(Order.OrderNumber), order.OrderNumber.ToString() } });
 
             Assert.NotNull(orderViewModel.Order);
         }
@@ -43,9 +46,10 @@ namespace eShopOnContainers.UnitTests
         public async Task SettingOrderPropertyShouldRaisePropertyChanged()
         {
             bool invoked = false;
-            var settingsService = new MockSettingsService();
+            Xamarin.Forms.DependencyService.RegisterSingleton<ISettingsService>(new MockSettingsService());
             var orderService = new OrderMockService();
-            var orderViewModel = new OrderDetailViewModel(settingsService, orderService);
+            Xamarin.Forms.DependencyService.RegisterSingleton<IOrderService>(orderService);
+            var orderViewModel = new OrderDetailViewModel();
 
             orderViewModel.PropertyChanged += (sender, e) =>
             {
@@ -53,7 +57,7 @@ namespace eShopOnContainers.UnitTests
                     invoked = true;
             };
             var order = await orderService.GetOrderAsync(1, GlobalSetting.Instance.AuthToken);
-            await orderViewModel.InitializeAsync(order);
+            await orderViewModel.InitializeAsync(new Dictionary<string, string> { { nameof(Order.OrderNumber), order.OrderNumber.ToString() } });
 
             Assert.True(invoked);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
 namespace eShopOnContainers.Core.ViewModels.Base
@@ -11,6 +12,11 @@ namespace eShopOnContainers.Core.ViewModels.Base
         {
             var name = GetMemberInfo(property).Name;
             OnPropertyChanged(name);
+        }
+
+        public void RaisePropertyChanged ([CallerMemberName] string callerMemberName = null)
+        {
+            OnPropertyChanged (callerMemberName);
         }
 
         private MemberInfo GetMemberInfo(Expression expression)

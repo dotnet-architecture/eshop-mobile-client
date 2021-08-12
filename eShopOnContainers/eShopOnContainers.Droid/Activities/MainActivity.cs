@@ -1,15 +1,11 @@
-using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using FFImageLoading;
-using FFImageLoading.Forms.Droid;
 using System;
 using Xamarin.Forms.Platform.Android;
-using eShopOnContainers.Droid.Services;
 
 namespace eShopOnContainers.Droid.Activities
 {
@@ -17,7 +13,7 @@ namespace eShopOnContainers.Droid.Activities
         Label = "eShopOnContainers",
         Icon = "@drawable/icon",
         Theme = "@style/MainTheme",
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -27,14 +23,15 @@ namespace eShopOnContainers.Droid.Activities
 
             base.OnCreate(bundle);
 
+            Xamarin.Essentials.Platform.Init (this, bundle);
+
             SupportActionBar.SetDisplayShowHomeEnabled(true); // Show or hide the default home button
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowCustomEnabled(true); // Enable overriding the default toolbar layout
             SupportActionBar.SetDisplayShowTitleEnabled(false);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            UserDialogs.Init(this);
-            CachedImageRenderer.Init(false);
+
             LoadApplication(new App());
 
             Window window = this.Window;
@@ -49,15 +46,15 @@ namespace eShopOnContainers.Droid.Activities
         /// </summary>
         public override void OnTrimMemory([GeneratedEnum] TrimMemory level)
         {
-            ImageService.Instance.InvalidateMemoryCache();
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             base.OnTrimMemory(level);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        public override void OnRequestPermissionsResult (int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            ((PermissionsService)PermissionsService.Instance).OnRequestPermissionResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult (requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult (requestCode, permissions, grantResults);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace eShopOnContainers.Core.Models.Basket
 
         public int Quantity
         {
-            get { return _quantity; }
+            get => _quantity;
             set
             {
                 _quantity = value;
