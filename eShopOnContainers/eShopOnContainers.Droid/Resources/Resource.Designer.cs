@@ -24837,22 +24837,25 @@ namespace eShopOnContainers.Droid
 			public const int image_share_filepaths = 2131755008;
 			
 			// aapt resource value: 0x7F100001
-			public const int standalone_badge = 2131755009;
+			public const int network_security_config = 2131755009;
 			
 			// aapt resource value: 0x7F100002
-			public const int standalone_badge_gravity_bottom_end = 2131755010;
+			public const int standalone_badge = 2131755010;
 			
 			// aapt resource value: 0x7F100003
-			public const int standalone_badge_gravity_bottom_start = 2131755011;
+			public const int standalone_badge_gravity_bottom_end = 2131755011;
 			
 			// aapt resource value: 0x7F100004
-			public const int standalone_badge_gravity_top_start = 2131755012;
+			public const int standalone_badge_gravity_bottom_start = 2131755012;
 			
 			// aapt resource value: 0x7F100005
-			public const int standalone_badge_offset = 2131755013;
+			public const int standalone_badge_gravity_top_start = 2131755013;
 			
 			// aapt resource value: 0x7F100006
-			public const int xamarin_essentials_fileprovider_file_paths = 2131755014;
+			public const int standalone_badge_offset = 2131755014;
+			
+			// aapt resource value: 0x7F100007
+			public const int xamarin_essentials_fileprovider_file_paths = 2131755015;
 			
 			static Xml()
 			{

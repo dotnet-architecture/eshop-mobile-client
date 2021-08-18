@@ -46,7 +46,7 @@ namespace eShopOnContainers.Core.ViewModels
 
         public string TitleUseAzureServices
         {
-            get { return !UseAzureServices ? "Use Mock Services" : "Use Microservices/Containers from eShopOnContainers"; }
+            get => "Use Microservices/Containers from eShopOnContainers";
         }
 
         public string DescriptionUseAzureServices
@@ -54,7 +54,7 @@ namespace eShopOnContainers.Core.ViewModels
             get
             {
                 return !UseAzureServices
-                    ? "Mock Services are simulated objects that mimic the behavior of real services using a controlled approach."
+                    ? "Currently using mock services that are simulated objects that mimic the behavior of real services using a controlled approach. Toggle on to configure the use of microserivces/containers."
                         : "When enabling the use of microservices/containers, the app will attempt to use real services deployed as Docker/Kubernetes containers at the specified base endpoint, which will must be reachable through the network.";
             }
         }

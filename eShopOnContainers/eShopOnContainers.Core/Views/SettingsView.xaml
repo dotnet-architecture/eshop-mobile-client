@@ -202,7 +202,7 @@
                 </Entry.Style>
             </Entry>
         </StackLayout>
-        <!-- USE LOCATIONS -->
+        <!-- USE LOCATIONS --><!--
         <StackLayout                       
             Grid.Row="2"
             IsVisible="{Binding UserIsLogged}"
@@ -214,7 +214,7 @@
                 Text="{Binding DescriptionUseFakeLocation}"
                 Style="{StaticResource SettingsDescriptionStyle}"/>
         </StackLayout>
-        <!-- ON / OFF -->
+        --><!-- ON / OFF --><!--
         <controls:ToggleButton 
             Grid.Column="1" 
             Grid.Row="2"   
@@ -224,7 +224,7 @@
             IsVisible="{Binding UserIsLogged}"
             CheckedImage="{StaticResource ToggleOnImageSource}"
             UnCheckedImage="{StaticResource ToggleOffImageSource}" />
-        <!-- FAKE LOCATIONS -->
+        --><!-- FAKE LOCATIONS --><!--
         <StackLayout
             Grid.Row="3"
             Grid.ColumnSpan="2"
@@ -260,7 +260,7 @@
                 Command="{Binding ToggleSendLocationCommand}"
                 Text="Send Location"/>
         </StackLayout>
-        <!-- ALLOW GPS LOCATION -->
+        --><!-- ALLOW GPS LOCATION --><!--
         <StackLayout                        
             Grid.Row="4"
             Style="{StaticResource SettingsStackLayoutStyle}"
@@ -275,7 +275,7 @@
                 Text="{Binding GpsWarningMessage}"
                 Style="{StaticResource SettingsWarningMessageStyle}"/>
         </StackLayout>
-        <!-- ON / OFF -->
+        --><!-- ON / OFF --><!--
         <controls:ToggleButton 
             Grid.Column="1" 
             Grid.Row="4" 
@@ -284,6 +284,6 @@
             Style="{StaticResource SettingsToggleButtonStyle}"
             IsVisible="{Binding UseFakeLocation, Converter={StaticResource InverseBoolConverter}}"
             CheckedImage="{StaticResource ToggleOnImageSource}"
-            UnCheckedImage="{StaticResource ToggleOffImageSource}" />
+            UnCheckedImage="{StaticResource ToggleOffImageSource}" />-->
     </Grid>
 </ContentPage>
