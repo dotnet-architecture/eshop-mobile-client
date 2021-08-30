@@ -9,7 +9,7 @@ namespace eShopOnContainers.Core.Services.Location
     {
         private readonly IRequestProvider _requestProvider;
 
-        private const string ApiUrlBase = "api/v1/l/locations";
+        private const string ApiUrlBase = "l/api/v1/locations";
 
         public LocationService(IRequestProvider requestProvider)
         {

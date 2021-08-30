@@ -13,7 +13,7 @@ namespace eShopOnContainers.Core.Services.Basket
         private readonly IRequestProvider _requestProvider;
         private readonly IFixUriService _fixUriService;
 
-        private const string ApiUrlBase = "api/v1/b/basket";
+        private const string ApiUrlBase = "b/api/v1/basket";
 
         public IEnumerable<BasketItem> LocalBasketItems { get; set; }
 
