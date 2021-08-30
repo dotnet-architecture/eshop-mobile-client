@@ -6,7 +6,7 @@
 
 Though `eshop-mobile-client` mobile app relies on the repo [eShopOnContainers](https://github.com/dotnet-architecture/eShopOnContainers) for it's backend but by default it uses its internal MockServices for all it's functionalities. For more details refer to the [Setup](https://github.com/dotnet-architecture/eshop-mobile-client#setup) section.
 
-<img src="Images/eShopOnContainers_Architecture_Diagram.png" alt="eShopOnContainers" Width="800" />
+<img src="Images/eShopOnContainers_Architecture.png" alt="eShopOnContainers" Width="800" />
 
 ## Architecture
 
@@ -152,9 +152,9 @@ The app has the following screens:
 
 <img src="Images/Auth.png" alt="Login" Width="210" />
 <img src="Images/login.png" alt="Login" Width="210" />
-<img src="Images/catalog.png" alt="Catalog" Width="210" />
+<img src="Images/Catalog.png" alt="Catalog" Width="210" />
 <img src="Images/Filter.png" alt="Filter catalog" Width="210" />
-<img src="Images/profile.png" alt="Profile" Width="210" />
+<img src="Images/Profile.png" alt="Profile" Width="210" />
 <img src="Images/OrderDetail.png" alt="Order details" Width="210" />
 <img src="Images/ShoppingCart.png" alt="Basket" Width="210" />
 
@@ -215,4 +215,4 @@ This project uses some third-party assets with a license that requires attributi
 
 ## Copyright and license
 
-* Code and documentation copyright 2017 Microsoft Corp. Code released under the [MIT license](https://opensource.org/licenses/MIT).
+* Code and documentation copyright 2021 Microsoft Corp. Code released under the [MIT license](https://opensource.org/licenses/MIT).
