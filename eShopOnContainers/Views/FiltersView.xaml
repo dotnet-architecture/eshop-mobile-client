@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:eShopOnContainers.ViewModels"
+    x:Class="eShopOnContainers.Views.FiltersView"
+    BackgroundColor="#01FFFFFF"
+    Shell.PresentationMode="ModalAnimated"
+    x:DataType="viewmodels:CatalogViewModel">
+
+    <Grid VerticalOptions="Center">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="1"
+            Background="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <VerticalStackLayout
+                Padding="8" Spacing="8"
+
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}">
+                <!-- BRAND -->
+                <Picker Title="BRAND"
+                        ItemsSource="{Binding Brands}"
+                        ItemDisplayBinding="{Binding Brand}"
+                        SelectedItem="{Binding Brand, Mode=TwoWay}">
+                    <Picker.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS, Android" Value="48" />
+                            <On Platform="WinUI" Value="36" />
+                        </OnPlatform>
+                    </Picker.HeightRequest>
+                </Picker>
+                <!-- TYPE -->
+                <Picker Title="TYPE"
+                        ItemsSource="{Binding Types}"
+                        ItemDisplayBinding="{Binding Type}"
+                        SelectedItem="{Binding Type, Mode=TwoWay}"
+                        Grid.Row="1" Grid.Column="1">
+                    <Picker.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS, Android" Value="48" />
+                            <On Platform="WinUI" Value="36" />
+                        </OnPlatform>
+                    </Picker.HeightRequest>
+                </Picker>
+                <Button Text="Apply" Command="{Binding FilterCommand}"
+                        Grid.Row="2" Grid.Column="1"/>
+                <Button Text="Clear" IsEnabled="{Binding IsFilter}" Command="{Binding ClearFilterCommand}"
+                        Grid.Row="3" Grid.Column="1"/>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
