@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage    xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 x:Class="eShopOnContainers.Core.Views.LoginView"
@@ -136,7 +136,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <StackLayout  
+                <StackLayout
+                  AutomationId="LoginTab"  
                   Grid.Column="0"
                   Orientation="Horizontal"
                   HorizontalOptions="Center">
@@ -151,13 +152,15 @@
                         TextColor="{StaticResource LightGreenColor}"/>
                 </StackLayout>
                 <Grid
+                  AutomationId="RegisterTab"  
                   Grid.Column="1"
                   HorizontalOptions="Center">
                     <Label
                         Text="REGISTER"
                         TextColor="Gray"/>
                 </Grid>
-                <StackLayout  
+                <StackLayout 
+                  AutomationId="SettingsTab"   
                   Grid.Column="2"
                   Orientation="Horizontal"
                   HorizontalOptions="Center">
@@ -172,6 +175,7 @@
             </Grid>
             <!-- INFO -->
             <Label
+              AutomationId="InfoLabel"
               Grid.Row="1"
               Text="ARE YOU REGISTERED?"
               Style="{StaticResource TitleLabelStyle}"/>
@@ -182,7 +186,7 @@
                 <Label
                   Text="User name or email"
                   Style="{StaticResource HeaderLabelStyle}" />
-                <Entry Text="{Binding UserName.Value, Mode=TwoWay}">
+                <Entry AutomationId="UserNameEntry" Text="{Binding UserName.Value, Mode=TwoWay}">
 					<Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
                             <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
@@ -203,13 +207,15 @@
 						</DataTrigger>
 					</Entry.Triggers>
                 </Entry>
-				<Label 
+				<Label
+                    AutomationId="UserNameError" 
 					Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
                 <Label
                   Text="Password"
                   Style="{StaticResource HeaderLabelStyle}"/>
                 <Entry
+                  AutomationId="PasswordEntry"
                   IsPassword="True"
                   Text="{Binding Password.Value, Mode=TwoWay}">
                     <Entry.Style>
@@ -232,7 +238,8 @@
 						</DataTrigger>
 					</Entry.Triggers>
                 </Entry>
-				<Label 
+				<Label
+                    AutomationId="PasswordError" 
 					Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
             </StackLayout>
@@ -245,6 +252,7 @@
             </Frame>
             <!-- LOGIN BUTTON -->
             <Grid
+                AutomationId="LoginButton"
                 BackgroundColor="{StaticResource LightGreenColor}"
                 Grid.Row="4"
                 Padding="0"
@@ -346,7 +354,8 @@
             </WebView>
         </Grid>
         <!-- INDICATOR -->
-        <ActivityIndicator      
+        <ActivityIndicator
+          AutomationId="IsBusy"      
           Color="{StaticResource LightGreenColor}"
           IsRunning="{Binding IsBusy}"
           IsVisible="{Binding IsBusy}"

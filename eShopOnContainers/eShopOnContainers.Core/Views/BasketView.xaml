@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase
     x:Class="eShopOnContainers.Core.Views.BasketView"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -37,7 +37,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
-        <!--  SHOPPING CART  -->
+        <!--  SHOPPING CART  -->    
         <Grid IsVisible="{Binding BasketItems, Converter={StaticResource ListIsNotNullOrEmptyConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -45,6 +45,7 @@
             </Grid.RowDefinitions>
             <!--  CART ITEMS  -->
             <ListView
+                AutomationId="ProductList"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True"
                 HeightRequest="{Binding BasketItems.Count, Converter={StaticResource ItemsToHeightConverter}}"
@@ -69,6 +70,7 @@
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="CenterAndExpand" />
                         <Label
+                            AutomationId="ListTotalHeaderLabel"
                             Style="{StaticResource CartTotalStyle}"
                             Text="{Binding Total, StringFormat='${0:N}'}"
                             TextColor="{StaticResource GreenColor}"
@@ -92,7 +94,7 @@
                 BackgroundColor="{StaticResource LightGreenColor}"
                 ColumnSpacing="0"
                 RowSpacing="0">
-                <Label Style="{StaticResource CheckoutButtonStyle}" Text="[ CHECKOUT ]" />
+                <Label AutomationId="CheckoutButton" Style="{StaticResource CheckoutButtonStyle}" Text="[ CHECKOUT ]" />
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CheckoutCommand}" NumberOfTapsRequired="1" />
                 </Grid.GestureRecognizers>
@@ -101,6 +103,7 @@
         <!--  EMPTY SHOPPING CART  -->
         <Grid IsVisible="{Binding BasketItems, Converter={StaticResource ListIsNullOrEmptyConverter}}">
             <Label
+                AutomationId="EmptyShoppingCardLabel"
                 HorizontalOptions="Center"
                 Text="EMPTY SHOPPING CART"
                 VerticalOptions="Center" />

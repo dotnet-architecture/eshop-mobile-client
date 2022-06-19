@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="eShopOnContainers.Core.Views.CheckoutView"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -61,6 +61,7 @@
         </Grid.RowDefinitions>
         <!--  ORDER ITEMS  -->
         <ListView
+            AutomationId="OrderList"
             Grid.Row="0"
             CachingStrategy="RecycleElement"
             HasUnevenRows="True"
@@ -89,28 +90,28 @@
                             Grid.Column="0"
                             Margin="12">
                             <Label Style="{StaticResource OrderTitleStyle}" Text="ORDER NUMBER" />
-                            <Label Style="{StaticResource OrderContentStyle}" Text="{Binding Order.OrderNumber, Converter={StaticResource ToUpperConverter}}" />
+                            <Label AutomationId="OrderNumberLabel" Style="{StaticResource OrderContentStyle}" Text="{Binding Order.OrderNumber, Converter={StaticResource ToUpperConverter}}" />
                         </StackLayout>
                         <StackLayout
                             Grid.Row="1"
                             Grid.Column="0"
                             Margin="12">
                             <Label Style="{StaticResource OrderTitleStyle}" Text="TOTAL" />
-                            <Label Style="{StaticResource OrderContentStyle}" Text="{Binding Order.Total, StringFormat='${0:N}', Converter={StaticResource ToUpperConverter}}" />
+                            <Label AutomationId="OrderTotalLabel" Style="{StaticResource OrderContentStyle}" Text="{Binding Order.Total, StringFormat='${0:N}', Converter={StaticResource ToUpperConverter}}" />
                         </StackLayout>
                         <StackLayout
                             Grid.Row="0"
                             Grid.Column="1"
                             Margin="12">
                             <Label Style="{StaticResource OrderTitleStyle}" Text="DATE" />
-                            <Label Style="{StaticResource OrderContentStyle}" Text="{Binding Order.OrderDate, StringFormat={StaticResource DateTimeFormat}}" />
+                            <Label AutomationId="OrderDateLabel" Style="{StaticResource OrderContentStyle}" Text="{Binding Order.OrderDate, StringFormat={StaticResource DateTimeFormat}}" />
                         </StackLayout>
                         <StackLayout
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="12">
                             <Label Style="{StaticResource OrderTitleStyle}" Text="STATUS" />
-                            <Label Style="{StaticResource OrderContentStyle}" Text="{Binding Order.OrderStatus, Converter={StaticResource ToUpperConverter}}" />
+                            <Label AutomationId="OrderStatusLabel" Style="{StaticResource OrderContentStyle}" Text="{Binding Order.OrderStatus, Converter={StaticResource ToUpperConverter}}" />
                         </StackLayout>
                     </Grid>
                     <!--  SHIPPING ADDRESS  -->
@@ -120,14 +121,15 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Label
+                            AutomationId="ShippingAddressLabel"
                             Grid.Row="0"
                             Style="{StaticResource ShippingAddressStyle}"
                             Text="SHIPPING ADDRESS" />
                         <StackLayout Grid.Row="1">
-                            <Label Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.Street}" />
-                            <Label Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.ZipCode}" />
-                            <Label Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.State}" />
-                            <Label Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.Country}" />
+                            <Label AutomationId="StreetLabel" Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.Street}" />
+                            <Label AutomationId="ZipCodeLabel" Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.ZipCode}" />
+                            <Label AutomationId="StatetLabel" Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.State}" />
+                            <Label AutomationId="CountryLabel" Style="{StaticResource AddressStyle}" Text="{Binding ShippingAddress.Country}" />
                         </StackLayout>
                     </Grid>
                 </Grid>
@@ -143,6 +145,7 @@
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="CenterAndExpand" />
                     <Label
+                        AutomationId="BottomTotalLabel"
                         Style="{StaticResource OrderTotalStyle}"
                         Text="{Binding Order.Total, StringFormat='${0:N}'}"
                         TextColor="{StaticResource GreenColor}"
@@ -166,13 +169,14 @@
             BackgroundColor="{StaticResource LightGreenColor}"
             ColumnSpacing="0"
             RowSpacing="0">
-            <Label Style="{StaticResource CheckoutButtonStyle}" Text="[ PLACE ORDER ]" />
+            <Label AutomationId="PlaceOrderButton" Style="{StaticResource CheckoutButtonStyle}" Text="[ PLACE ORDER ]" />
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding CheckoutCommand}" NumberOfTapsRequired="1" />
             </Grid.GestureRecognizers>
         </Grid>
         <!--  INDICATOR  -->
         <ActivityIndicator
+            AutomationId="IsBusy"
             Grid.Row="0"
             Grid.RowSpan="2"
             HorizontalOptions="Center"

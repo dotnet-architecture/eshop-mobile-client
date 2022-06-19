@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase
     x:Class="eShopOnContainers.Core.Views.ProfileView"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -32,19 +32,21 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="LOGOUT" Command="{Binding LogoutCommand}" />
+        <ToolbarItem AutomationId="Logout" Text="LOGOUT" Command="{Binding LogoutCommand}" />
     </ContentPage.ToolbarItems>
 
     <!--  ORDERS  -->
     <Grid>
         <Grid IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
             <Label
+                AutomationId="NoOrdersLabel"
                 HorizontalOptions="Center"
                 IsVisible="{Binding Orders, Converter={StaticResource ListIsNullOrEmptyConverter}}"
                 Text="NO ORDERS"
                 VerticalOptions="Center" />
         </Grid>
         <ListView
+            AutomationId="OrdersList"
             CachingStrategy="RecycleElement"
             HasUnevenRows="True"
             SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"

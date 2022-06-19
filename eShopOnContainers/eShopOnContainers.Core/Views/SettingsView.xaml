@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="eShopOnContainers.Core.Views.SettingsView"
@@ -150,7 +150,8 @@
                 Style="{StaticResource SettingsDescriptionStyle}"/>
         </StackLayout>
         <!-- ON / OFF -->
-        <controls:ToggleButton 
+        <controls:ToggleButton
+            AutomationId="UseAzureServicesToggle"
             Grid.Column="1" 
             Checked="{Binding UseAzureServices, Mode=TwoWay}"
             Command="{Binding ToggleMockServicesCommand}"
@@ -167,6 +168,7 @@
                 Text="Identity Url"
                 Style="{StaticResource HeaderLabelStyle}"/>
             <Entry
+                AutomationId="IdentityEndpointEntry"
                 Text="{Binding IdentityEndpoint, Mode=TwoWay}">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
@@ -180,6 +182,7 @@
                 Text="Gateway Shopping Url"
                 Style="{StaticResource HeaderLabelStyle}"/>
             <Entry
+                AutomationId="GatewayShoppingEndpointEntry"
                 Text="{Binding GatewayShoppingEndpoint, Mode=TwoWay}">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">
@@ -193,6 +196,7 @@
                 Text="Gateway Marketing Url"
                 Style="{StaticResource HeaderLabelStyle}"/>
             <Entry
+                AutomationId="GatewayMarketingEndpointEntry"
                 Text="{Binding GatewayMarketingEndpoint, Mode=TwoWay}">
                 <Entry.Style>
                     <OnPlatform x:TypeArguments="Style">

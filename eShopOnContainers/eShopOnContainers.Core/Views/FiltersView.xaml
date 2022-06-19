@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xct:Popup
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -70,6 +70,7 @@
     </Grid.RowDefinitions>
     <!-- BRAND -->
     <Picker
+      AutomationId="BrandPicker"
       Grid.Row="0"
       Title="BRAND" 
       ItemsSource="{Binding Brands}"
@@ -84,6 +85,7 @@
     </Picker>
     <!-- TYPE -->
     <Picker
+      AutomationId="TypePicker"
       Grid.Row="1"
       Title="TYPE"
       ItemsSource="{Binding Types}"
@@ -97,11 +99,13 @@
       </Picker.HeightRequest> 
     </Picker>
     <Button 
+      AutomationId="ApplyButton"
       Grid.Row="3"
       Text="Apply" 
       Style="{StaticResource FilterButtonStyle}"
       Clicked="OnFilterClicked"/>   
     <Button
+      AutomationId="ClearButton"
       Grid.Row="4"
       Text="Clear"
       IsEnabled="{Binding IsFilter}"

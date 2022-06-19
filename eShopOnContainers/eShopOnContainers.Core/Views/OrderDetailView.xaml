@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase
     x:Class="eShopOnContainers.Core.Views.OrderDetailView"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -81,6 +81,7 @@
             HeightRequest="50"
             IsVisible="{Binding IsSubmittedOrder}">
             <Button
+                AutomationId="CancelOrderButton"
                 Command="{Binding ToggleCancelOrderCommand}"
                 Style="{StaticResource CancelOrderButtonStyle}"
                 Text="CANCEL ORDER" />

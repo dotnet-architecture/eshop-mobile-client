@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase
+    AutomationId="CatalogPage"
     x:Class="eShopOnContainers.Core.Views.CatalogView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -43,16 +44,18 @@
         </EventTrigger>
     </ContentPage.Triggers>
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="{DynamicResource FilterIconForTitleImageSource}" Clicked="OnFilterChanged" />
+        <ToolbarItem AutomationId="FilterIcon" IconImageSource="{DynamicResource FilterIconForTitleImageSource}" Clicked="OnFilterChanged" />
     </ContentPage.ToolbarItems>
     <Grid ColumnSpacing="0" RowSpacing="0">
         <!--  CATALOG  -->
         <Label
+            AutomationId="NoProductsFoundLabel"
             HorizontalOptions="Center"
             IsVisible="{Binding Products, Converter={StaticResource ListIsNullOrEmptyConverter}}"
             Text="NO PRODUCTS FOUND"
             VerticalOptions="Center" />
         <ListView
+            AutomationId="ProductsList"
             x:Name="Products"
             CachingStrategy="RecycleElement"
             SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
@@ -76,6 +79,7 @@
         </ListView>
         <!--  INDICATOR  -->
         <ActivityIndicator
+            AutomationId="IsBusy"
             HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
@@ -90,6 +94,7 @@
         </ActivityIndicator>
 
         <xtc:BadgeView
+            AutomationId="ShoppingCart"
             x:Name="ShoppingCart"
             BackgroundColor="{AppThemeBinding Light={StaticResource DarkBackgroundColor}, Dark={StaticResource LightBackgroundColor}}"
             TextColor="{AppThemeBinding Light={StaticResource DarkForegroundColor}, Dark={StaticResource LightForegroundColor}}"

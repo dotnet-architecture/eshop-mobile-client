@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <SwipeView
     xmlns="http://xamarin.com/schemas/2014/forms"     
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -26,7 +26,7 @@
                         Value="End" />
             </Style>
             
-            <Style x:Key="OrderTotalStyle" 
+            <Style x:Key="OrderTotalStyle"
                TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
                         Value="{StaticResource MontserratRegular}" />
@@ -52,12 +52,12 @@
     </SwipeView.Resources>
     <SwipeView.RightItems>
         <SwipeItems>
-            <SwipeItem Text="Delete" BackgroundColor="Red"
+            <SwipeItem AutomationId="DeleteButton" Text="Delete" BackgroundColor="Red"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BasketViewModel }}, Path=DeleteCommand}"
                 CommandParameter="{Binding}"/>
         </SwipeItems>
     </SwipeView.RightItems>
-    <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource DarkBackgroundColor}, Light={StaticResource LightBackgroundColor}}">
+    <Grid AutomationId="BasketItem" BackgroundColor="{AppThemeBinding Dark={StaticResource DarkBackgroundColor}, Light={StaticResource LightBackgroundColor}}">
             <Grid.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS, Android" Value="0" />
@@ -75,6 +75,7 @@
             </Grid.RowDefinitions>
             <!-- IMAGE -->
             <Image
+                AutomationId="Image"
                 Grid.Column="0"
                 Grid.Row="0"
                 Source="{Binding PictureUrl}"        
@@ -94,6 +95,7 @@
                 </Grid.RowDefinitions>
                 <!-- NAME -->
                 <Label
+                    AutomationId="NameLabel"
                     Grid.Row="0"
                     Text="{Binding ProductName, Converter={StaticResource ToUpperConverter}}"/>
                 <Grid
@@ -104,17 +106,20 @@
                     </Grid.ColumnDefinitions>
                     <!-- PRICE -->
                     <Label 
+                        AutomationId="PriceLabel"
                         Grid.Column="0"
                         Text="{Binding UnitPrice, StringFormat='${0:N}'}"
                         Style="{StaticResource OrderItemUnitPriceStyle}"/>
                     <!-- QUANTITY -->
-                    <Label    
+                    <Label 
+                        AutomationId="QuantityLabel"   
                         Grid.Column="1"
                         Text="{Binding Quantity}"
                         Style="{StaticResource QuantityStyle}"/>
                 </Grid>
                 <!-- TOTAL -->
                 <Label
+                    AutomationId="TotalLabel"  
                     Grid.Row="2"
                     Text="{Binding Total, StringFormat='${0:N}'}"
                     Style="{StaticResource OrderTotalStyle}"/>
@@ -126,6 +131,7 @@
                 IsVisible="{Binding HasNewPrice}"
                 BackgroundColor="#F0AD4E">
                 <Label 
+                    AutomationId="NewPriceLabel"   
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill"
                     HorizontalTextAlignment="Center"
