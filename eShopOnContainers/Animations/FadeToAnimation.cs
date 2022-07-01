@@ -1,159 +1,155 @@
 ﻿using eShopOnContainers.Animations.Base;
 using eShopOnContainers.Helpers;
-using System;
-using System.Threading.Tasks;
-using Microsoft.Maui;
 
-namespace eShopOnContainers.Animations
+namespace eShopOnContainers.Animations;
+
+public class FadeToAnimation : AnimationBase
 {
-    public class FadeToAnimation : AnimationBase
+    public static readonly BindableProperty OpacityProperty =
+     BindableProperty.Create("Opacity", typeof(double), typeof(FadeToAnimation), 0.0d,
+     propertyChanged: (bindable, oldValue, newValue) =>
+     ((FadeToAnimation)bindable).Opacity = (double)newValue);
+
+    public double Opacity
     {
-        public static readonly BindableProperty OpacityProperty =
-         BindableProperty.Create("Opacity", typeof(double), typeof(FadeToAnimation), 0.0d,
-         propertyChanged: (bindable, oldValue, newValue) =>
-         ((FadeToAnimation)bindable).Opacity = (double)newValue);
-
-        public double Opacity
-        {
-            get => (double)GetValue(OpacityProperty);
-            set => SetValue(OpacityProperty, value);
-        }
-
-        protected override Task BeginAnimation()
-        {
-            if (Target == null)
-            {
-                throw new NullReferenceException("Null Target property.");
-            }
-
-            return Target.FadeTo(Opacity, Convert.ToUInt32(Duration), EasingHelper.GetEasing(Easing));
-        }
-
-        protected override Task ResetAnimation()
-        {
-            if (Target == null)
-            {
-                throw new NullReferenceException("Null Target property.");
-            }
-
-            return Target.FadeTo(0, 0, null);
-        }
+        get => (double)GetValue(OpacityProperty);
+        set => SetValue(OpacityProperty, value);
     }
 
-    public class FadeInAnimation : AnimationBase
+    protected override Task BeginAnimation()
     {
-        public enum FadeDirection
+        if (Target == null)
         {
-            Up,
-            Down
+            throw new NullReferenceException("Null Target property.");
         }
 
-        public static readonly BindableProperty DirectionProperty =
-         BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,
-         propertyChanged: (bindable, oldValue, newValue) =>
-         ((FadeInAnimation)bindable).Direction = (FadeDirection)newValue);
+        return Target.FadeTo(Opacity, Convert.ToUInt32(Duration), EasingHelper.GetEasing(Easing));
+    }
 
-        public FadeDirection Direction
+    protected override Task ResetAnimation()
+    {
+        if (Target == null)
         {
-            get => (FadeDirection)GetValue(DirectionProperty);
-            set => SetValue(DirectionProperty, value);
+            throw new NullReferenceException("Null Target property.");
         }
 
-        protected override Task BeginAnimation()
+        return Target.FadeTo(0, 0, null);
+    }
+}
+
+public class FadeInAnimation : AnimationBase
+{
+    public enum FadeDirection
+    {
+        Up,
+        Down
+    }
+
+    public static readonly BindableProperty DirectionProperty =
+     BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,
+     propertyChanged: (bindable, oldValue, newValue) =>
+     ((FadeInAnimation)bindable).Direction = (FadeDirection)newValue);
+
+    public FadeDirection Direction
+    {
+        get => (FadeDirection)GetValue(DirectionProperty);
+        set => SetValue(DirectionProperty, value);
+    }
+
+    protected override Task BeginAnimation()
+    {
+        if (Target == null)
         {
-            if (Target == null)
-            {
-                throw new NullReferenceException("Null Target property.");
-            }
-
-            Target.Dispatcher.Dispatch(() => Target.Animate("FadeIn", FadeIn(), 16, Convert.ToUInt32(Duration)));
-
-            return Task.CompletedTask;
+            throw new NullReferenceException("Null Target property.");
         }
 
-        protected override Task ResetAnimation()
+        Target.Dispatcher.Dispatch(() => Target.Animate("FadeIn", FadeIn(), 16, Convert.ToUInt32(Duration)));
+
+        return Task.CompletedTask;
+    }
+
+    protected override Task ResetAnimation()
+    {
+        if (Target == null)
         {
-            if (Target == null)
-            {
-                throw new NullReferenceException("Null Target property.");
-            }
-
-            Target.Dispatcher.Dispatch(() => Target.FadeTo(0, 0, null));
-
-            return Task.CompletedTask;
+            throw new NullReferenceException("Null Target property.");
         }
 
-        internal Animation FadeIn()
+        Target.Dispatcher.Dispatch(() => Target.FadeTo(0, 0, null));
+
+        return Task.CompletedTask;
+    }
+
+    internal Animation FadeIn()
+    {
+        var animation = new Animation();
+
+        animation.WithConcurrent((f) => Target.Opacity = f, 0, 1, Microsoft.Maui.Easing.CubicOut);
+
+        animation.WithConcurrent(
+          (f) => Target.TranslationY = f,
+          Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50), Target.TranslationY,
+          Microsoft.Maui.Easing.CubicOut, 0, 1);
+
+        return animation;
+    }
+}
+
+public class FadeOutAnimation : AnimationBase
+{
+    public enum FadeDirection
+    {
+        Up,
+        Down
+    }
+
+    public static readonly BindableProperty DirectionProperty =
+     BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,
+     propertyChanged: (bindable, oldValue, newValue) =>
+     ((FadeOutAnimation)bindable).Direction = (FadeDirection)newValue);
+
+    public FadeDirection Direction
+    {
+        get => (FadeDirection)GetValue(DirectionProperty);
+        set => SetValue(DirectionProperty, value);
+    }
+
+    protected override Task BeginAnimation()
+    {
+        if (Target == null)
         {
-            var animation = new Animation();
+            throw new NullReferenceException("Null Target property.");
+        }
 
-            animation.WithConcurrent((f) => Target.Opacity = f, 0, 1, Microsoft.Maui.Easing.CubicOut);
+        Target.Dispatcher.Dispatch(() => Target.Animate("FadeOut", FadeOut(), 16, Convert.ToUInt32(Duration)));
 
-            animation.WithConcurrent(
+        return Task.CompletedTask;
+    }
+
+    protected override Task ResetAnimation()
+    {
+        if (Target == null)
+        {
+            throw new NullReferenceException("Null Target property.");
+        }
+
+        Target.Dispatcher.Dispatch(() => Target.FadeTo(0, 0, null));
+
+        return Task.CompletedTask;
+    }
+
+    internal Animation FadeOut()
+    {
+        var animation = new Animation();
+
+        animation.WithConcurrent(
+             (f) => Target.Opacity = f,
+             1, 0);
+
+        animation.WithConcurrent(
               (f) => Target.TranslationY = f,
-              Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50), Target.TranslationY,
-              Microsoft.Maui.Easing.CubicOut, 0, 1);
+              Target.TranslationY, Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50));
 
-            return animation;
-        }
-    }
-
-    public class FadeOutAnimation : AnimationBase
-    {
-        public enum FadeDirection
-        {
-            Up,
-            Down
-        }
-
-        public static readonly BindableProperty DirectionProperty =
-         BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,
-         propertyChanged: (bindable, oldValue, newValue) =>
-         ((FadeOutAnimation)bindable).Direction = (FadeDirection)newValue);
-
-        public FadeDirection Direction
-        {
-            get => (FadeDirection)GetValue(DirectionProperty);
-            set => SetValue(DirectionProperty, value);
-        }
-
-        protected override Task BeginAnimation()
-        {
-            if (Target == null)
-            {
-                throw new NullReferenceException("Null Target property.");
-            }
-
-            Target.Dispatcher.Dispatch(() => Target.Animate("FadeOut", FadeOut(), 16, Convert.ToUInt32(Duration)));
-
-            return Task.CompletedTask;
-        }
-
-        protected override Task ResetAnimation()
-        {
-            if (Target == null)
-            {
-                throw new NullReferenceException("Null Target property.");
-            }
-
-            Target.Dispatcher.Dispatch(() => Target.FadeTo(0, 0, null));
-
-            return Task.CompletedTask;
-        }
-
-        internal Animation FadeOut()
-        {
-            var animation = new Animation();
-
-            animation.WithConcurrent(
-                 (f) => Target.Opacity = f,
-                 1, 0);
-
-            animation.WithConcurrent(
-                  (f) => Target.TranslationY = f,
-                  Target.TranslationY, Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50));
-
-            return animation;
-        }
+        return animation;
     }
 }

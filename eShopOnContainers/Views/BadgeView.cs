@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.Maui.Controls.Shapes;
+﻿using Microsoft.Maui.Controls.Shapes;
 
-namespace eShopOnContainers.Views
-{
+namespace eShopOnContainers.Views;
+
 	[ContentProperty(nameof(Content))]
 	public class BadgeView : Grid
 	{
@@ -12,66 +11,66 @@ namespace eShopOnContainers.Views
 		private Label _badgeIndicator;
 
 		public static BindableProperty ContentProperty =
-            BindableProperty.Create(nameof(Content), typeof(View), typeof(BadgeView), default(View),
+        BindableProperty.Create(nameof(Content), typeof(View), typeof(BadgeView), default(View),
 				propertyChanged: OnLayoutPropertyChanged);
 
-        public View Content
+    public View Content
 		{
-            get => (View)GetValue(ContentProperty);
-            set => SetValue(ContentProperty, value);
-        }
+        get => (View)GetValue(ContentProperty);
+        set => SetValue(ContentProperty, value);
+    }
 
-        public static BindableProperty TextProperty =
+    public static BindableProperty TextProperty =
 			BindableProperty.Create(nameof(Text), typeof(string), typeof(BadgeView), default(string),
 				propertyChanged: OnLayoutPropertyChanged);
 
-        public string Text
+    public string Text
 		{
-            get => (string)GetValue(TextProperty);
-            set => SetValue(TextProperty, value);
-        }
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
+    }
 
-        public static BindableProperty TextColorProperty =
+    public static BindableProperty TextColorProperty =
 			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BadgeView), default(Color),
 				propertyChanged: OnLayoutPropertyChanged);
 
-        public Color TextColor
+    public Color TextColor
 		{
-            get => (Color)GetValue(TextColorProperty);
-            set => SetValue(TextColorProperty, value);
-        }
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
+    }
 
-        public static BindableProperty FontSizeProperty =
+    public static BindableProperty FontSizeProperty =
 			BindableProperty.Create(nameof(FontSize), typeof(double), typeof(BadgeView), 10.0d,
 				propertyChanged: OnLayoutPropertyChanged);
 
-        public double FontSize
-        {
-            get => (double)GetValue(FontSizeProperty);
-            set => SetValue(FontSizeProperty, value);
-        }
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
 
-        public static BindableProperty BadgeColorProperty =
+    public static BindableProperty BadgeColorProperty =
 			BindableProperty.Create(nameof(BadgeColor), typeof(Color), typeof(BadgeView), default(Color),
 				propertyChanged: OnLayoutPropertyChanged);
 
-        public Color  BadgeColor
+    public Color  BadgeColor
 		{
-            get => (Color)GetValue( BadgeColorProperty);
-            set => SetValue( BadgeColorProperty, value);
-        }
+        get => (Color)GetValue( BadgeColorProperty);
+        set => SetValue( BadgeColorProperty, value);
+    }
 
-        public static BindableProperty InsetProperty =
+    public static BindableProperty InsetProperty =
 			BindableProperty.Create(nameof(Inset), typeof(double), typeof(BadgeView), 4.0d,
 				propertyChanged: OnLayoutPropertyChanged);
 
-        public double Inset
-        {
-            get => (double)GetValue(InsetProperty);
-            set => SetValue(InsetProperty, value);
-        }
+    public double Inset
+    {
+        get => (double)GetValue(InsetProperty);
+        set => SetValue(InsetProperty, value);
+    }
 
-        static void OnLayoutPropertyChanged(BindableObject bindable, object oldValue, object newValue) =>
+    static void OnLayoutPropertyChanged(BindableObject bindable, object oldValue, object newValue) =>
 			(bindable as BadgeView)?.UpdateLayout();
 
 		public BadgeView()
@@ -132,11 +131,11 @@ namespace eShopOnContainers.Views
 			}
 		}
 
-        private void BadgeIndicatorSizeChanged(object sender, EventArgs e)
-        {
+    private void BadgeIndicatorSizeChanged(object sender, EventArgs e)
+    {
 			_border.MinimumWidthRequest = _border.Height;
 			_borderShape.CornerRadius = _border.Height * .5f;
-        }
+    }
 
 		private void UpdateLayout()
 		{
@@ -163,5 +162,4 @@ namespace eShopOnContainers.Views
 			BatchCommit();
 		}
 	}
-}
 

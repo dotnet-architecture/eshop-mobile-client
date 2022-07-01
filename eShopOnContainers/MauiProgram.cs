@@ -13,7 +13,6 @@ using eShopOnContainers.Services.RequestProvider;
 using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace eShopOnContainers;
 

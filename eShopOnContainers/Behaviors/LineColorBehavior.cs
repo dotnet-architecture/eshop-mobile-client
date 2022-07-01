@@ -1,27 +1,25 @@
 ﻿using eShopOnContainers.Effects;
-using System.Linq;
-using Microsoft.Maui;
 
-namespace eShopOnContainers.Behaviors
+namespace eShopOnContainers.Behaviors;
+
+public static class LineColorBehavior
 {
-    public static class LineColorBehavior
-    {
-        public static readonly BindableProperty ApplyLineColorProperty =
-            BindableProperty.CreateAttached("ApplyLineColor", typeof(bool), typeof(LineColorBehavior), false, 
-                propertyChanged: OnApplyLineColorChanged);
+    public static readonly BindableProperty ApplyLineColorProperty =
+        BindableProperty.CreateAttached("ApplyLineColor", typeof(bool), typeof(LineColorBehavior), false, 
+            propertyChanged: OnApplyLineColorChanged);
 
 		public static readonly BindableProperty LineColorProperty =
 			BindableProperty.CreateAttached("LineColor", typeof(Color), typeof(LineColorBehavior), Colors.Transparent);
 
-        public static bool GetApplyLineColor(BindableObject view)
-        {
-            return (bool)view.GetValue(ApplyLineColorProperty);
-        }
+    public static bool GetApplyLineColor(BindableObject view)
+    {
+        return (bool)view.GetValue(ApplyLineColorProperty);
+    }
 
-        public static void SetApplyLineColor(BindableObject view, bool value)
-        {
-            view.SetValue(ApplyLineColorProperty, value);
-        }
+    public static void SetApplyLineColor(BindableObject view, bool value)
+    {
+        view.SetValue(ApplyLineColorProperty, value);
+    }
 
 		public static Color GetLineColor(BindableObject view)
 		{
@@ -33,28 +31,27 @@ namespace eShopOnContainers.Behaviors
 			view.SetValue(LineColorProperty, value);
 		}
 
-        private static void OnApplyLineColorChanged(BindableObject bindable, object oldValue, object newValue)
+    private static void OnApplyLineColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var view = bindable as View;
+
+        if (view == null)
         {
-            var view = bindable as View;
+            return;
+        }
 
-            if (view == null)
-            {
-                return;
-            }
+        bool hasLine = (bool)newValue;
 
-            bool hasLine = (bool)newValue;
-
-            if (hasLine)
+        if (hasLine)
+        {
+            view.Effects.Add(new EntryLineColorEffect());
+        }
+        else
+        {
+            var entryLineColorEffectToRemove = view.Effects.FirstOrDefault(e => e is EntryLineColorEffect);
+            if (entryLineColorEffectToRemove != null)
             {
-                view.Effects.Add(new EntryLineColorEffect());
-            }
-            else
-            {
-                var entryLineColorEffectToRemove = view.Effects.FirstOrDefault(e => e is EntryLineColorEffect);
-                if (entryLineColorEffectToRemove != null)
-                {
-                    view.Effects.Remove(entryLineColorEffectToRemove);
-                }
+                view.Effects.Remove(entryLineColorEffectToRemove);
             }
         }
     }

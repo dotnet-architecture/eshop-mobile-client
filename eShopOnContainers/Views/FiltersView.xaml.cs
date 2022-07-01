@@ -1,13 +1,11 @@
-﻿using CommunityToolkit.Maui.Views;
-using eShopOnContainers.ViewModels;
+﻿namespace eShopOnContainers.Views;
 
-namespace eShopOnContainers.Views
+public partial class FiltersView : ContentPage
 {
-    public partial class FiltersView : ContentPage
+    public FiltersView(CatalogViewModel viewModel)
     {
-        public FiltersView()
-        {
-            InitializeComponent();
-        }
+        this.BindingContext = viewModel;
+
+        InitializeComponent();
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Microsoft.Maui;
+﻿using System.Globalization;
 
-namespace eShopOnContainers.Converters
-{
+namespace eShopOnContainers.Converters;
+
 	public class FirstValidationErrorConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -19,4 +15,3 @@ namespace eShopOnContainers.Converters
 			throw new NotImplementedException();
 		}
 	}
-}

@@ -1,17 +1,16 @@
-﻿namespace eShopOnContainers.Animations.Base
+﻿namespace eShopOnContainers.Animations.Base;
+
+public enum EasingType
 {
-    public enum EasingType
-    {
-        BounceIn,
-        BounceOut,
-        CubicIn,
-        CubicInOut,
-        CubicOut,
-        Linear,
-        SinIn,
-        SinInOut,
-        SinOut,
-        SpringIn,
-        SpringOut
-    }
+    BounceIn,
+    BounceOut,
+    CubicIn,
+    CubicInOut,
+    CubicOut,
+    Linear,
+    SinIn,
+    SinInOut,
+    SinOut,
+    SpringIn,
+    SpringOut
 }

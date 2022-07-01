@@ -211,29 +211,29 @@
                 <Label
                   Text="Password"
                   Style="{StaticResource HeaderLabelStyle}"/>
-                <Entry
-                  IsPassword="True"
-                  Text="{Binding Password.Value, Mode=TwoWay}">
-                    <Entry.Style>
-                        <OnPlatform x:TypeArguments="Style">
-                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
-                            <On Platform="WinUI" Value="{StaticResource WinUIEntryStyle}" />
-                        </OnPlatform>
-                    </Entry.Style>
-					<Entry.Behaviors>
-						<mct:EventToCommandBehavior
-							EventName="TextChanged"
-							Command="{Binding ValidateCommand}" />
-					</Entry.Behaviors>
-					<Entry.Triggers>
-						<DataTrigger 
-							TargetType="Entry"
-							Binding="{Binding Password.IsValid}"
-							Value="False">
-							<Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
-						</DataTrigger>
-					</Entry.Triggers>
-                </Entry>
+<Entry
+    IsPassword="True"
+    Text="{Binding Password.Value, Mode=TwoWay}">
+    <Entry.Style>
+        <OnPlatform x:TypeArguments="Style">
+            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+            <On Platform="WinUI" Value="{StaticResource WinUIEntryStyle}" />
+        </OnPlatform>
+    </Entry.Style>
+	<Entry.Behaviors>
+		<mct:EventToCommandBehavior
+			EventName="TextChanged"
+			Command="{Binding ValidateCommand}" />
+	</Entry.Behaviors>
+	<Entry.Triggers>
+		<DataTrigger 
+			TargetType="Entry"
+			Binding="{Binding Password.IsValid}"
+			Value="False">
+			<Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+		</DataTrigger>
+	</Entry.Triggers>
+</Entry>
 				<Label 
 					Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />

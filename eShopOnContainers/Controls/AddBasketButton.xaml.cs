@@ -1,12 +1,9 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Controls;
 
-namespace eShopOnContainers.Controls
+public partial class AddBasketButton : Grid
 {
-    public partial class AddBasketButton : Grid
+    public AddBasketButton()
     {
-        public AddBasketButton()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -108,7 +108,7 @@
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="IdentityModel" Version="3.0.0" />
 	  <PackageReference Include="PCLCrypto" Version="2.1.40-alpha" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Services\AppEnvironment\" />

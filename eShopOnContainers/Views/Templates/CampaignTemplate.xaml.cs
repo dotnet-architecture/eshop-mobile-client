@@ -1,12 +1,9 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Views.Templates;
 
-namespace eShopOnContainers.Views.Templates
+public partial class CampaignTemplate : ContentView
 {
-    public partial class CampaignTemplate : ContentView
+    public CampaignTemplate()
     {
-        public CampaignTemplate()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

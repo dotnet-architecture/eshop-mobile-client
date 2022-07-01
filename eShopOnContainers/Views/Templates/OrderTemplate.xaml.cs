@@ -1,12 +1,9 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Views.Templates;
 
-namespace eShopOnContainers.Views.Templates
+public partial class OrderTemplate : ContentView
 {
-    public partial class OrderTemplate : ContentView
+    public OrderTemplate()
     {
-        public OrderTemplate()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace eShopOnContainers.Validations
+﻿namespace eShopOnContainers.Validations;
+
+public interface IValidity
 {
-    public interface IValidity
-    {
-        bool IsValid { get; }
-    }
+    bool IsValid { get; }
 }

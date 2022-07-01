@@ -1,5 +1,4 @@
 ﻿using eShopOnContainers.Models.User;
-using System.Threading.Tasks;
 
 namespace eShopOnContainers.Services.User
 {

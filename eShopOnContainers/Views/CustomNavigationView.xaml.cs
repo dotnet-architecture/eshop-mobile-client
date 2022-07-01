@@ -1,17 +1,14 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Views;
 
-namespace eShopOnContainers.Views
+public partial class CustomNavigationView : NavigationPage
 {
-    public partial class CustomNavigationView : NavigationPage
+    public CustomNavigationView() : base()
     {
-        public CustomNavigationView() : base()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        public CustomNavigationView(Page root) : base(root)
-        {
-            InitializeComponent();
-        }
+    public CustomNavigationView(Page root) : base(root)
+    {
+        InitializeComponent();
     }
 }

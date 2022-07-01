@@ -1,10 +1,9 @@
-﻿namespace eShopOnContainers.Models.Permissions
+﻿namespace eShopOnContainers.Models.Permissions;
+
+public enum Permission
 {
-    public enum Permission
-    {
-        Unknown,
-        Location,
-        LocationAlways,
-        LocationWhenInUse
-    }
+    Unknown,
+    Location,
+    LocationAlways,
+    LocationWhenInUse
 }

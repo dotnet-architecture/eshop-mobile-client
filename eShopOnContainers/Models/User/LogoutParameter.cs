@@ -1,7 +1,6 @@
-﻿namespace eShopOnContainers.Models.User
+﻿namespace eShopOnContainers.Models.User;
+
+public class LogoutParameter
 {
-    public class LogoutParameter
-    {
-        public bool Logout { get; set; }
-    }
+    public bool Logout { get; set; }
 }

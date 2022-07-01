@@ -1,12 +1,9 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Views.Templates;
 
-namespace eShopOnContainers.Views.Templates
+public partial class ProductTemplate : ContentView
 {
-    public partial class ProductTemplate : ContentView
+    public ProductTemplate()
     {
-        public ProductTemplate()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

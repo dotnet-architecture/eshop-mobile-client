@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using Microsoft.Maui;
+﻿using System.Globalization;
 
 namespace eShopOnContainers.Converters
 {

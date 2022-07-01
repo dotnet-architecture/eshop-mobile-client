@@ -1,15 +1,10 @@
-﻿using eShopOnContainers.ViewModels.Base;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿namespace eShopOnContainers.Services;
 
-namespace eShopOnContainers.Services
+public interface INavigationService
 {
-    public interface INavigationService
-    {
-        Task InitializeAsync();
+    Task InitializeAsync();
 
-        Task NavigateToAsync (string route, IDictionary<string, object> routeParameters = null);
+    Task NavigateToAsync (string route, IDictionary<string, object> routeParameters = null);
 
-        Task PopAsync();
-    }
+    Task PopAsync();
 }

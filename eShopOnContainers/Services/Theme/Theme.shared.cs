@@ -1,12 +1,8 @@
-﻿using System;
+﻿namespace eShopOnContainers.Services.Theme;
 
-namespace eShopOnContainers.Services.Theme
+public class Theme : ITheme
 {
-    public class Theme : ITheme
+    public void SetStatusBarColor(Color color, bool darkStatusBarTint)
     {
-        public void SetStatusBarColor(Color color, bool darkStatusBarTint)
-        {
-        }
     }
 }
-

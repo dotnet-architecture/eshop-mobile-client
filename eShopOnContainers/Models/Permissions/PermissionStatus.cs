@@ -1,11 +1,10 @@
-﻿namespace eShopOnContainers.Models.Permissions
+﻿namespace eShopOnContainers.Models.Permissions;
+
+public enum PermissionStatus
 {
-    public enum PermissionStatus
-    {
-        Denied,
-        Disabled,
-        Granted,
-        Restricted,
-        Unknown
-    }
+    Denied,
+    Disabled,
+    Granted,
+    Restricted,
+    Unknown
 }

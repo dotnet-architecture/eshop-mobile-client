@@ -1,11 +1,10 @@
-﻿namespace eShopOnContainers.ViewModels.Base
-{
-    public class MessageKeys
-    {
-        // Filter
-        public const string Filter = "Filter";
+﻿namespace eShopOnContainers.ViewModels.Base;
 
-        // Change selected Tab programmatically
-        public const string ChangeTab = "ChangeTab";   
-    }
+public class MessageKeys
+{
+    // Filter
+    public const string Filter = "Filter";
+
+    // Change selected Tab programmatically
+    public const string ChangeTab = "ChangeTab";   
 }

@@ -1,8 +1,7 @@
-﻿namespace eShopOnContainers.Models.Location
+﻿namespace eShopOnContainers.Models.Location;
+
+public class Location
 {
-    public class Location
-    {
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
-    }
+    public double Longitude { get; set; }
+    public double Latitude { get; set; }
 }
