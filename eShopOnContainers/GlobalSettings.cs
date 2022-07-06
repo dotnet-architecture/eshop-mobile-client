@@ -14,8 +14,8 @@ public class GlobalSetting
     {
         AuthToken = "INSERT AUTHENTICATION TOKEN";
 
-        BaseIdentityEndpoint = "http://20.221.112.152/identity";
-        BaseGatewayShoppingEndpoint = "http://20.221.112.152/catalog-api";
+        BaseIdentityEndpoint = DefaultEndpoint;
+        BaseGatewayShoppingEndpoint = DefaultEndpoint;
         BaseGatewayMarketingEndpoint = DefaultEndpoint;
     }
 
