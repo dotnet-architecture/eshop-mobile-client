@@ -8,7 +8,7 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-[QueryProperty(nameof(OrderNumber), nameof(Models.Orders.Order.OrderNumber))]
+[QueryProperty(nameof(OrderNumber), "OrderNumber")]
 public class OrderDetailViewModel : ViewModelBase
 {
     private readonly ISettingsService _settingsService;

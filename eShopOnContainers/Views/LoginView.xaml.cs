@@ -14,9 +14,9 @@ public partial class LoginView : ContentPage
 
     protected override async void OnAppearing()
     {
-        var content = this.Content;
-        this.Content = null;
-        this.Content = content;
+        var content = Content;
+        Content = null;
+        Content = content;
 
 			var vm = BindingContext as LoginViewModel;
         if (vm != null)

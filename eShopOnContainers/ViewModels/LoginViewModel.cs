@@ -99,7 +99,7 @@ public class LoginViewModel : ViewModelBase
     {
         base.ApplyQueryAttributes(query);
 
-        if(query.ValueAsBool("Logout", out var logout) && logout == true)
+        if (query.ValueAsBool("Logout") == true)
         {
             PerformLogout ();
         }
@@ -219,9 +219,7 @@ public class LoginViewModel : ViewModelBase
 
     private Task SettingsAsync()
     {
-        return NavigationService.NavigateToAsync(
-            "Settings",
-            new Dictionary<string, object>{ { "reset", true } });
+        return NavigationService.NavigateToAsync("Settings");
     }
 
     private bool Validate()

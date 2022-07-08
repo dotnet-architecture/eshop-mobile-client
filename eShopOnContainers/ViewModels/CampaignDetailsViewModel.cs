@@ -8,7 +8,7 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-[QueryProperty(nameof(CampaignId), nameof(Models.Marketing.Campaign.Id))]
+[QueryProperty(nameof(CampaignId), "Id")]
 public class CampaignDetailsViewModel : ViewModelBase
 {
     private readonly ISettingsService _settingsService;

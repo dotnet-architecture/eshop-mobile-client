@@ -2,27 +2,23 @@
 
 public static class DictionaryExtensions
 {
-    public static bool ValueAsBool(this IDictionary<string, object> dictionary, string key, out bool value)
+    public static bool ValueAsBool(this IDictionary<string, object> dictionary, string key, bool defaultValue = false)
     {
         if ( dictionary.ContainsKey(key) && dictionary[key] is bool dictValue)
         {
-            value = dictValue;
-            return true;
+            return dictValue;
         }
 
-        value = default(bool);
-        return false;
+        return defaultValue;
     }
 
-    public static bool ValueAsInt(this IDictionary<string, object> dictionary, string key, out int value)
+    public static int ValueAsInt(this IDictionary<string, object> dictionary, string key, int defaultValue = 0)
     {
         if (dictionary.ContainsKey(key) && dictionary[key] is int intValue)
         {
-            value = intValue;
-            return true;
+            return intValue;
         }
 
-        value = default(int);
-        return false;
+        return defaultValue;
     }
 }

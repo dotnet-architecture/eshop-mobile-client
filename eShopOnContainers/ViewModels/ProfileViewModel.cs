@@ -83,7 +83,7 @@ public class ProfileViewModel : ViewModelBase
 
     private async Task OrderDetailAsync(Order order)
     {
-        if(order is null)
+        if (order is null)
         {
             return;
         }

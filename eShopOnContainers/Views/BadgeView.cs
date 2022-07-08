@@ -75,13 +75,13 @@ namespace eShopOnContainers.Views;
 
 		public BadgeView()
 		{
-			this.ColumnDefinitions =
+			ColumnDefinitions =
 				new ColumnDefinitionCollection
 				{
 					new ColumnDefinition(GridLength.Auto),
 				};
 
-			this.RowDefinitions =
+			RowDefinitions =
 				new RowDefinitionCollection
 				{
 					new RowDefinition(GridLength.Auto),
@@ -113,8 +113,8 @@ namespace eShopOnContainers.Views;
 					ZIndex = 1,
 				};
 
-			this.Children.Add(_badgeContent);
-			this.Children.Add(_border);
+			Children.Add(_badgeContent);
+			Children.Add(_border);
 
 			UpdateLayout();
 		}
@@ -144,7 +144,7 @@ namespace eShopOnContainers.Views;
 			_border.BatchBegin();
 			_badgeIndicator.BatchBegin();
 
-			this.Padding = Inset;
+			Padding = Inset;
 
 			_badgeContent.Content = Content;
 

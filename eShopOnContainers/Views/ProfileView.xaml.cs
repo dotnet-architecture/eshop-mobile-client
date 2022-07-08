@@ -15,7 +15,7 @@ public partial class ProfileView : ContentPageBase
     {
         base.OnAppearing();
 
-        if(_viewModel.IsInitialized)
+        if (_viewModel.IsInitialized)
         {
             _viewModel.RefreshCommand.Execute(null);
         }

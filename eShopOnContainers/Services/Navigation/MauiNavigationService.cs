@@ -13,24 +13,23 @@ public class MauiNavigationService : INavigationService
 
     public Task InitializeAsync()
     {
-        if (string.IsNullOrEmpty(_settingsService.AuthAccessToken))
-            return NavigateToAsync("//Login");
-        else
-            return NavigateToAsync("//Main/Catalog");
+        return NavigateToAsync(
+            string.IsNullOrEmpty(_settingsService.AuthAccessToken)
+                ? "//Login"
+                : "//Main/Catalog");
     }
 
     public Task NavigateToAsync (string route, IDictionary<string, object> routeParameters = null)
     {
         var shellNavigation = new ShellNavigationState(route);
 
-        return
-            routeParameters != null
-                ? Shell.Current.GoToAsync(shellNavigation, routeParameters)
-                : Shell.Current.GoToAsync(shellNavigation);
+        return routeParameters != null
+            ? Shell.Current.GoToAsync(shellNavigation, routeParameters)
+            : Shell.Current.GoToAsync(shellNavigation);
     }
 
-    public async Task PopAsync()
+    public Task PopAsync()
     {
-        await Shell.Current.GoToAsync("..");
+        return Shell.Current.GoToAsync("..");
     }
 }

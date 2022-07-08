@@ -49,6 +49,6 @@ public class ValidatableObject<T> : ObservableObject, IValidity
 
         IsValid = !errors.Any();
 
-        return this.IsValid;
+        return IsValid;
     }
 }

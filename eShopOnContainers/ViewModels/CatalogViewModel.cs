@@ -135,7 +135,7 @@ public class CatalogViewModel : ViewModelBase
 
     private async void AddCatalogItem(CatalogItem catalogItem)
     {
-        if(catalogItem is null)
+        if (catalogItem is null)
         {
             return;
         }
@@ -143,7 +143,7 @@ public class CatalogViewModel : ViewModelBase
         var authToken = _settingsService.AuthAccessToken;
         var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync (authToken);
         var basket = await _appEnvironmentService.BasketService.GetBasketAsync (userInfo.UserId, authToken);
-        if(basket != null)
+        if (basket != null)
         {
             basket.Items.Add (
                 new BasketItem

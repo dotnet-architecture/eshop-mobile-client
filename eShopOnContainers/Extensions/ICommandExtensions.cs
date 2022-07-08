@@ -13,7 +13,7 @@ public static class ICommandExtensions
             return;
         }
 
-        if(command is IRelayCommand rc)
+        if (command is IRelayCommand rc)
         {
             rc?.NotifyCanExecuteChanged();
         }

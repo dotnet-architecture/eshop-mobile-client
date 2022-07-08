@@ -47,7 +47,7 @@ public class CampaignViewModel : ViewModelBase
 
     private async Task GetCampaignDetailsAsync(CampaignItem campaign)
     {
-        if(campaign is null)
+        if (campaign is null)
         {
             return;
         }
