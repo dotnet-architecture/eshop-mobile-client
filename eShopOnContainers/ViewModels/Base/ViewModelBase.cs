@@ -5,12 +5,13 @@ using eShopOnContainers.Services.Settings;
 
 namespace eShopOnContainers.ViewModels.Base;
 
-public abstract class ViewModelBase : ObservableObject, IViewModelBase
+public abstract class ViewModelBase : ObservableObject, IViewModelBase, IDisposable
 {
     private readonly SemaphoreSlim _isBusyLock = new SemaphoreSlim(1, 1);
 
     private bool _isInitialized;
     private bool _isBusy;
+    private bool _disposedValue;
 
     public IDialogService DialogService { get; private set; }
 
@@ -65,6 +66,26 @@ public abstract class ViewModelBase : ObservableObject, IViewModelBase
             IsBusy = false;
             _isBusyLock.Release();
         }
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                _isBusyLock?.Dispose();
+            }
+
+            _disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
 
