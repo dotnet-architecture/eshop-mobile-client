@@ -28,7 +28,7 @@ public class BasketItem : BindableObject
         set
         {
             _quantity = value;
-            OnPropertyChanged("Quantity");
+            OnPropertyChanged(nameof(Quantity));
         }
     }
 

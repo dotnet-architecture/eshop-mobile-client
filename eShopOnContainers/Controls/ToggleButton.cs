@@ -5,23 +5,23 @@ namespace eShopOnContainers.Controls;
 public class ToggleButton : ContentView
 {
     public static readonly BindableProperty CommandProperty =
-        BindableProperty.Create("Command", typeof(ICommand), typeof(ToggleButton), null);
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(ToggleButton), null);
 
     public static readonly BindableProperty CommandParameterProperty =
-        BindableProperty.Create("CommandParameter", typeof(object), typeof(ToggleButton), null);
+        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(ToggleButton), null);
 
     public static readonly BindableProperty CheckedProperty =
-        BindableProperty.Create("Checked", typeof(bool), typeof(ToggleButton), false, BindingMode.TwoWay,
+        BindableProperty.Create(nameof(Checked), typeof(bool), typeof(ToggleButton), false, BindingMode.TwoWay,
             null, propertyChanged: OnCheckedChanged);
 
     public static readonly BindableProperty AnimateProperty =
-        BindableProperty.Create("Animate", typeof(bool), typeof(ToggleButton), false);
+        BindableProperty.Create(nameof(Animate), typeof(bool), typeof(ToggleButton), false);
 
     public static readonly BindableProperty CheckedImageProperty =
-        BindableProperty.Create("CheckedImage", typeof(ImageSource), typeof(ToggleButton), null);
+        BindableProperty.Create(nameof(CheckedImage), typeof(ImageSource), typeof(ToggleButton), null);
 
     public static readonly BindableProperty UnCheckedImageProperty =
-        BindableProperty.Create("UnCheckedImage", typeof(ImageSource), typeof(ToggleButton), null);
+        BindableProperty.Create(nameof(UnCheckedImage), typeof(ImageSource), typeof(ToggleButton), null);
 
     private ICommand _toggleCommand;
     private Image _toggleImage;

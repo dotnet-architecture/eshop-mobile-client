@@ -13,7 +13,7 @@ public class WebNavigatedEventArgsConverter : ICommunityToolkitValueConverter
     {
         var eventArgs = value as WebNavigatedEventArgs;
         if (eventArgs == null)
-            throw new ArgumentException("Expected WebNavigatedEventArgs as value", "value");
+            throw new ArgumentException("Expected WebNavigatedEventArgs as value", nameof(value));
 
         return eventArgs.Url;
     }

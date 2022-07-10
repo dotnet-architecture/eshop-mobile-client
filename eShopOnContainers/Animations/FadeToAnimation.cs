@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.Animations.Base;
+using eShopOnContainers.Animations.Base;
 using eShopOnContainers.Helpers;
 
 namespace eShopOnContainers.Animations;
@@ -6,7 +6,7 @@ namespace eShopOnContainers.Animations;
 public class FadeToAnimation : AnimationBase
 {
     public static readonly BindableProperty OpacityProperty =
-     BindableProperty.Create("Opacity", typeof(double), typeof(FadeToAnimation), 0.0d,
+     BindableProperty.Create(nameof(Opacity), typeof(double), typeof(FadeToAnimation), 0.0d,
      propertyChanged: (bindable, oldValue, newValue) =>
      ((FadeToAnimation)bindable).Opacity = (double)newValue);
 
@@ -46,7 +46,7 @@ public class FadeInAnimation : AnimationBase
     }
 
     public static readonly BindableProperty DirectionProperty =
-     BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,
+     BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,
      propertyChanged: (bindable, oldValue, newValue) =>
      ((FadeInAnimation)bindable).Direction = (FadeDirection)newValue);
 
@@ -104,7 +104,7 @@ public class FadeOutAnimation : AnimationBase
     }
 
     public static readonly BindableProperty DirectionProperty =
-     BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,
+     BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,
      propertyChanged: (bindable, oldValue, newValue) =>
      ((FadeOutAnimation)bindable).Direction = (FadeDirection)newValue);
 

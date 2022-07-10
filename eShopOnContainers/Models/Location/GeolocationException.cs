@@ -8,7 +8,7 @@ public class GeolocationException : Exception
         : base("A geolocation error occured: " + error)
     {
         if (!Enum.IsDefined(typeof(GeolocationError), error))
-            throw new ArgumentException("error is not a valid GelocationError member", "error");
+            throw new ArgumentException("error is not a valid GelocationError member", nameof(error));
 
         Error = error;
     }
@@ -17,7 +17,7 @@ public class GeolocationException : Exception
         : base("A geolocation error occured: " + error, innerException)
     {
         if (!Enum.IsDefined(typeof(GeolocationError), error))
-            throw new ArgumentException("error is not a valid GelocationError member", "error");
+            throw new ArgumentException("error is not a valid GelocationError member", nameof(error));
 
         Error = error;
     }
