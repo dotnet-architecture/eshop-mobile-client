@@ -28,7 +28,7 @@ public class BasketService : IBasketService
 
         try
         {
-            basket = await _requestProvider.GetAsync<CustomerBasket>(uri, token);
+            basket = await _requestProvider.GetAsync<CustomerBasket>(uri, token).ConfigureAwait(false);
         }
         catch (HttpRequestExceptionEx exception) when (exception.HttpCode == System.Net.HttpStatusCode.NotFound)
         {
@@ -43,7 +43,7 @@ public class BasketService : IBasketService
     {
         var uri = UriHelper.CombineUri(GlobalSetting.Instance.GatewayShoppingEndpoint, ApiUrlBase);
 
-        var result = await _requestProvider.PostAsync(uri, customerBasket, token);
+        var result = await _requestProvider.PostAsync(uri, customerBasket, token).ConfigureAwait(false);
         return result;
     }
 
@@ -51,14 +51,14 @@ public class BasketService : IBasketService
     {
         var uri = UriHelper.CombineUri(GlobalSetting.Instance.GatewayShoppingEndpoint, $"{ApiUrlBase}/checkout");
 
-        await _requestProvider.PostAsync(uri, basketCheckout, token);
+        await _requestProvider.PostAsync(uri, basketCheckout, token).ConfigureAwait(false);
     }
 
     public async Task ClearBasketAsync(string guidUser, string token)
     {
         var uri = UriHelper.CombineUri(GlobalSetting.Instance.GatewayShoppingEndpoint, $"{ApiUrlBase}/{guidUser}");
 
-        await _requestProvider.DeleteAsync(uri, token);
+        await _requestProvider.DeleteAsync(uri, token).ConfigureAwait(false);
 
         LocalBasketItems = null;
     }
