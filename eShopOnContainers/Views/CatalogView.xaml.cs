@@ -1,4 +1,6 @@
-﻿namespace eShopOnContainers.Views;
+﻿using eShopOnContainers.Models.Catalog;
+
+namespace eShopOnContainers.Views;
 
 public partial class CatalogView : ContentPageBase
 {
@@ -7,6 +9,30 @@ public partial class CatalogView : ContentPageBase
         this.BindingContext = viewModel;
 
         InitializeComponent();
-        //basket.Command = viewModel.ViewBasketCommand;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        MessagingCenter.Subscribe<CatalogViewModel>(
+            this,
+            MessengerKeys.AddProduct,
+            (sender) =>
+            {
+                MainThread.BeginInvokeOnMainThread(
+                    async () =>
+                    {
+                        await badge.ScaleTo(1.2);
+                        await badge.ScaleTo(1.0);
+                    });
+            });
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem>(this, MessengerKeys.AddProduct);
     }
 }
