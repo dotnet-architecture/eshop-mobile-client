@@ -26,15 +26,9 @@ public class LoginViewModel : ViewModelBase
     private bool _isLogin;
     private string _loginUrl;
 
-    public ValidatableObject<string> UserName
-    {
-        get => _userName;
-    }
+    public ValidatableObject<string> UserName => _userName;
 
-    public ValidatableObject<string> Password
-    {
-        get => _password;
-    }
+    public ValidatableObject<string> Password => _password;
 
     public bool IsMock
     {
@@ -101,11 +95,11 @@ public class LoginViewModel : ViewModelBase
 
         if (query.ValueAsBool("Logout") == true)
         {
-            PerformLogout ();
+            PerformLogout();
         }
     }
 
-    public override Task InitializeAsync ()
+    public override Task InitializeAsync()
     {
         return Task.CompletedTask;
     }
@@ -141,7 +135,7 @@ public class LoginViewModel : ViewModelBase
                 {
                     _settingsService.AuthAccessToken = GlobalSetting.Instance.AuthToken;
 
-                    await NavigationService.NavigateToAsync ("//Main/Catalog");
+                    await NavigationService.NavigateToAsync("//Main/Catalog");
                 }
             });
     }
@@ -211,7 +205,7 @@ public class LoginViewModel : ViewModelBase
                 {
                     _settingsService.AuthAccessToken = accessToken;
                     _settingsService.AuthIdToken = authResponse.IdentityToken;
-                    await NavigationService.NavigateToAsync ("//Main/Catalog");
+                    await NavigationService.NavigateToAsync("//Main/Catalog");
                 }
             }
         }

@@ -23,10 +23,7 @@ public class CatalogViewModel : ViewModelBase
     private CatalogType _type;
     private int _badgeCount;
 
-    public IList<CatalogItem> Products
-    {
-        get => _products;
-    }
+    public IList<CatalogItem> Products => _products;
 
     public CatalogItem SelectedProduct
     {
@@ -34,10 +31,7 @@ public class CatalogViewModel : ViewModelBase
         set => SetProperty(ref _selectedProduct, value);
     }
 
-    public IEnumerable<CatalogBrand> Brands
-    {
-        get => _brands;
-    }
+    public IEnumerable<CatalogBrand> Brands => _brands;
 
     public CatalogBrand Brand
     {
@@ -45,15 +39,12 @@ public class CatalogViewModel : ViewModelBase
         set
         {
             SetProperty(ref _brand, value);
-            this.OnPropertyChanged(nameof(IsFilter));
+            OnPropertyChanged(nameof(IsFilter));
             FilterCommand.AttemptNotifyCanExecuteChanged();
         }
     }
 
-    public IEnumerable<CatalogType> Types
-    {
-        get => _types;
-    }
+    public IEnumerable<CatalogType> Types => _types;
 
     public CatalogType Type
     {
@@ -61,7 +52,7 @@ public class CatalogViewModel : ViewModelBase
         set
         {
             SetProperty(ref _type, value);
-            this.OnPropertyChanged(nameof(IsFilter));
+            OnPropertyChanged(nameof(IsFilter));
             FilterCommand.AttemptNotifyCanExecuteChanged();
         }
     }
@@ -72,10 +63,7 @@ public class CatalogViewModel : ViewModelBase
         set => SetProperty(ref _badgeCount, value);
     }
 
-    public bool IsFilter
-    {
-        get => Brand != null || Type != null;
-    }
+    public bool IsFilter => Brand != null || Type != null;
 
     public ICommand AddCatalogItemCommand { get; }
 
@@ -110,22 +98,22 @@ public class CatalogViewModel : ViewModelBase
         ViewBasketCommand = new AsyncRelayCommand(ViewBasket, AsyncRelayCommandOptions.AllowConcurrentExecutions);
     }
 
-    public override async Task InitializeAsync ()
+    public override async Task InitializeAsync()
     {
         await IsBusyFor(
             async () =>
             {
                 // Get Catalog, Brands and Types
-                var products = await _appEnvironmentService.CatalogService.GetCatalogAsync ();
-                var brands = await _appEnvironmentService.CatalogService.GetCatalogBrandAsync ();
-                var types = await _appEnvironmentService.CatalogService.GetCatalogTypeAsync ();
+                var products = await _appEnvironmentService.CatalogService.GetCatalogAsync();
+                var brands = await _appEnvironmentService.CatalogService.GetCatalogBrandAsync();
+                var types = await _appEnvironmentService.CatalogService.GetCatalogTypeAsync();
 
                 var authToken = _settingsService.AuthAccessToken;
-                var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync (authToken);
+                var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync(authToken);
 
-                var basket = await _appEnvironmentService.BasketService.GetBasketAsync (userInfo.UserId, authToken);
+                var basket = await _appEnvironmentService.BasketService.GetBasketAsync(userInfo.UserId, authToken);
 
-                BadgeCount = basket?.Items?.Count () ?? 0;
+                BadgeCount = basket?.Items?.Count ?? 0;
 
                 _products.ReloadData(products);
                 _brands.ReloadData(brands);
@@ -141,11 +129,11 @@ public class CatalogViewModel : ViewModelBase
         }
 
         var authToken = _settingsService.AuthAccessToken;
-        var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync (authToken);
-        var basket = await _appEnvironmentService.BasketService.GetBasketAsync (userInfo.UserId, authToken);
+        var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync(authToken);
+        var basket = await _appEnvironmentService.BasketService.GetBasketAsync(userInfo.UserId, authToken);
         if (basket != null)
         {
-            basket.Items.Add (
+            basket.Items.Add(
                 new BasketItem
                 {
                     ProductId = catalogItem.Id,
@@ -155,8 +143,8 @@ public class CatalogViewModel : ViewModelBase
                     Quantity = 1
                 });
 
-            await _appEnvironmentService.BasketService.UpdateBasketAsync (basket, authToken);
-            BadgeCount = basket.Items.Count ();
+            await _appEnvironmentService.BasketService.UpdateBasketAsync(basket, authToken);
+            BadgeCount = basket.Items.Count;
             MessagingCenter.Send(this, MessengerKeys.AddProduct);
         }
 
@@ -199,6 +187,6 @@ public class CatalogViewModel : ViewModelBase
 
     private async Task ViewBasket()
     {
-        await NavigationService.NavigateToAsync ("Basket");
+        await NavigationService.NavigateToAsync("Basket");
     }
 }

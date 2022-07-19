@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace eShopOnContainers.Services.OpenUrl;
+﻿namespace eShopOnContainers.Services.OpenUrl;
 
 public interface IOpenUrlService
 {

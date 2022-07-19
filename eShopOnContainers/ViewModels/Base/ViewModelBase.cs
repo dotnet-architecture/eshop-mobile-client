@@ -1,5 +1,4 @@
-﻿using System;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using eShopOnContainers.Services;
 using eShopOnContainers.Services.Settings;
 
@@ -7,7 +6,7 @@ namespace eShopOnContainers.ViewModels.Base;
 
 public abstract class ViewModelBase : ObservableObject, IViewModelBase, IDisposable
 {
-    private readonly SemaphoreSlim _isBusyLock = new SemaphoreSlim(1, 1);
+    private readonly SemaphoreSlim _isBusyLock = new(1, 1);
 
     private bool _isInitialized;
     private bool _isBusy;

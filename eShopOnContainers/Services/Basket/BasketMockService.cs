@@ -6,7 +6,7 @@ public class BasketMockService : IBasketService
 {
     public IEnumerable<BasketItem> LocalBasketItems { get; set; }
 
-    private CustomerBasket MockCustomBasket = new CustomerBasket
+    private CustomerBasket MockCustomBasket = new()
     {
         BuyerId = "9245fe4a-d402-451c-b9ed-9c1a04247482",
         Items = new List<BasketItem>

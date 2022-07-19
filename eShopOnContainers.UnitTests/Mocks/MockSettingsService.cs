@@ -2,7 +2,7 @@
 
 public class MockSettingsService : ISettingsService
 {
-    IDictionary<string, object> _settings = new Dictionary<string, object>();
+    readonly IDictionary<string, object> _settings = new Dictionary<string, object>();
 
     const string AccessToken = "access_token";
     const string IdToken = "id_token";
@@ -101,7 +101,7 @@ public class MockSettingsService : ISettingsService
         return Task.Delay(10);
     }
 
-    T GetValueOrDefaultInternal<T>(string key, T defaultValue = default(T))
+    T GetValueOrDefaultInternal<T>(string key, T defaultValue = default)
     {
         object? value = null;
         if (_settings.ContainsKey(key))

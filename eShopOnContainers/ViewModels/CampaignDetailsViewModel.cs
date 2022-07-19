@@ -44,7 +44,7 @@ public class CampaignDetailsViewModel : ViewModelBase
         set => SetProperty(ref _isDetailsSite, value);
     }
 
-    public override async Task InitializeAsync ()
+    public override async Task InitializeAsync()
     {
         await IsBusyFor(
             async () =>

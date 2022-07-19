@@ -13,6 +13,7 @@ using eShopOnContainers.Services.RequestProvider;
 using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
+using eShopOnContainers.Views;
 
 namespace eShopOnContainers;
 
@@ -82,33 +83,33 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
-        mauiAppBuilder.Services.AddSingleton<ViewModels.MainViewModel>();
-        mauiAppBuilder.Services.AddSingleton<ViewModels.LoginViewModel>();
-        mauiAppBuilder.Services.AddSingleton<ViewModels.BasketViewModel>();
-        mauiAppBuilder.Services.AddSingleton<ViewModels.CatalogViewModel>();
-        mauiAppBuilder.Services.AddSingleton<ViewModels.ProfileViewModel>();
+        mauiAppBuilder.Services.AddSingleton<MainViewModel>();
+        mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
+        mauiAppBuilder.Services.AddSingleton<BasketViewModel>();
+        mauiAppBuilder.Services.AddSingleton<CatalogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<ProfileViewModel>();
 
-        mauiAppBuilder.Services.AddTransient<ViewModels.CheckoutViewModel>();
-        mauiAppBuilder.Services.AddTransient<ViewModels.OrderDetailViewModel>();
-        mauiAppBuilder.Services.AddTransient<ViewModels.SettingsViewModel>();
-        mauiAppBuilder.Services.AddTransient<ViewModels.CampaignViewModel>();
-        mauiAppBuilder.Services.AddTransient<ViewModels.CampaignDetailsViewModel>();
+        mauiAppBuilder.Services.AddTransient<CheckoutViewModel>();
+        mauiAppBuilder.Services.AddTransient<OrderDetailViewModel>();
+        mauiAppBuilder.Services.AddTransient<SettingsViewModel>();
+        mauiAppBuilder.Services.AddTransient<CampaignViewModel>();
+        mauiAppBuilder.Services.AddTransient<CampaignDetailsViewModel>();
 
         return mauiAppBuilder;
     }
 
     public static MauiAppBuilder RegisterViews(this MauiAppBuilder mauiAppBuilder)
     {
-        mauiAppBuilder.Services.AddTransient<Views.BasketView>();
-        mauiAppBuilder.Services.AddTransient<Views.CampaignDetailsView>();
-        mauiAppBuilder.Services.AddTransient<Views.CampaignView>();
-        mauiAppBuilder.Services.AddTransient<Views.CatalogView>();
-        mauiAppBuilder.Services.AddTransient<Views.CheckoutView>();
-        mauiAppBuilder.Services.AddTransient<Views.FiltersView>();
-        mauiAppBuilder.Services.AddTransient<Views.LoginView>();
-        mauiAppBuilder.Services.AddTransient<Views.OrderDetailView>();
-        mauiAppBuilder.Services.AddTransient<Views.ProfileView>();
-        mauiAppBuilder.Services.AddTransient<Views.SettingsView>();
+        mauiAppBuilder.Services.AddTransient<BasketView>();
+        mauiAppBuilder.Services.AddTransient<CampaignDetailsView>();
+        mauiAppBuilder.Services.AddTransient<CampaignView>();
+        mauiAppBuilder.Services.AddTransient<CatalogView>();
+        mauiAppBuilder.Services.AddTransient<CheckoutView>();
+        mauiAppBuilder.Services.AddTransient<FiltersView>();
+        mauiAppBuilder.Services.AddTransient<LoginView>();
+        mauiAppBuilder.Services.AddTransient<OrderDetailView>();
+        mauiAppBuilder.Services.AddTransient<ProfileView>();
+        mauiAppBuilder.Services.AddTransient<SettingsView>();
 
         return mauiAppBuilder;
     }

@@ -6,5 +6,5 @@ public class MessageKeys
     public const string Filter = "Filter";
 
     // Change selected Tab programmatically
-    public const string ChangeTab = "ChangeTab";   
+    public const string ChangeTab = "ChangeTab";
 }

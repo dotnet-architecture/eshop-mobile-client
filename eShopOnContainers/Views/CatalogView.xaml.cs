@@ -6,7 +6,7 @@ public partial class CatalogView : ContentPageBase
 {
     public CatalogView(CatalogViewModel viewModel)
     {
-        this.BindingContext = viewModel;
+        BindingContext = viewModel;
 
         InitializeComponent();
     }

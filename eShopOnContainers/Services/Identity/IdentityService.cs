@@ -25,15 +25,17 @@ public class IdentityService : IIdentityService
         var authorizeRequest = new AuthorizeRequest(GlobalSetting.Instance.AuthorizeEndpoint);
 
         // Dictionary with values for the authorize request
-        var dic = new Dictionary<string, string>();
-        dic.Add("client_id", GlobalSetting.Instance.ClientId);
-        dic.Add("client_secret", GlobalSetting.Instance.ClientSecret);
-        dic.Add("response_type", "code id_token");
-        dic.Add("scope", "openid profile basket orders offline_access");
-        dic.Add("redirect_uri", GlobalSetting.Instance.Callback);
-        dic.Add("nonce", Guid.NewGuid().ToString("N"));
-        dic.Add("code_challenge", CreateCodeChallenge());
-        dic.Add("code_challenge_method", "S256");
+        var dic = new Dictionary<string, string>
+        {
+            { "client_id", GlobalSetting.Instance.ClientId },
+            { "client_secret", GlobalSetting.Instance.ClientSecret },
+            { "response_type", "code id_token" },
+            { "scope", "openid profile basket orders offline_access" },
+            { "redirect_uri", GlobalSetting.Instance.Callback },
+            { "nonce", Guid.NewGuid().ToString("N") },
+            { "code_challenge", CreateCodeChallenge() },
+            { "code_challenge_method", "S256" }
+        };
 
         // Add CSRF token to protect against cross-site request forgery attacks.
         var currentCSRFToken = Guid.NewGuid().ToString("N");
@@ -50,10 +52,11 @@ public class IdentityService : IIdentityService
             return string.Empty;
         }
 
-        return string.Format("{0}?id_token_hint={1}&post_logout_redirect_uri={2}",
-            GlobalSetting.Instance.LogoutEndpoint,
-            token,
-            GlobalSetting.Instance.LogoutCallback);
+        var settings = GlobalSetting.Instance;
+        var (endpoint, callback) =
+            (settings.LogoutEndpoint, settings.LogoutCallback);
+
+        return $"{endpoint}?id_token_hint={token}&post_logout_redirect_uri={callback}";
     }
 
     public async Task<UserToken> GetTokenAsync(string code)
@@ -68,8 +71,7 @@ public class IdentityService : IIdentityService
         _codeVerifier = RandomNumberGenerator.CreateUniqueId();
         var sha256 = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha256);
         var challengeBuffer = sha256.HashData(CryptographicBuffer.CreateFromByteArray(Encoding.UTF8.GetBytes(_codeVerifier)));
-        byte[] challengeBytes;
-        CryptographicBuffer.CopyToByteArray(challengeBuffer, out challengeBytes);
+        CryptographicBuffer.CopyToByteArray(challengeBuffer, out byte[] challengeBytes);
         return Base64Url.Encode(challengeBytes);
     }
 }

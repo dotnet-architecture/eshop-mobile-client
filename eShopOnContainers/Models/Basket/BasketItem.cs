@@ -5,7 +5,7 @@ public class BasketItem : BindableObject
     private int _quantity;
 
     public string Id { get; set; }
-   
+
     public string ProductId { get; set; }
 
     public string ProductName { get; set; }
@@ -14,13 +14,7 @@ public class BasketItem : BindableObject
 
     public decimal OldUnitPrice { get; set; }
 
-    public bool HasNewPrice
-    {
-        get
-        {
-            return OldUnitPrice != 0.0m;
-        }
-    }
+    public bool HasNewPrice => OldUnitPrice != 0.0m;
 
     public int Quantity
     {
@@ -34,10 +28,8 @@ public class BasketItem : BindableObject
 
     public string PictureUrl { get; set; }
 
-    public decimal Total { get { return Quantity * UnitPrice; } }
+    public decimal Total => Quantity * UnitPrice;
 
-    public override string ToString()
-    {
-        return String.Format("Product Id: {0}, Quantity: {1}", ProductId, Quantity);
-    }
+    public override string ToString() =>
+        $"Product Id: {ProductId}, Quantity: {Quantity}";
 }

@@ -2,12 +2,12 @@
 
 public class CustomTabbedPage : TabbedPage
 {
-    public static BindableProperty BadgeTextProperty = 
-        BindableProperty.CreateAttached("BadgeText", typeof(string), typeof(CustomTabbedPage), default(string), 
+    public static BindableProperty BadgeTextProperty =
+        BindableProperty.CreateAttached("BadgeText", typeof(string), typeof(CustomTabbedPage), default(string),
             BindingMode.OneWay);
 
-    public static BindableProperty BadgeColorProperty = 
-        BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(CustomTabbedPage), Colors.Transparent, 
+    public static BindableProperty BadgeColorProperty =
+        BindableProperty.CreateAttached("BadgeColor", typeof(Color), typeof(CustomTabbedPage), Colors.Transparent,
             BindingMode.OneWay);
 
     public static string GetBadgeText(BindableObject view)
@@ -19,7 +19,7 @@ public class CustomTabbedPage : TabbedPage
     {
         view.SetValue(BadgeTextProperty, value);
     }
-           
+
     public static Color GetBadgeColor(BindableObject view)
     {
         return (Color)view.GetValue(BadgeColorProperty);

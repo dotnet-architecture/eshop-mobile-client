@@ -86,31 +86,32 @@ public class GlobalSetting
         TokenEndpoint = $"{connectBaseEndpoint}/token";
         LogoutEndpoint = $"{connectBaseEndpoint}/endsession";
 
-        var baseUri = ExtractBaseUri(endpoint);
+        var baseUri = GlobalSetting.ExtractBaseUri(endpoint);
         Callback = $"{baseUri}/xamarincallback";
     }
 
     private void UpdateGatewayShoppingEndpoint(string endpoint)
     {
-        GatewayShoppingEndpoint = $"{endpoint}";
+        GatewayShoppingEndpoint = endpoint;
     }
 
     private void UpdateGatewayMarketingEndpoint(string endpoint)
     {
-        GatewayMarketingEndpoint = $"{endpoint}";
+        GatewayMarketingEndpoint = endpoint;
     }
 
-    private string ExtractBaseUri(string endpoint)
+    private static string ExtractBaseUri(string endpoint)
     {
         try
         {
             var uri = new Uri(endpoint);
-            var baseUri = uri.GetLeftPart(System.UriPartial.Authority);
+            var baseUri = uri.GetLeftPart(UriPartial.Authority);
 
             return baseUri;
         }
         catch (Exception ex)
         {
+            _ = ex;
             return DefaultEndpoint;
         }
     }

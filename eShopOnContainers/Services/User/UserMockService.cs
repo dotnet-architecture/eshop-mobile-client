@@ -4,7 +4,7 @@ namespace eShopOnContainers.Services.User;
 
 public class UserMockService : IUserService
 {
-    private UserInfo MockUserInfo = new UserInfo
+    private readonly UserInfo MockUserInfo = new()
     {
         UserId = Guid.NewGuid().ToString(),
         Name = "Jhon",

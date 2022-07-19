@@ -16,10 +16,7 @@ public class ProfileViewModel : ViewModelBase
 
     private Order _selectedOrder;
 
-    public IList<Order> Orders
-    {
-        get => _orders;
-    }
+    public IList<Order> Orders => _orders;
 
     public Order SelectedOrder
     {
@@ -45,8 +42,8 @@ public class ProfileViewModel : ViewModelBase
         LogoutCommand = new AsyncRelayCommand(LogoutAsync);
         OrderDetailCommand = new AsyncRelayCommand<Order>(OrderDetailAsync);
     }
-           
-    public override async Task InitializeAsync ()
+
+    public override async Task InitializeAsync()
     {
         await LoadOrdersAsync();
     }
@@ -63,7 +60,7 @@ public class ProfileViewModel : ViewModelBase
             });
     }
 
-    private async Task LoadOrdersAsync ()
+    private async Task LoadOrdersAsync()
     {
         if (IsBusy)
         {
@@ -90,6 +87,6 @@ public class ProfileViewModel : ViewModelBase
 
         await NavigationService.NavigateToAsync(
             "OrderDetail",
-            new Dictionary<string, object>{ { nameof (Order.OrderNumber), order.OrderNumber } });
+            new Dictionary<string, object> { { nameof(Order.OrderNumber), order.OrderNumber } });
     }
 }

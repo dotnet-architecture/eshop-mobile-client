@@ -14,10 +14,7 @@ public class CampaignViewModel : ViewModelBase
     private readonly IAppEnvironmentService _appEnvironmentService;
     private readonly ObservableCollectionEx<CampaignItem> _campaigns;
 
-    public IList<CampaignItem> Campaigns
-    {
-        get => _campaigns;
-    }
+    public IList<CampaignItem> Campaigns => _campaigns;
 
     public ICommand GetCampaignDetailsCommand { get; }
 
@@ -34,13 +31,13 @@ public class CampaignViewModel : ViewModelBase
         GetCampaignDetailsCommand = new AsyncRelayCommand<CampaignItem>(GetCampaignDetailsAsync);
     }
 
-    public override async Task InitializeAsync ()
+    public override async Task InitializeAsync()
     {
         await IsBusyFor(
             async () =>
             {
                 // Get campaigns by user
-                var campaigns = await _appEnvironmentService.CampaignService.GetAllCampaignsAsync (_settingsService.AuthAccessToken);
+                var campaigns = await _appEnvironmentService.CampaignService.GetAllCampaignsAsync(_settingsService.AuthAccessToken);
                 _campaigns.ReloadData(campaigns);
             });
     }
@@ -54,6 +51,6 @@ public class CampaignViewModel : ViewModelBase
 
         await NavigationService.NavigateToAsync(
             "CampaignDetails",
-            new Dictionary<string, object> { { nameof (Campaign.Id), campaign.Id } });
+            new Dictionary<string, object> { { nameof(Campaign.Id), campaign.Id } });
     }
 }

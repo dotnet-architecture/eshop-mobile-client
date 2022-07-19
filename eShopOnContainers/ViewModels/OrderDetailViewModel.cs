@@ -51,16 +51,16 @@ public class OrderDetailViewModel : ViewModelBase
         ToggleCancelOrderCommand = new AsyncRelayCommand(ToggleCancelOrderAsync);
     }
 
-    public override async Task InitializeAsync ()
+    public override async Task InitializeAsync()
     {
         await IsBusyFor(
             async () =>
             {
                 // Get order detail info
                 var authToken = _settingsService.AuthAccessToken;
-                Order = await _appEnvironmentService.OrderService.GetOrderAsync (OrderNumber, authToken);
+                Order = await _appEnvironmentService.OrderService.GetOrderAsync(OrderNumber, authToken);
                 IsSubmittedOrder = Order.OrderStatus == OrderStatus.Submitted;
-                OrderStatusText = Order.OrderStatus.ToString ().ToUpper ();
+                OrderStatusText = Order.OrderStatus.ToString().ToUpper();
             });
     }
 

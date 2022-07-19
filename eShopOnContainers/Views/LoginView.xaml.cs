@@ -18,16 +18,15 @@ public partial class LoginView : ContentPage
         Content = null;
         Content = content;
 
-			var vm = BindingContext as LoginViewModel;
-        if (vm != null)
+        if (BindingContext is LoginViewModel vm)
         {
             vm.InvalidateMock();
 
-				if (!vm.IsMock)
-				{
-					_animate = true;
-					await AnimateIn();
-				}
+            if (!vm.IsMock)
+            {
+                _animate = true;
+                await AnimateIn();
+            }
         }
     }
 
@@ -38,7 +37,7 @@ public partial class LoginView : ContentPage
 
     public async Task AnimateIn()
     {
-			if (DeviceInfo.Platform == DevicePlatform.WinUI)
+        if (DeviceInfo.Platform == DevicePlatform.WinUI)
         {
             return;
         }
@@ -52,13 +51,13 @@ public partial class LoginView : ContentPage
         {
             while (_animate)
             {
-					await uiElement.ScaleTo(1.05, duration, Easing.SinInOut);
-					await Task.WhenAll(
-						uiElement.FadeTo(1, duration, Easing.SinInOut),
-						uiElement.LayoutTo(new Rect(new Point(0, 0), new Size(uiElement.Width, uiElement.Height))),
-						uiElement.FadeTo(.9, duration, Easing.SinInOut),
-						uiElement.ScaleTo(1.15, duration, Easing.SinInOut)
-					);
+                await uiElement.ScaleTo(1.05, duration, Easing.SinInOut);
+                await Task.WhenAll(
+                    uiElement.FadeTo(1, duration, Easing.SinInOut),
+                    uiElement.LayoutTo(new Rect(new Point(0, 0), new Size(uiElement.Width, uiElement.Height))),
+                    uiElement.FadeTo(.9, duration, Easing.SinInOut),
+                    uiElement.ScaleTo(1.15, duration, Easing.SinInOut)
+                );
             }
         }
         catch (Exception ex)
