@@ -1,5 +1,4 @@
 ﻿using eShopOnContainers.ViewModels;
-using Microsoft.Maui;
 
 namespace eShopOnContainers.Views
 {

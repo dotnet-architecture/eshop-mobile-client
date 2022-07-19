@@ -1,83 +1,78 @@
-﻿using System;
-using eShopOnContainers.Services.Basket;
+﻿using eShopOnContainers.Services.Basket;
 using eShopOnContainers.Services.Catalog;
 using eShopOnContainers.Services.Marketing;
 using eShopOnContainers.Services.Order;
-using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.User;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace eShopOnContainers.Services.AppEnvironment
+namespace eShopOnContainers.Services.AppEnvironment;
+
+public class AppEnvironmentService : IAppEnvironmentService
 {
-    public class AppEnvironmentService : IAppEnvironmentService
+    private readonly IBasketService _mockBasketService;
+    private readonly IBasketService _basketService;
+
+    private readonly ICampaignService _mockCampaignService;
+    private readonly ICampaignService _campaignService;
+
+    private readonly ICatalogService _mockCatalogService;
+    private readonly ICatalogService _catalogService;
+
+    private readonly IOrderService _mockOrderService;
+    private readonly IOrderService _orderService;
+
+    private readonly IUserService _mockUserService;
+    private readonly IUserService _userService;
+
+    public IBasketService BasketService { get; private set; }
+
+    public ICampaignService CampaignService { get; private set; }
+
+    public ICatalogService CatalogService { get; private set; }
+
+    public IOrderService OrderService { get; private set; }
+
+    public IUserService UserService { get; private set; }
+
+    public AppEnvironmentService(
+        IBasketService mockBasketService, IBasketService basketService,
+        ICampaignService mockCampaignService, ICampaignService campaignService,
+        ICatalogService mockCatalogService, ICatalogService catalogService,
+        IOrderService mockOrderService, IOrderService orderService,
+        IUserService mockUserService, IUserService userService)
     {
-        private readonly IBasketService _mockBasketService;
-        private readonly IBasketService _basketService;
+        _mockBasketService = mockBasketService;
+        _basketService = basketService;
 
-        private readonly ICampaignService _mockCampaignService;
-        private readonly ICampaignService _campaignService;
+        _mockCampaignService = mockCampaignService;
+        _campaignService = campaignService;
 
-        private readonly ICatalogService _mockCatalogService;
-        private readonly ICatalogService _catalogService;
+        _mockCatalogService = mockCatalogService;
+        _catalogService = catalogService;
 
-        private readonly IOrderService _mockOrderService;
-        private readonly IOrderService _orderService;
+        _mockOrderService = mockOrderService;
+        _orderService = orderService;
 
-        private readonly IUserService _mockUserService;
-        private readonly IUserService _userService;
+        _mockUserService = mockUserService;
+        _userService = userService;
+    }
 
-        public IBasketService BasketService { get; private set; }
-
-        public ICampaignService CampaignService { get; private set; }
-
-        public ICatalogService CatalogService { get; private set; }
-
-        public IOrderService OrderService { get; private set; }
-
-        public IUserService UserService { get; private set; }
-
-        public AppEnvironmentService(
-            IBasketService mockBasketService, IBasketService basketService,
-            ICampaignService mockCampaignService, ICampaignService campaignService,
-            ICatalogService mockCatalogService, ICatalogService catalogService,
-            IOrderService mockOrderService, IOrderService orderService,
-            IUserService mockUserService, IUserService userService)
+    public void UpdateDependencies(bool useMockServices)
+    {
+        if (useMockServices)
         {
-            _mockBasketService = mockBasketService;
-            _basketService = basketService;
-
-            _mockCampaignService = mockCampaignService;
-            _campaignService = campaignService;
-
-            _mockCatalogService = mockCatalogService;
-            _catalogService = catalogService;
-
-            _mockOrderService = mockOrderService;
-            _orderService = orderService;
-
-            _mockUserService = mockUserService;
-            _userService = userService;
+            BasketService = _mockBasketService;
+            CampaignService = _mockCampaignService;
+            CatalogService = _mockCatalogService;
+            OrderService = _mockOrderService;
+            UserService = _mockUserService;
         }
-
-        public void UpdateDependencies(bool useMockServices)
+        else
         {
-            if (useMockServices)
-            {
-                BasketService = _mockBasketService;
-                CampaignService = _mockCampaignService;
-                CatalogService = _mockCatalogService;
-                OrderService = _mockOrderService;
-                UserService = _mockUserService;
-            }
-            else
-            {
-                BasketService = _basketService;
-                CampaignService = _campaignService;
-                CatalogService = _catalogService;
-                OrderService = _orderService;
-                UserService = _userService;
-            }
+            BasketService = _basketService;
+            CampaignService = _campaignService;
+            CatalogService = _catalogService;
+            OrderService = _orderService;
+            UserService = _userService;
         }
     }
 }

@@ -1,54 +1,49 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Maui;
+﻿namespace eShopOnContainers.Effects;
 
-namespace eShopOnContainers.Effects
+public static class ThemeEffects
 {
-    public static class ThemeEffects
+    public static readonly BindableProperty CircleProperty =
+        BindableProperty.CreateAttached("Circle", typeof(bool), typeof(ThemeEffects), false, propertyChanged: OnChanged<CircleEffect, bool>);
+
+    public static bool GetCircle(BindableObject view)
     {
-        public static readonly BindableProperty CircleProperty =
-            BindableProperty.CreateAttached("Circle", typeof(bool), typeof(ThemeEffects), false, propertyChanged: OnChanged<CircleEffect, bool>);
+        return (bool)view.GetValue(CircleProperty);
+    }
 
-        public static bool GetCircle(BindableObject view)
+    public static void SetCircle(BindableObject view, bool circle)
+    {
+        view.SetValue(CircleProperty, circle);
+    }
+
+
+    private static void OnChanged<TEffect, TProp>(BindableObject bindable, object oldValue, object newValue)
+        where TEffect : Effect, new()
+    {
+        var view = bindable as View;
+        if (view == null)
         {
-            return (bool)view.GetValue(CircleProperty);
+            return;
         }
 
-        public static void SetCircle(BindableObject view, bool circle)
+        if (EqualityComparer<TProp>.Equals(newValue, default(TProp)))
         {
-            view.SetValue(CircleProperty, circle);
-        }
-
-
-        private static void OnChanged<TEffect, TProp>(BindableObject bindable, object oldValue, object newValue)
-            where TEffect : Effect, new()
-        {
-            var view = bindable as View;
-            if (view == null)
+            var toRemove = view.Effects.FirstOrDefault(e => e is TEffect);
+            if (toRemove != null)
             {
-                return;
-            }
-
-            if (EqualityComparer<TProp>.Equals(newValue, default(TProp)))
-            {
-                var toRemove = view.Effects.FirstOrDefault(e => e is TEffect);
-                if (toRemove != null)
-                {
-                    view.Effects.Remove(toRemove);
-                }
-            }
-            else
-            {
-                view.Effects.Add(new TEffect());
+                view.Effects.Remove(toRemove);
             }
         }
-
-        private class CircleEffect : RoutingEffect
+        else
         {
-            public CircleEffect()
-                : base("eShopOnContainers.CircleEffect")
-            {
-            }
+            view.Effects.Add(new TEffect());
+        }
+    }
+
+    private class CircleEffect : RoutingEffect
+    {
+        public CircleEffect()
+            : base("eShopOnContainers.CircleEffect")
+        {
         }
     }
 }

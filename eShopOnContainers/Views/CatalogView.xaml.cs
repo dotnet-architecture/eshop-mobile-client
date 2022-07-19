@@ -1,33 +1,38 @@
-﻿using eShopOnContainers.ViewModels;
-using eShopOnContainers.ViewModels.Base;
-using System;
+﻿using eShopOnContainers.Models.Catalog;
 
-using CommunityToolkit.Maui.Views;
-using Microsoft.Maui;
+namespace eShopOnContainers.Views;
 
-namespace eShopOnContainers.Views
+public partial class CatalogView : ContentPageBase
 {
-    public partial class CatalogView : ContentPageBase
+    public CatalogView(CatalogViewModel viewModel)
     {
-        private FiltersView _filtersView;
+        this.BindingContext = viewModel;
 
-        public CatalogView(CatalogViewModel viewModel)
-        {
-            this.BindingContext = viewModel;
+        InitializeComponent();
+    }
 
-            _filtersView =
-                new FiltersView
-                {
-                    BindingContext = viewModel,
-                };
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
 
-            InitializeComponent();
-        }
+        MessagingCenter.Subscribe<CatalogViewModel>(
+            this,
+            MessengerKeys.AddProduct,
+            (sender) =>
+            {
+                MainThread.BeginInvokeOnMainThread(
+                    async () =>
+                    {
+                        await badge.ScaleTo(1.2);
+                        await badge.ScaleTo(1.0);
+                    });
+            });
+    }
 
-        private async void OnFilterChanged(object sender, EventArgs e)
-        {
-            //TODO: This can probably be adjusted
-            await this.Navigation.PushModalAsync(_filtersView, true);
-        }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+        MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem>(this, MessengerKeys.AddProduct);
     }
 }

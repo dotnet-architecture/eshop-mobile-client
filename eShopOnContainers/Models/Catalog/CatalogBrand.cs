@@ -1,13 +1,12 @@
-﻿namespace eShopOnContainers.Models.Catalog
-{
-    public class CatalogBrand
-    {
-        public int Id { get; set; }
-        public string Brand { get; set; }
+﻿namespace eShopOnContainers.Models.Catalog;
 
-        public override string ToString()
-        {
-            return Brand;
-        }
+public class CatalogBrand
+{
+    public int Id { get; set; }
+    public string Brand { get; set; }
+
+    public override string ToString()
+    {
+        return Brand;
     }
 }

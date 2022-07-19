@@ -1,7 +1,6 @@
-﻿namespace eShopOnContainers.Services.Theme
+﻿namespace eShopOnContainers.Services.Theme;
+
+public interface ITheme
 {
-    public interface ITheme
-    {
-        void SetStatusBarColor(Color color, bool darkStatusBarTint);
-    }
+    void SetStatusBarColor(Color color, bool darkStatusBarTint);
 }

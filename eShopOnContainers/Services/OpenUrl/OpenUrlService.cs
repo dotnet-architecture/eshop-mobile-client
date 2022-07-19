@@ -1,18 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿namespace eShopOnContainers.Services.OpenUrl;
 
-using Microsoft.Maui;
-
-namespace eShopOnContainers.Services.OpenUrl
+public class OpenUrlService : IOpenUrlService
 {
-    public class OpenUrlService : IOpenUrlService
+    public async Task OpenUrl(string url)
     {
-        public async Task OpenUrl(string url)
+        if (await Launcher.CanOpenAsync(url))
         {
-            if (await Launcher.CanOpenAsync(url))
-            {
-                await Launcher.OpenAsync (url);
-            }
+            await Launcher.OpenAsync (url);
         }
     }
 }

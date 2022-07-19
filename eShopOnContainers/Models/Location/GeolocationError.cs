@@ -1,8 +1,7 @@
-﻿namespace eShopOnContainers.Models.Location
+﻿namespace eShopOnContainers.Models.Location;
+
+public enum GeolocationError
 {
-    public enum GeolocationError
-    {
-        PositionUnavailable,
-        Unauthorized
-    }
+    PositionUnavailable,
+    Unauthorized
 }

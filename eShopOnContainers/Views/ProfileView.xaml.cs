@@ -1,28 +1,23 @@
-﻿using eShopOnContainers.ViewModels;
-using Microsoft.Maui;
-using PCLCrypto;
+﻿namespace eShopOnContainers.Views;
 
-namespace eShopOnContainers.Views
+public partial class ProfileView : ContentPageBase
 {
-    public partial class ProfileView : ContentPageBase
+    private readonly ProfileViewModel _viewModel;
+
+    public ProfileView(ProfileViewModel viewModel)
     {
-        private readonly ProfileViewModel _viewModel;
+        _viewModel = viewModel;
+        BindingContext = viewModel;
+        InitializeComponent();
+    }
 
-        public ProfileView(ProfileViewModel viewModel)
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (_viewModel.IsInitialized)
         {
-            _viewModel = viewModel;
-            BindingContext = viewModel;
-            InitializeComponent();
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            if(_viewModel.IsInitialized)
-            {
-                _viewModel.RefreshCommand.Execute(null);
-            }
+            _viewModel.RefreshCommand.Execute(null);
         }
     }
 }

@@ -1,12 +1,9 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Effects;
 
-namespace eShopOnContainers.Effects
+public class EntryLineColorEffect : RoutingEffect
 {
-	public class EntryLineColorEffect : RoutingEffect
+	public EntryLineColorEffect()
+		: base("eShopOnContainers.EntryLineColorEffect")
 	{
-		public EntryLineColorEffect()
-			: base("eShopOnContainers.EntryLineColorEffect")
-		{
-		}
 	}
 }

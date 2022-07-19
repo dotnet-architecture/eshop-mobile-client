@@ -1,0 +1,11 @@
+﻿global using Xunit;
+global using eShopOnContainers.Services;
+global using eShopOnContainers.Services.AppEnvironment;
+global using eShopOnContainers.Services.Basket;
+global using eShopOnContainers.Services.Catalog;
+global using eShopOnContainers.Services.Marketing;
+global using eShopOnContainers.Services.Order;
+global using eShopOnContainers.Services.Settings;
+global using eShopOnContainers.Services.User;
+global using eShopOnContainers.UnitTests.Mocks;
+global using eShopOnContainers.ViewModels;

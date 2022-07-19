@@ -1,57 +1,55 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace eShopOnContainers.ViewModels
+namespace eShopOnContainers.ViewModels;
+
+public class ObservableCollectionEx<T> : ObservableCollection<T>
 {
-    public class ObservableCollectionEx<T> : ObservableCollection<T>
+    public ObservableCollectionEx() : base()
     {
-        public ObservableCollectionEx() : base()
-        {
-        }
+    }
 
-        public ObservableCollectionEx(IEnumerable<T> collection) : base(collection)
-        {
-        }
+    public ObservableCollectionEx(IEnumerable<T> collection) : base(collection)
+    {
+    }
 
-        public ObservableCollectionEx(List<T> list) : base(list)
-        {
-        }
+    public ObservableCollectionEx(List<T> list) : base(list)
+    {
+    }
 
-        public void ReloadData(IEnumerable<T> items)
-        {
-            ReloadData(
-                innerList =>
+    public void ReloadData(IEnumerable<T> items)
+    {
+        ReloadData(
+            innerList =>
+            {
+                foreach (var item in items)
                 {
-                    foreach (var item in items)
-                    {
-                        innerList.Add(item);
-                    }
-                });
-        }
+                    innerList.Add(item);
+                }
+            });
+    }
 
-        public void ReloadData(Action<IList<T>> innerListAction)
-        {
-            Items.Clear();
+    public void ReloadData(Action<IList<T>> innerListAction)
+    {
+        Items.Clear();
 
-            innerListAction(Items);
+        innerListAction(Items);
 
-            this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
-            this.OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
-            this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
+        this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
+        this.OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
+        this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+    }
 
-        public async Task ReloadDataAsync (Func<IList<T>, Task> innerListAction)
-        {
-            Items.Clear();
+    public async Task ReloadDataAsync (Func<IList<T>, Task> innerListAction)
+    {
+        Items.Clear();
 
-            await innerListAction(Items);
+        await innerListAction(Items);
 
-            this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
-            this.OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
-            this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-        }
+        this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
+        this.OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
+        this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 }
 

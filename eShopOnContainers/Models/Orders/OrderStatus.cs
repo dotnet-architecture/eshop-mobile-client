@@ -1,12 +1,11 @@
-﻿namespace eShopOnContainers.Models.Orders
+﻿namespace eShopOnContainers.Models.Orders;
+
+public enum OrderStatus
 {
-    public enum OrderStatus
-    {
-        Submitted,
-        AwaitingValidation,
-        StockConfirmed,
-        Paid,
-        Shipped,
-        Cancelled
-    }
+    Submitted,
+    AwaitingValidation,
+    StockConfirmed,
+    Paid,
+    Shipped,
+    Cancelled
 }

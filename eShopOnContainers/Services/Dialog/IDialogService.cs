@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace eShopOnContainers.Services;
 
-namespace eShopOnContainers.Services
+public interface IDialogService
 {
-    public interface IDialogService
-    {
-        Task ShowAlertAsync(string message, string title, string buttonLabel);
-    }
+    Task ShowAlertAsync(string message, string title, string buttonLabel);
 }

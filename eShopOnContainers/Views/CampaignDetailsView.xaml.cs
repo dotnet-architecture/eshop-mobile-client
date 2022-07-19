@@ -1,14 +1,10 @@
-﻿using eShopOnContainers.ViewModels;
-using Microsoft.Maui;
+﻿namespace eShopOnContainers.Views;
 
-namespace eShopOnContainers.Views
+public partial class CampaignDetailsView : ContentPage
 {
-    public partial class CampaignDetailsView : ContentPage
+    public CampaignDetailsView(CampaignDetailsViewModel viewModel)
     {
-        public CampaignDetailsView(CampaignDetailsViewModel viewModel)
-        {
-            BindingContext = viewModel;
-            InitializeComponent();
-        }
+        BindingContext = viewModel;
+        InitializeComponent();
     }
 }

@@ -13,7 +13,6 @@ using eShopOnContainers.Services.RequestProvider;
 using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace eShopOnContainers;
 
@@ -83,14 +82,13 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
     {
+        mauiAppBuilder.Services.AddSingleton<ViewModels.MainViewModel>();
         mauiAppBuilder.Services.AddSingleton<ViewModels.LoginViewModel>();
         mauiAppBuilder.Services.AddSingleton<ViewModels.BasketViewModel>();
         mauiAppBuilder.Services.AddSingleton<ViewModels.CatalogViewModel>();
         mauiAppBuilder.Services.AddSingleton<ViewModels.ProfileViewModel>();
 
         mauiAppBuilder.Services.AddTransient<ViewModels.CheckoutViewModel>();
-        mauiAppBuilder.Services.AddTransient<ViewModels.LoginViewModel>();
-        mauiAppBuilder.Services.AddTransient<ViewModels.MainViewModel>();
         mauiAppBuilder.Services.AddTransient<ViewModels.OrderDetailViewModel>();
         mauiAppBuilder.Services.AddTransient<ViewModels.SettingsViewModel>();
         mauiAppBuilder.Services.AddTransient<ViewModels.CampaignViewModel>();

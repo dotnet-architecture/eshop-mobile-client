@@ -1,17 +1,15 @@
 ﻿using eShopOnContainers.Models.Orders;
-using System;
 
-namespace eShopOnContainers.Models.User
+namespace eShopOnContainers.Models.User;
+
+public class PaymentInfo
 {
-    public class PaymentInfo
-    {
-        public Guid Id { get; set; }
-        public string CardNumber { get; set; }
-        public string SecurityNumber { get; set; }
-        public int ExpirationMonth { get; set; }
-        public int ExpirationYear { get; set; }
-        public string CardHolderName { get; set; }
-        public CardType CardType { get; set; }
-        public string Expiration { get; set; }
-    }
+    public Guid Id { get; set; }
+    public string CardNumber { get; set; }
+    public string SecurityNumber { get; set; }
+    public int ExpirationMonth { get; set; }
+    public int ExpirationYear { get; set; }
+    public string CardHolderName { get; set; }
+    public CardType CardType { get; set; }
+    public string Expiration { get; set; }
 }

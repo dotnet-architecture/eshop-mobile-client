@@ -46,13 +46,6 @@
                     Duration="500" />
             </animations:StoryBoard>
 
-            <animations:StoryBoard x:Key="ShippingAddressAnimation" Target="{x:Reference ShippingAddress}">
-                <animations:FadeToAnimation
-                    Delay="200"
-                    Opacity="1"
-                    Duration="1000" />
-            </animations:StoryBoard>
-
             <animations:StoryBoard x:Key="OrderItemsAnimation" Target="{x:Reference OrderItems}">
                 <animations:FadeToAnimation
                     Delay="300"
@@ -65,7 +58,6 @@
     <ContentPage.Triggers>
         <EventTrigger Event="Appearing">
             <triggers:BeginAnimation Animation="{StaticResource OrderInfoAnimation}" />
-            <triggers:BeginAnimation Animation="{StaticResource ShippingAddressAnimation}" />
             <triggers:BeginAnimation Animation="{StaticResource OrderItemsAnimation}" />
         </EventTrigger>
     </ContentPage.Triggers>
@@ -133,6 +125,7 @@
         </Grid>
         <!--  ORDER ITEMS  -->
         <CollectionView
+            x:Name="OrderItems"
             Grid.Row="2"
             ItemSizingStrategy="MeasureAllItems"
             ItemsSource="{Binding Order.OrderItems}">

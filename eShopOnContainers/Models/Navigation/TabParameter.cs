@@ -1,7 +1,6 @@
-﻿namespace eShopOnContainers.Models.Navigation
+﻿namespace eShopOnContainers.Models.Navigation;
+
+public class TabParameter
 {
-    public class TabParameter
-    {
-        public int TabIndex { get; set; }
-    }
+    public int TabIndex { get; set; }
 }

@@ -1,47 +1,43 @@
-﻿using System;
-using Microsoft.Maui;
+﻿namespace eShopOnContainers.Models.Basket;
 
-namespace eShopOnContainers.Models.Basket
+public class BasketItem : BindableObject
 {
-    public class BasketItem : BindableObject
+    private int _quantity;
+
+    public string Id { get; set; }
+   
+    public string ProductId { get; set; }
+
+    public string ProductName { get; set; }
+
+    public decimal UnitPrice { get; set; }
+
+    public decimal OldUnitPrice { get; set; }
+
+    public bool HasNewPrice
     {
-        private int _quantity;
-
-        public string Id { get; set; }
-       
-        public string ProductId { get; set; }
-
-        public string ProductName { get; set; }
-
-        public decimal UnitPrice { get; set; }
-
-        public decimal OldUnitPrice { get; set; }
-
-        public bool HasNewPrice
+        get
         {
-            get
-            {
-                return OldUnitPrice != 0.0m;
-            }
+            return OldUnitPrice != 0.0m;
         }
+    }
 
-        public int Quantity
+    public int Quantity
+    {
+        get => _quantity;
+        set
         {
-            get => _quantity;
-            set
-            {
-                _quantity = value;
-                OnPropertyChanged("Quantity");
-            }
+            _quantity = value;
+            OnPropertyChanged(nameof(Quantity));
         }
+    }
 
-        public string PictureUrl { get; set; }
+    public string PictureUrl { get; set; }
 
-        public decimal Total { get { return Quantity * UnitPrice; } }
+    public decimal Total { get { return Quantity * UnitPrice; } }
 
-        public override string ToString()
-        {
-            return String.Format("Product Id: {0}, Quantity: {1}", ProductId, Quantity);
-        }
+    public override string ToString()
+    {
+        return String.Format("Product Id: {0}, Quantity: {1}", ProductId, Quantity);
     }
 }

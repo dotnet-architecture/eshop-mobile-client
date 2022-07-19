@@ -1,12 +1,9 @@
-﻿using Microsoft.Maui;
+﻿namespace eShopOnContainers.Views.Templates;
 
-namespace eShopOnContainers.Views.Templates
+public partial class BasketItemTemplate
 {
-    public partial class BasketItemTemplate
+    public BasketItemTemplate()
     {
-        public BasketItemTemplate()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
