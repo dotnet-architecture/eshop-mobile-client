@@ -11,7 +11,15 @@ public class RequestProvider : IRequestProvider
 {
     private readonly JsonSerializerSettings _serializerSettings;
 
-    private HttpClient _httpClient;
+    private readonly Lazy<HttpClient> _httpClient =
+        new Lazy<HttpClient>(
+            () =>
+            {
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                return httpClient;
+            },
+            LazyThreadSafetyMode.ExecutionAndPublication);
 
     public RequestProvider()
     {
@@ -26,7 +34,7 @@ public class RequestProvider : IRequestProvider
 
     public async Task<TResult> GetAsync<TResult>(string uri, string token = "")
     {
-        HttpClient httpClient = CreateHttpClient(token);
+        HttpClient httpClient = GetOrCreateHttpClient(token);
         HttpResponseMessage response = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
         await HandleResponse(response).ConfigureAwait(false);
@@ -40,7 +48,7 @@ public class RequestProvider : IRequestProvider
 
     public async Task<TResult> PostAsync<TResult>(string uri, TResult data, string token = "", string header = "")
     {
-        HttpClient httpClient = CreateHttpClient(token);
+        HttpClient httpClient = GetOrCreateHttpClient(token);
 
         if (!string.IsNullOrEmpty(header))
         {
@@ -61,7 +69,7 @@ public class RequestProvider : IRequestProvider
 
     public async Task<TResult> PostAsync<TResult>(string uri, string data, string clientId, string clientSecret)
     {
-        HttpClient httpClient = CreateHttpClient(string.Empty);
+        HttpClient httpClient = GetOrCreateHttpClient(string.Empty);
 
         if (!string.IsNullOrWhiteSpace(clientId) && !string.IsNullOrWhiteSpace(clientSecret))
         {
@@ -82,7 +90,7 @@ public class RequestProvider : IRequestProvider
 
     public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
     {
-        HttpClient httpClient = CreateHttpClient(token);
+        HttpClient httpClient = GetOrCreateHttpClient(token);
 
         if (!string.IsNullOrEmpty(header))
         {
@@ -103,24 +111,24 @@ public class RequestProvider : IRequestProvider
 
     public async Task DeleteAsync(string uri, string token = "")
     {
-        HttpClient httpClient = CreateHttpClient(token);
+        HttpClient httpClient = GetOrCreateHttpClient(token);
         await httpClient.DeleteAsync(uri).ConfigureAwait(false);
     }
 
-    private HttpClient CreateHttpClient(string token = "")
+    private HttpClient GetOrCreateHttpClient(string token = "")
     {
-        if (_httpClient == null)
-        {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
+        var httpClient = _httpClient.Value;
 
         if (!string.IsNullOrEmpty(token))
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+        else
+        {
+            httpClient.DefaultRequestHeaders.Authorization = null;
         }
 
-        return _httpClient;
+        return httpClient;
     }
 
     private void AddHeaderParameter(HttpClient httpClient, string parameter)
