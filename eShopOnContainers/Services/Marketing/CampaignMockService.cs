@@ -5,7 +5,7 @@ namespace eShopOnContainers.Services.Marketing;
 public class CampaignMockService : ICampaignService
 {
     private readonly IEnumerable<CampaignItem> _mockCampaign =
-        new []
+        new[]
         {
             new CampaignItem
             {

@@ -4,22 +4,22 @@ namespace eShopOnContainers.Services.Catalog;
 
 public class CatalogMockService : ICatalogService
 {
-    private IEnumerable<CatalogBrand> MockCatalogBrand =
-        new []
+    private readonly IEnumerable<CatalogBrand> MockCatalogBrand =
+        new[]
         {
             new CatalogBrand { Id = 1, Brand = "Azure" },
             new CatalogBrand { Id = 2, Brand = "Visual Studio" }
         };
 
-    private IEnumerable<CatalogType> MockCatalogType =
-        new []
+    private readonly IEnumerable<CatalogType> MockCatalogType =
+        new[]
         {
             new CatalogType { Id = 1, Type = "Mug" },
             new CatalogType { Id = 2, Type = "T-Shirt" }
         };
 
-    private IEnumerable<CatalogItem> MockCatalog =
-        new []
+    private readonly IEnumerable<CatalogItem> MockCatalog =
+        new[]
         {
             new CatalogItem { Id = Common.Common.MockCatalogItemId01, PictureUri = "fake_product_01.png", Name = ".NET Bot Blue Sweatshirt (M)", Price = 19.50M, CatalogBrandId = 2, CatalogBrand = "Visual Studio", CatalogTypeId = 2, CatalogType = "T-Shirt" },
             new CatalogItem { Id = Common.Common.MockCatalogItemId02, PictureUri = "fake_product_02.png", Name = ".NET Bot Purple Sweatshirt (M)", Price = 19.50M, CatalogBrandId = 2, CatalogBrand = "Visual Studio", CatalogTypeId = 2, CatalogType = "T-Shirt" },

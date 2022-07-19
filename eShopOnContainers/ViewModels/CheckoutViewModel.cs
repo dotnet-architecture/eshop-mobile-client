@@ -46,9 +46,9 @@ public class CheckoutViewModel : ViewModelBase
         _basketViewModel = basketViewModel;
 
         CheckoutCommand = new AsyncRelayCommand(CheckoutAsync);
-    }       
+    }
 
-    public override async Task InitializeAsync ()
+    public override async Task InitializeAsync()
     {
         await IsBusyFor(
             async () =>
@@ -56,12 +56,12 @@ public class CheckoutViewModel : ViewModelBase
                 var basketItems = _appEnvironmentService.BasketService.LocalBasketItems;
 
                 var authToken = _settingsService.AuthAccessToken;
-                var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync (authToken);
+                var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync(authToken);
 
                 // Create Shipping Address
                 ShippingAddress = new Address
                 {
-                    Id = !string.IsNullOrEmpty (userInfo?.UserId) ? new Guid (userInfo.UserId) : Guid.NewGuid (),
+                    Id = !string.IsNullOrEmpty(userInfo?.UserId) ? new Guid(userInfo.UserId) : Guid.NewGuid(),
                     Street = userInfo?.Street,
                     ZipCode = userInfo?.ZipCode,
                     State = userInfo?.State,
@@ -78,7 +78,7 @@ public class CheckoutViewModel : ViewModelBase
                     SecurityNumber = userInfo?.CardSecurityNumber
                 };
 
-                var orderItems = CreateOrderItems (basketItems);
+                var orderItems = CheckoutViewModel.CreateOrderItems(basketItems);
 
                 // Create new Order
                 Order = new Order
@@ -90,24 +90,24 @@ public class CheckoutViewModel : ViewModelBase
                     CardHolderName = paymentInfo.CardHolderName,
                     CardNumber = paymentInfo.CardNumber,
                     CardSecurityNumber = paymentInfo.SecurityNumber,
-                    CardExpiration = DateTime.Now.AddYears (5),
+                    CardExpiration = DateTime.Now.AddYears(5),
                     CardTypeId = paymentInfo.CardType.Id,
                     ShippingState = _shippingAddress.State,
                     ShippingCountry = _shippingAddress.Country,
                     ShippingStreet = _shippingAddress.Street,
                     ShippingCity = _shippingAddress.City,
                     ShippingZipCode = _shippingAddress.ZipCode,
-                    Total = CalculateTotal (orderItems),
+                    Total = CheckoutViewModel.CalculateTotal(orderItems),
                 };
 
                 if (_settingsService.UseMocks)
                 {
                     // Get number of orders
-                    var orders = await _appEnvironmentService.OrderService.GetOrdersAsync (authToken);
+                    var orders = await _appEnvironmentService.OrderService.GetOrdersAsync(authToken);
 
                     // Create the OrderNumber
                     Order.OrderNumber = orders.Count() + 1;
-                    OnPropertyChanged (nameof(Order));
+                    OnPropertyChanged(nameof(Order));
                 }
             });
     }
@@ -147,7 +147,7 @@ public class CheckoutViewModel : ViewModelBase
         }
     }
 
-    private List<OrderItem> CreateOrderItems(IEnumerable<BasketItem> basketItems)
+    private static List<OrderItem> CreateOrderItems(IEnumerable<BasketItem> basketItems)
     {
         var orderItems = new List<OrderItem>();
 
@@ -170,7 +170,7 @@ public class CheckoutViewModel : ViewModelBase
         return orderItems;
     }
 
-    private decimal CalculateTotal(List<OrderItem> orderItems)
+    private static decimal CalculateTotal(List<OrderItem> orderItems)
     {
         decimal total = 0;
 

@@ -19,13 +19,12 @@ public static class ThemeEffects
     private static void OnChanged<TEffect, TProp>(BindableObject bindable, object oldValue, object newValue)
         where TEffect : Effect, new()
     {
-        var view = bindable as View;
-        if (view == null)
+        if (bindable is not View view)
         {
             return;
         }
 
-        if (EqualityComparer<TProp>.Equals(newValue, default(TProp)))
+        if (Equals(newValue, default(TProp)))
         {
             var toRemove = view.Effects.FirstOrDefault(e => e is TEffect);
             if (toRemove != null)

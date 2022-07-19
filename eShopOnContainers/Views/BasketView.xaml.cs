@@ -1,6 +1,4 @@
-﻿using eShopOnContainers.ViewModels;
-
-namespace eShopOnContainers.Views
+﻿namespace eShopOnContainers.Views
 {
     public partial class BasketView : ContentPageBase
     {

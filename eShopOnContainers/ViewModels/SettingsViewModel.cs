@@ -26,18 +26,11 @@ public class SettingsViewModel : ViewModelBase
     private double _longitude;
     private string _gpsWarningMessage;
 
-    public string TitleUseAzureServices
-    {
-        get => "Use Microservices/Containers from eShopOnContainers";
-    }
+    public static string TitleUseAzureServices => "Use Microservices/Containers from eShopOnContainers";
 
-    public string DescriptionUseAzureServices
-    {
-        get =>
-            !UseAzureServices
+    public string DescriptionUseAzureServices => !UseAzureServices
                 ? "Currently using mock services that are simulated objects that mimic the behavior of real services using a controlled approach. Toggle on to configure the use of microserivces/containers."
                 : "When enabling the use of microservices/containers, the app will attempt to use real services deployed as Docker/Kubernetes containers at the specified base endpoint, which will must be reachable through the network.";
-    }
 
     public bool UseAzureServices
     {
@@ -49,21 +42,13 @@ public class SettingsViewModel : ViewModelBase
         }
     }
 
-    public string TitleUseFakeLocation
-    {
-        get =>
-            !UseFakeLocation
+    public string TitleUseFakeLocation => !UseFakeLocation
                 ? "Use Real Location"
                 : "Use Fake Location";
-    }
 
-    public string DescriptionUseFakeLocation
-    {
-        get =>
-            !UseFakeLocation
+    public string DescriptionUseFakeLocation => !UseFakeLocation
                 ? "When enabling location, the app will attempt to use the location from the device."
                 : "Fake Location data is added for marketing campaign testing.";
-    }
 
     public bool UseFakeLocation
     {
@@ -75,21 +60,13 @@ public class SettingsViewModel : ViewModelBase
         }
     }
 
-    public string TitleAllowGpsLocation
-    {
-        get =>
-            !AllowGpsLocation
+    public string TitleAllowGpsLocation => !AllowGpsLocation
                 ? "GPS Location Disabled"
                 : "GPS Location Enabled";
-    }
 
-    public string DescriptionAllowGpsLocation
-    {
-        get =>
-            !AllowGpsLocation
+    public string DescriptionAllowGpsLocation => !AllowGpsLocation
                 ? "When disabling location, you won't receive location campaigns based upon your location."
                 : "When enabling location, you'll receive location campaigns based upon your location.";
-    }
 
     public string GpsWarningMessage
     {
@@ -206,9 +183,9 @@ public class SettingsViewModel : ViewModelBase
     {
         base.OnPropertyChanged(e);
 
-        if (e.PropertyName == nameof (AllowGpsLocation))
+        if (e.PropertyName == nameof(AllowGpsLocation))
         {
-            await UpdateAllowGpsLocation ();
+            await UpdateAllowGpsLocation();
         }
     }
 
@@ -304,16 +281,16 @@ public class SettingsViewModel : ViewModelBase
 
             if (await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>() != PermissionStatus.Granted)
             {
-                hasWhenInUseLocationPermissions = await Permissions.RequestAsync<Permissions.LocationWhenInUse> () == PermissionStatus.Granted;
+                hasWhenInUseLocationPermissions = await Permissions.RequestAsync<Permissions.LocationWhenInUse>() == PermissionStatus.Granted;
             }
             else
             {
                 hasWhenInUseLocationPermissions = true;
             }
 
-            if (await Permissions.CheckStatusAsync<Permissions.LocationAlways> () != PermissionStatus.Granted)
+            if (await Permissions.CheckStatusAsync<Permissions.LocationAlways>() != PermissionStatus.Granted)
             {
-                hasBackgroundLocationPermissions = await Permissions.RequestAsync<Permissions.LocationAlways> () == PermissionStatus.Granted;
+                hasBackgroundLocationPermissions = await Permissions.RequestAsync<Permissions.LocationAlways>() == PermissionStatus.Granted;
             }
             else
             {

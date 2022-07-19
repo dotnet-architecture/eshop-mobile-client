@@ -64,9 +64,10 @@ public class MarketingViewModelTests
     [Fact]
     public async Task GetCampaignDetailsByIdIsNotNullTest()
     {
-        var campaignDetailsViewModel = new CampaignDetailsViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
-
-        campaignDetailsViewModel.CampaignId = 1;
+        var campaignDetailsViewModel = new CampaignDetailsViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService)
+        {
+            CampaignId = 1
+        };
         await campaignDetailsViewModel.InitializeAsync();
 
         Assert.NotNull(campaignDetailsViewModel.Campaign);

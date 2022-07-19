@@ -14,7 +14,7 @@ public class LocationService : ILocationService
         _requestProvider = requestProvider;
     }
 
-    public async Task UpdateUserLocation(eShopOnContainers.Models.Location.Location newLocReq, string token)
+    public async Task UpdateUserLocation(Models.Location.Location newLocReq, string token)
     {
         var uri = UriHelper.CombineUri(GlobalSetting.Instance.GatewayMarketingEndpoint, ApiUrlBase);
 

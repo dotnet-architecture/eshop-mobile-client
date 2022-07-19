@@ -2,15 +2,15 @@
 
 public class OrdersServiceTests
 {
-		[Fact]
-		public async Task GetFakeOrderTest()
-		{
-			var ordersMockService = new OrderMockService();
-			var order = await ordersMockService.GetOrderAsync(1, GlobalSetting.Instance.AuthToken);
+    [Fact]
+    public async Task GetFakeOrderTest()
+    {
+        var ordersMockService = new OrderMockService();
+        var order = await ordersMockService.GetOrderAsync(1, GlobalSetting.Instance.AuthToken);
 
-			Assert.NotNull(order);
-		}
-		
+        Assert.NotNull(order);
+    }
+
     [Fact]
     public async Task GetFakeOrdersTest()
     {

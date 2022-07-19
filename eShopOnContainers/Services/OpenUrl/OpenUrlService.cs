@@ -6,7 +6,7 @@ public class OpenUrlService : IOpenUrlService
     {
         if (await Launcher.CanOpenAsync(url))
         {
-            await Launcher.OpenAsync (url);
+            await Launcher.OpenAsync(url);
         }
     }
 }

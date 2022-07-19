@@ -1,7 +1,7 @@
 ﻿namespace eShopOnContainers.UnitTests.Mocks;
 
 public class MockNavigationService : INavigationService
-{    
+{
     public Task InitializeAsync()
     {
         return Task.CompletedTask;

@@ -9,7 +9,7 @@ public class CatalogService : ICatalogService
 {
     private readonly IRequestProvider _requestProvider;
     private readonly IFixUriService _fixUriService;
-		
+
     private const string ApiUrlBase = "api/v1/Catalog";
 
     public CatalogService(IRequestProvider requestProvider, IFixUriService fixUriService)
@@ -24,10 +24,7 @@ public class CatalogService : ICatalogService
 
         CatalogRoot catalog = await _requestProvider.GetAsync<CatalogRoot>(uri).ConfigureAwait(false);
 
-        if (catalog?.Data != null)
-            return catalog?.Data;
-        else
-            return Enumerable.Empty<CatalogItem>();
+        return catalog?.Data ?? Enumerable.Empty<CatalogItem>();
     }
 
     public async Task<IEnumerable<CatalogItem>> GetCatalogAsync()
@@ -51,10 +48,7 @@ public class CatalogService : ICatalogService
 
         IEnumerable<CatalogBrand> brands = await _requestProvider.GetAsync<IEnumerable<CatalogBrand>>(uri).ConfigureAwait(false);
 
-        if (brands != null)
-            return brands.ToArray();
-        else
-            return Enumerable.Empty<CatalogBrand>();
+        return brands?.ToArray() ?? Enumerable.Empty<CatalogBrand>();
     }
 
     public async Task<IEnumerable<CatalogType>> GetCatalogTypeAsync()
@@ -63,9 +57,6 @@ public class CatalogService : ICatalogService
 
         IEnumerable<CatalogType> types = await _requestProvider.GetAsync<IEnumerable<CatalogType>>(uri).ConfigureAwait(false);
 
-        if (types != null)
-            return types.ToArray();
-        else
-            return Enumerable.Empty<CatalogType>();
+        return types?.ToArray() ?? Enumerable.Empty<CatalogType>();
     }
 }

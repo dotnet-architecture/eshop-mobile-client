@@ -12,8 +12,7 @@ public class RequestProvider : IRequestProvider
     private readonly JsonSerializerSettings _serializerSettings;
 
     private readonly Lazy<HttpClient> _httpClient =
-        new Lazy<HttpClient>(
-            () =>
+        new(() =>
             {
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -37,7 +36,7 @@ public class RequestProvider : IRequestProvider
         HttpClient httpClient = GetOrCreateHttpClient(token);
         HttpResponseMessage response = await httpClient.GetAsync(uri).ConfigureAwait(false);
 
-        await HandleResponse(response).ConfigureAwait(false);
+        await RequestProvider.HandleResponse(response).ConfigureAwait(false);
 
         string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -52,14 +51,14 @@ public class RequestProvider : IRequestProvider
 
         if (!string.IsNullOrEmpty(header))
         {
-            AddHeaderParameter(httpClient, header);
+            RequestProvider.AddHeaderParameter(httpClient, header);
         }
 
         var content = new StringContent(JsonConvert.SerializeObject(data));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         HttpResponseMessage response = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
 
-        await HandleResponse(response).ConfigureAwait(false);
+        await RequestProvider.HandleResponse(response).ConfigureAwait(false);
         string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
         TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
@@ -73,14 +72,14 @@ public class RequestProvider : IRequestProvider
 
         if (!string.IsNullOrWhiteSpace(clientId) && !string.IsNullOrWhiteSpace(clientSecret))
         {
-            AddBasicAuthenticationHeader(httpClient, clientId, clientSecret);
+            RequestProvider.AddBasicAuthenticationHeader(httpClient, clientId, clientSecret);
         }
 
         var content = new StringContent(data);
         content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
         HttpResponseMessage response = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
 
-        await HandleResponse(response).ConfigureAwait(false);
+        await RequestProvider.HandleResponse(response).ConfigureAwait(false);
         string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
         TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
@@ -94,14 +93,14 @@ public class RequestProvider : IRequestProvider
 
         if (!string.IsNullOrEmpty(header))
         {
-            AddHeaderParameter(httpClient, header);
+            RequestProvider.AddHeaderParameter(httpClient, header);
         }
 
         var content = new StringContent(JsonConvert.SerializeObject(data));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         HttpResponseMessage response = await httpClient.PutAsync(uri, content).ConfigureAwait(false);
 
-        await HandleResponse(response).ConfigureAwait(false);
+        await RequestProvider.HandleResponse(response).ConfigureAwait(false);
         string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
         TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
@@ -119,19 +118,15 @@ public class RequestProvider : IRequestProvider
     {
         var httpClient = _httpClient.Value;
 
-        if (!string.IsNullOrEmpty(token))
-        {
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        }
-        else
-        {
-            httpClient.DefaultRequestHeaders.Authorization = null;
-        }
+        httpClient.DefaultRequestHeaders.Authorization =
+            !string.IsNullOrEmpty(token) 
+                ? new AuthenticationHeaderValue("Bearer", token) 
+                : null;
 
         return httpClient;
     }
 
-    private void AddHeaderParameter(HttpClient httpClient, string parameter)
+    private static void AddHeaderParameter(HttpClient httpClient, string parameter)
     {
         if (httpClient == null)
             return;
@@ -142,7 +137,7 @@ public class RequestProvider : IRequestProvider
         httpClient.DefaultRequestHeaders.Add(parameter, Guid.NewGuid().ToString());
     }
 
-    private void AddBasicAuthenticationHeader(HttpClient httpClient, string clientId, string clientSecret)
+    private static void AddBasicAuthenticationHeader(HttpClient httpClient, string clientId, string clientSecret)
     {
         if (httpClient == null)
             return;
@@ -153,7 +148,7 @@ public class RequestProvider : IRequestProvider
         httpClient.DefaultRequestHeaders.Authorization = new BasicAuthenticationHeaderValue(clientId, clientSecret);
     }
 
-    private async Task HandleResponse(HttpResponseMessage response)
+    private static async Task HandleResponse(HttpResponseMessage response)
     {
         if (!response.IsSuccessStatusCode)
         {

@@ -36,20 +36,20 @@ public class ObservableCollectionEx<T> : ObservableCollection<T>
 
         innerListAction(Items);
 
-        this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
-        this.OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
-        this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
+        OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
-    public async Task ReloadDataAsync (Func<IList<T>, Task> innerListAction)
+    public async Task ReloadDataAsync(Func<IList<T>, Task> innerListAction)
     {
         Items.Clear();
 
         await innerListAction(Items);
 
-        this.OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
-        this.OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
-        this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
+        OnPropertyChanged(new PropertyChangedEventArgs("Items[]"));
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 }
 

@@ -11,7 +11,7 @@ public class FixUriService : IFixUriService
 {
     private readonly ISettingsService _settingsService;
 
-    private Regex IpRegex = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
+    private readonly Regex IpRegex = new(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
 
     public FixUriService(ISettingsService settingsService)
     {
@@ -20,7 +20,7 @@ public class FixUriService : IFixUriService
 
     public void FixCatalogItemPictureUri(IEnumerable<CatalogItem> catalogItems)
     {
-        if (catalogItems == null)
+        if (catalogItems is null)
         {
             return;
         }
@@ -52,7 +52,7 @@ public class FixUriService : IFixUriService
 
     public void FixBasketItemPictureUri(IEnumerable<BasketItem> basketItems)
     {
-        if (basketItems == null)
+        if (basketItems is null)
         {
             return;
         }
@@ -83,7 +83,7 @@ public class FixUriService : IFixUriService
 
     public void FixCampaignItemPictureUri(IEnumerable<CampaignItem> campaignItems)
     {
-        if (campaignItems == null)
+        if (campaignItems is null)
         {
             return;
         }

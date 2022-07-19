@@ -5,18 +5,12 @@ namespace eShopOnContainers.UnitTests;
 
 public class MockViewModel : ViewModelBase
 {
-    private readonly ValidatableObject<string> _forename = new ValidatableObject<string>();
-    private readonly ValidatableObject<string> _surname = new ValidatableObject<string>();
+    private readonly ValidatableObject<string> _forename = new();
+    private readonly ValidatableObject<string> _surname = new();
 
-    public ValidatableObject<string> Forename
-    {
-        get => _forename;
-    }
+    public ValidatableObject<string> Forename => _forename;
 
-    public ValidatableObject<string> Surname
-    {
-        get => _surname;
-    }
+    public ValidatableObject<string> Surname => _surname;
 
     public MockViewModel(IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
         : base(dialogService, navigationService, settingsService)

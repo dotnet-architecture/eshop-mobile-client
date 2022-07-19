@@ -108,13 +108,13 @@ public partial class App : Application
     {
         try
         {
-            var request = new GeolocationRequest (GeolocationAccuracy.High);
-            var location = await Geolocation.GetLocationAsync (request, CancellationToken.None).ConfigureAwait(false);
+            var request = new GeolocationRequest(GeolocationAccuracy.High);
+            var location = await Geolocation.GetLocationAsync(request, CancellationToken.None).ConfigureAwait(false);
 
             if (location != null)
             {
-                _settingsService.Latitude = location.Latitude.ToString ();
-                _settingsService.Longitude = location.Longitude.ToString ();
+                _settingsService.Latitude = location.Latitude.ToString();
+                _settingsService.Longitude = location.Longitude.ToString();
             }
         }
         catch (Exception ex)
