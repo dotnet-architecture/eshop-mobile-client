@@ -67,15 +67,16 @@ public class ToggleButton : ContentView
         set => SetValue(UnCheckedImageProperty, value);
     }
 
-    public ICommand ToogleCommand => _toggleCommand ??= new Command(() =>
-                                                     {
-                                                         Checked = !Checked;
+    public ICommand ToogleCommand =>
+        _toggleCommand ??= new Command(() =>
+        {
+            Checked = !Checked;
 
-                                                         if (Command != null)
-                                                         {
-                                                             Command.Execute(CommandParameter);
-                                                         }
-                                                     });
+            if (Command != null)
+            {
+                Command.Execute(CommandParameter);
+            }
+        });
 
     private void Initialize()
     {
@@ -107,7 +108,7 @@ public class ToggleButton : ContentView
             return;
 
         toggleButton._toggleImage.Source = toggleButton.Checked
-            ? toggleButton.CheckedImage 
+            ? toggleButton.CheckedImage
             : toggleButton.UnCheckedImage;
 
         toggleButton.Content = toggleButton._toggleImage;
