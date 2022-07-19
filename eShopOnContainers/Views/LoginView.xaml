@@ -23,7 +23,7 @@
             <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
             <converters:WebNavigatingEventArgsConverter x:Key="WebNavigatingEventArgsConverter" />
             <converters:WebNavigatedEventArgsConverter x:Key="WebNavigatedEventArgsConverter" />
-            
+
             <Style x:Key="TitleLabelStyle"
                 TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
@@ -93,7 +93,7 @@
                 <Setter Property="Margin"
                     Value="12" />
             </Style>
-            
+
             <animations:StoryBoard
               x:Key="LoginAnimation"
               Target="{x:Reference LoginPanel}">
@@ -139,9 +139,9 @@
                     <RowDefinition Height="66" />
                 </Grid.RowDefinitions>
                 <StackLayout  
-                  Grid.Column="0"
-                  Orientation="Horizontal"
-                  HorizontalOptions="Center">
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    HorizontalOptions="Center">
                     <Label     
                         Text="["
                         TextColor="{StaticResource LightGreenColor}"/>
@@ -153,16 +153,16 @@
                         TextColor="{StaticResource LightGreenColor}"/>
                 </StackLayout>
                 <Grid
-                  Grid.Column="1"
-                  HorizontalOptions="Center">
+                    Grid.Column="1"
+                    HorizontalOptions="Center">
                     <Label
                         Text="REGISTER"
                         TextColor="Gray"/>
                 </Grid>
                 <StackLayout  
-                  Grid.Column="2"
-                  Orientation="Horizontal"
-                  HorizontalOptions="Center">
+                    Grid.Column="2"
+                    Orientation="Horizontal"
+                    HorizontalOptions="Center">
                     <Label
                         Text="SETTINGS"/>
                     <StackLayout.GestureRecognizers>
@@ -182,59 +182,59 @@
                 Grid.Row="3"
                 Margin="24">
                 <Label
-                  Text="User name or email"
-                  Style="{StaticResource HeaderLabelStyle}" />
+                    Text="User name or email"
+                    Style="{StaticResource HeaderLabelStyle}" />
                 <Entry Text="{Binding UserName.Value, Mode=TwoWay}">
-					<Entry.Style>
+                    <Entry.Style>
                         <OnPlatform x:TypeArguments="Style">
                             <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
                             <On Platform="WinUI" Value="{StaticResource WinUIEntryStyle}" />
                         </OnPlatform>
                     </Entry.Style>
                     <Entry.Behaviors>
-						<mct:EventToCommandBehavior
-							EventName="TextChanged"
-							Command="{Binding ValidateCommand}" />
-					</Entry.Behaviors>
-					<Entry.Triggers>
-						<DataTrigger 
-							TargetType="Entry"
-							Binding="{Binding UserName.IsValid}"
-							Value="False">
-							<Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
-						</DataTrigger>
-					</Entry.Triggers>
+                        <mct:EventToCommandBehavior
+			                EventName="TextChanged"
+			                Command="{Binding ValidateCommand}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger 
+			                TargetType="Entry"
+			                Binding="{Binding UserName.IsValid}"
+			                Value="False">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
                 </Entry>
-				<Label 
+                <Label 
 					Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
                 <Label
                   Text="Password"
                   Style="{StaticResource HeaderLabelStyle}"/>
-<Entry
-    IsPassword="True"
-    Text="{Binding Password.Value, Mode=TwoWay}">
-    <Entry.Style>
-        <OnPlatform x:TypeArguments="Style">
-            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
-            <On Platform="WinUI" Value="{StaticResource WinUIEntryStyle}" />
-        </OnPlatform>
-    </Entry.Style>
-	<Entry.Behaviors>
-		<mct:EventToCommandBehavior
-			EventName="TextChanged"
-			Command="{Binding ValidateCommand}" />
-	</Entry.Behaviors>
-	<Entry.Triggers>
-		<DataTrigger 
-			TargetType="Entry"
-			Binding="{Binding Password.IsValid}"
-			Value="False">
-			<Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
-		</DataTrigger>
-	</Entry.Triggers>
-</Entry>
-				<Label 
+                <Entry
+                    IsPassword="True"
+                    Text="{Binding Password.Value, Mode=TwoWay}">
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style">
+                            <On Platform="iOS, Android" Value="{StaticResource EntryStyle}" />
+                            <On Platform="WinUI" Value="{StaticResource WinUIEntryStyle}" />
+                        </OnPlatform>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <mct:EventToCommandBehavior
+			                EventName="TextChanged"
+			                Command="{Binding ValidateCommand}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger 
+			                TargetType="Entry"
+			                Binding="{Binding Password.IsValid}"
+			                Value="False">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+                <Label 
 					Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
             </StackLayout>
@@ -264,9 +264,9 @@
         </Grid>
         <!-- AUTH -->
         <Grid
-          ColumnSpacing="0"
-          RowSpacing="0"
-          IsVisible="{Binding IsMock, Converter={StaticResource InverseBoolConverter}}">
+            ColumnSpacing="0"
+            RowSpacing="0"
+            IsVisible="{Binding IsMock, Converter={StaticResource InverseBoolConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="60" />
@@ -349,11 +349,11 @@
         </Grid>
         <!-- INDICATOR -->
         <ActivityIndicator      
-          Color="{StaticResource LightGreenColor}"
-          IsRunning="{Binding IsBusy}"
-          IsVisible="{Binding IsBusy}"
-          VerticalOptions="Center"
-          HorizontalOptions="Center">
+            Color="{StaticResource LightGreenColor}"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
             <ActivityIndicator.WidthRequest>
                 <OnPlatform x:TypeArguments="x:Double">
                     <On Platform="iOS, Android" Value="100" />

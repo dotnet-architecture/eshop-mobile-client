@@ -5,28 +5,29 @@ namespace eShopOnContainers.Validations;
 public class ValidatableObject<T> : ObservableObject, IValidity
 {
     private readonly List<IValidationRule<T>> _validations;
-		private IEnumerable<string> _errors;
-    private T _value;
+
+    private IEnumerable<string> _errors;
     private bool _isValid;
+    private T _value;
 
     public List<IValidationRule<T>> Validations => _validations;
 
-		public IEnumerable<string> Errors
+    public IEnumerable<string> Errors
     {
         get => _errors;
         private set => SetProperty(ref _errors, value);
-    }
-
-    public T Value
-    {
-        get => _value;
-        set => SetProperty(ref _value, value);
     }
 
     public bool IsValid
     {
         get => _isValid;
         private set => SetProperty(ref _isValid, value);
+    }
+
+    public T Value
+    {
+        get => _value;
+        set => SetProperty(ref _value, value);
     }
 
     public ValidatableObject()
@@ -38,16 +39,13 @@ public class ValidatableObject<T> : ObservableObject, IValidity
 
     public bool Validate()
     {
-        var errors =
-            _validations
-                ?.Where(v => !v.Check(Value))
-                ?.Select(v => v.ValidationMessage)
-                ?.ToArray()
-                ?? Enumerable.Empty<string>();
+        Errors = _validations
+            ?.Where(v => !v.Check(Value))
+            ?.Select(v => v.ValidationMessage)
+            ?.ToArray()
+            ?? Enumerable.Empty<string>();
 
-        Errors = errors;
-
-        IsValid = !errors.Any();
+        IsValid = !Errors.Any();
 
         return IsValid;
     }

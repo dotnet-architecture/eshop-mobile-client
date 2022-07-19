@@ -21,7 +21,7 @@ public class UserMockService : IUserService
         State = "Seattle",
         CardNumber = "378282246310005",
         CardHolder = "American Express",
-        CardSecurityNumber = "1234"
+        CardSecurityNumber = "1234",
     };
 
     public async Task<UserInfo> GetUserInfoAsync(string authToken)

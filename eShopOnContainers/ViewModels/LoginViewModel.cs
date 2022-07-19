@@ -24,7 +24,7 @@ public class LoginViewModel : ViewModelBase
     private bool _isMock;
     private bool _isValid;
     private bool _isLogin;
-    private string _authUrl;
+    private string _loginUrl;
 
     public ValidatableObject<string> UserName
     {
@@ -56,8 +56,8 @@ public class LoginViewModel : ViewModelBase
 
     public string LoginUrl
     {
-        get => _authUrl;
-        set => SetProperty(ref _authUrl, value);
+        get => _loginUrl;
+        set => SetProperty(ref _loginUrl, value);
     }
 
     public ICommand MockSignInCommand { get; }
@@ -192,14 +192,14 @@ public class LoginViewModel : ViewModelBase
     {
         var unescapedUrl = System.Net.WebUtility.UrlDecode(url);
 
-        if (unescapedUrl.Equals(GlobalSetting.Instance.LogoutCallback))
+        if (unescapedUrl.Equals(GlobalSetting.Instance.LogoutCallback, StringComparison.OrdinalIgnoreCase))
         {
             _settingsService.AuthAccessToken = string.Empty;
             _settingsService.AuthIdToken = string.Empty;
             IsLogin = false;
             LoginUrl = _identityService.CreateAuthorizationRequest();
         }
-        else if (unescapedUrl.Contains(GlobalSetting.Instance.Callback))
+        else if (unescapedUrl.Contains(GlobalSetting.Instance.Callback, StringComparison.OrdinalIgnoreCase))
         {
             var authResponse = new AuthorizeResponse(url);
             if (!string.IsNullOrWhiteSpace(authResponse.Code))

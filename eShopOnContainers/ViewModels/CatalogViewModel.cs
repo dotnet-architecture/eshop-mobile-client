@@ -99,7 +99,7 @@ public class CatalogViewModel : ViewModelBase
         _brands = new ObservableCollectionEx<CatalogBrand>();
         _types = new ObservableCollectionEx<CatalogType>();
 
-        AddCatalogItemCommand = new RelayCommand<CatalogItem>(AddCatalogItem);
+        AddCatalogItemCommand = new AsyncRelayCommand<CatalogItem>(AddCatalogItemAsync);
 
         ShowFilterCommand = new AsyncRelayCommand(ShowFilterAsync);
 
@@ -133,7 +133,7 @@ public class CatalogViewModel : ViewModelBase
             });
     }
 
-    private async void AddCatalogItem(CatalogItem catalogItem)
+    private async Task AddCatalogItemAsync(CatalogItem catalogItem)
     {
         if (catalogItem is null)
         {
@@ -157,6 +157,7 @@ public class CatalogViewModel : ViewModelBase
 
             await _appEnvironmentService.BasketService.UpdateBasketAsync (basket, authToken);
             BadgeCount = basket.Items.Count ();
+            MessagingCenter.Send(this, MessengerKeys.AddProduct);
         }
 
         SelectedProduct = null;
