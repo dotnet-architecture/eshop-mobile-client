@@ -6,29 +6,17 @@ namespace eShopOnContainers.Converters;
 public class OrderStatusToStringConverter : IValueConverter
 {
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is OrderStatus orderStatus)
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        value switch
         {
-            switch (orderStatus)
-            {
-                case OrderStatus.AwaitingValidation:
-                    return "AWAITING VALIDATION";
-                case OrderStatus.Cancelled:
-                    return "CANCELLED";
-                case OrderStatus.Paid:
-                    return "PAID";
-                case OrderStatus.Shipped:
-                    return "SHIPPED";
-                case OrderStatus.StockConfirmed:
-                    return "STOCK CONFIRMED";
-                case OrderStatus.Submitted:
-                    return "SUBMITTED";
-            }
-        }
-
-        return string.Empty;
-    }
+            OrderStatus.AwaitingValidation => "AWAITING VALIDATION",
+            OrderStatus.Cancelled => "CANCELLED",
+            OrderStatus.Paid => "PAID",
+            OrderStatus.Shipped => "SHIPPED",
+            OrderStatus.StockConfirmed => "STOCK CONFIRMED",
+            OrderStatus.Submitted => "SUBMITTED",
+            _ => string.Empty
+        };
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
