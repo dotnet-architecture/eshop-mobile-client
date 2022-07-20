@@ -17,18 +17,14 @@ public class LoginViewModel : ViewModelBase
     private readonly ISettingsService _settingsService;
     private readonly IOpenUrlService _openUrlService;
     private readonly IIdentityService _identityService;
-
-    private readonly ValidatableObject<string> _userName;
-    private readonly ValidatableObject<string> _password;
-
     private bool _isMock;
     private bool _isValid;
     private bool _isLogin;
     private string _loginUrl;
 
-    public ValidatableObject<string> UserName => _userName;
+    public ValidatableObject<string> UserName { get; private set; }
 
-    public ValidatableObject<string> Password => _password;
+    public ValidatableObject<string> Password { get; private set; }
 
     public bool IsMock
     {
@@ -75,8 +71,8 @@ public class LoginViewModel : ViewModelBase
         _openUrlService = openUrlService;
         _identityService = identityService;
 
-        _userName = new ValidatableObject<string>();
-        _password = new ValidatableObject<string>();
+        UserName = new ValidatableObject<string>();
+        Password = new ValidatableObject<string>();
 
         MockSignInCommand = new AsyncRelayCommand(MockSignInAsync);
         SignInCommand = new AsyncRelayCommand(SignInAsync);

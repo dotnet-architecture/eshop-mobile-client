@@ -92,28 +92,25 @@ public class MockSettingsService : ISettingsService
 
     Task AddOrUpdateValueInternal<T>(string key, T value)
     {
-        if (value == null)
+        if (value is null)
         {
             Remove(key);
         }
+        else
+        {
+            _settings[key] = value;
+        }
 
-        _settings[key] = value;
         return Task.Delay(10);
     }
 
-    T GetValueOrDefaultInternal<T>(string key, T defaultValue = default)
-    {
-        object? value = null;
-        if (_settings.ContainsKey(key))
-        {
-            value = _settings[key];
-        }
-        return null != value ? (T)value : defaultValue;
-    }
+    T GetValueOrDefaultInternal<T>(string key, T defaultValue = default!) =>
+        _settings.TryGetValue(key, out object? value)
+            ? null != value ? (T)value : defaultValue : defaultValue;
 
     void Remove(string key)
     {
-        if (_settings[key] != null)
+        if (_settings.ContainsKey(key))
         {
             _settings.Remove(key);
         }

@@ -13,13 +13,12 @@ public class BasketViewModel : ViewModelBase
 {
     private readonly IAppEnvironmentService _appEnvironmentService;
     private readonly ISettingsService _settingsService;
-    private readonly ObservableCollectionEx<BasketItem> _basketItems;
 
-    public int BadgeCount => _basketItems?.Sum(basketItem => basketItem.Quantity) ?? 0;
+    public int BadgeCount => BasketItems?.Sum(basketItem => basketItem.Quantity) ?? 0;
 
-    public decimal Total => _basketItems?.Sum(basketItem => basketItem.Quantity * basketItem.UnitPrice) ?? 0m;
+    public decimal Total => BasketItems?.Sum(basketItem => basketItem.Quantity * basketItem.UnitPrice) ?? 0m;
 
-    public ObservableCollectionEx<BasketItem> BasketItems => _basketItems;
+    public ObservableCollectionEx<BasketItem> BasketItems { get; private set; }
 
     public ICommand AddCommand { get; }
 
@@ -35,7 +34,7 @@ public class BasketViewModel : ViewModelBase
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
 
-        _basketItems = new ObservableCollectionEx<BasketItem>();
+        BasketItems = new ObservableCollectionEx<BasketItem>();
 
         AddCommand = new AsyncRelayCommand<BasketItem>(AddBasketItemAsync);
         DeleteCommand = new AsyncRelayCommand<BasketItem>(DeleteBasketItemAsync);
