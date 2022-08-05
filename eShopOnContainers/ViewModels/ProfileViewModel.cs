@@ -10,7 +10,6 @@ namespace eShopOnContainers.ViewModels;
 
 public class ProfileViewModel : ViewModelBase
 {
-    private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
     private readonly ObservableCollectionEx<Order> _orders;
 
@@ -34,7 +33,6 @@ public class ProfileViewModel : ViewModelBase
         : base(dialogService, navigationService, settingsService)
     {
         _appEnvironmentService = appEnvironmentService;
-        _settingsService = settingsService;
 
         _orders = new ObservableCollectionEx<Order>();
 
@@ -71,7 +69,7 @@ public class ProfileViewModel : ViewModelBase
             async () =>
             {
                 // Get orders
-                var authToken = _settingsService.AuthAccessToken;
+                var authToken = SettingsService.AuthAccessToken;
                 var orders = await _appEnvironmentService.OrderService.GetOrdersAsync(authToken);
 
                 _orders.ReloadData(orders);
