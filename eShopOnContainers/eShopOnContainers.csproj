@@ -52,10 +52,10 @@
 	  <None Remove="System.Text.Json" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.1.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="1.2.0" />
 	  <PackageReference Include="IdentityModel" Version="3.0.0" />
 	  <PackageReference Include="PCLCrypto" Version="2.1.40-alpha" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="System.Text.Json" Version="6.0.5" />
 	</ItemGroup>
 	<ItemGroup>
