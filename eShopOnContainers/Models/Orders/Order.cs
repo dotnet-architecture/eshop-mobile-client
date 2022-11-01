@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace eShopOnContainers.Models.Orders;
 
@@ -14,25 +14,25 @@ public class Order
 
     public int SequenceNumber { get; set; }
 
-    [JsonProperty("date")]
+    [JsonPropertyName("date")]
     public DateTime OrderDate { get; set; }
 
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
     public OrderStatus OrderStatus { get; set; }
 
-    [JsonProperty("city")]
+    [JsonPropertyName("city")]
     public string ShippingCity { get; set; }
 
-    [JsonProperty("street")]
+    [JsonPropertyName("street")]
     public string ShippingStreet { get; set; }
 
-    [JsonProperty("state")]
+    [JsonPropertyName("state")]
     public string ShippingState { get; set; }
 
-    [JsonProperty("country")]
+    [JsonPropertyName("country")]
     public string ShippingCountry { get; set; }
 
-    [JsonProperty("zipCode")]
+    [JsonPropertyName("zipCode")]
     public string ShippingZipCode { get; set; }
 
     public int CardTypeId { get; set; }

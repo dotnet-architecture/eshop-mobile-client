@@ -45,7 +45,6 @@
 
 	<ItemGroup>
 	  <None Remove="CommunityToolkit.Maui" />
-	  <None Remove="Newtonsoft.Json" />
 	  <None Remove="IdentityModel" />
 	  <None Remove="PCLCrypto" />
 	  <None Remove="Services\AppEnvironment\" />

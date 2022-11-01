@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace eShopOnContainers.Models.Orders;
 
@@ -7,16 +7,16 @@ public class OrderItem
     public string ProductId { get; set; }
     public Guid? OrderId { get; set; }
 
-    [JsonProperty("unitprice")]
+    [JsonPropertyName("unitprice")]
     public decimal UnitPrice { get; set; }
 
-    [JsonProperty("productname")]
+    [JsonPropertyName("productname")]
     public string ProductName { get; set; }
 
-    [JsonProperty("pictureurl")]
+    [JsonPropertyName("pictureurl")]
     public string PictureUrl { get; set; }
 
-    [JsonProperty("units")]
+    [JsonPropertyName("units")]
     public int Quantity { get; set; }
 
     public decimal Discount { get; set; }
