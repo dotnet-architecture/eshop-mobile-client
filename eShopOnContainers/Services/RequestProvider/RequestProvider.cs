@@ -1,15 +1,13 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using eShopOnContainers.Exceptions;
-//using Newtonsoft.Json;
 using System.Net.Http.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
+using System.Text.Json;
 
 namespace eShopOnContainers.Services.RequestProvider;
 
 public class RequestProvider : IRequestProvider
 {
-   // private readonly JsonSerializerSettings _serializerSettings;
 
     private readonly Lazy<HttpClient> _httpClient =
         new(() =>
@@ -20,17 +18,6 @@ public class RequestProvider : IRequestProvider
             },
             LazyThreadSafetyMode.ExecutionAndPublication);
 
-    //public RequestProvider()
-    //{
-    //    _serializerSettings = new JsonSerializerSettings
-    //    {
-    //        ContractResolver = new CamelCasePropertyNamesContractResolver(),
-    //        DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-    //        NullValueHandling = NullValueHandling.Ignore
-    //    };
-    //    _serializerSettings.Converters.Add(new StringEnumConverter());
-    //}
-
     public async Task<TResult> GetAsync<TResult>(string uri, string token = "")
     {
         HttpClient httpClient = GetOrCreateHttpClient(token);
@@ -39,8 +26,6 @@ public class RequestProvider : IRequestProvider
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
 
         TResult result = await response.Content.ReadFromJsonAsync<TResult>();
-
-        //TResult result = JsonSerializer.Deserialize<TResult>(serialized, _serializerSettings);
 
         return result;
     }
@@ -60,8 +45,6 @@ public class RequestProvider : IRequestProvider
 
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
         TResult result = await response.Content.ReadFromJsonAsync<TResult>();
-        //TResult result = JsonSerializer.Deserialize<TResult>(serialized, _serializerSettings);
-        //TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
 
         return result;
     }
@@ -82,8 +65,6 @@ public class RequestProvider : IRequestProvider
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
         TResult result = await response.Content.ReadFromJsonAsync<TResult>();
 
-        //TResult result = JsonSerializer.Deserialize<TResult>(serialized, _serializerSettings);
-
         return result;
     }
 
@@ -102,8 +83,6 @@ public class RequestProvider : IRequestProvider
 
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
         TResult result = await response.Content.ReadFromJsonAsync<TResult>();
-
-       // TResult result = JsonSerializer.Deserialize<TResult>(serialized, _serializerSettings);
 
         return result;
     }
