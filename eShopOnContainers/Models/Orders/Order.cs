@@ -45,12 +45,12 @@ public class Order
 
     public string CardSecurityNumber { get; set; }
 
-    [JsonProperty("orderitems")]
+    [JsonPropertyName("orderitems")]
     public List<OrderItem> OrderItems { get; set; }
 
-    [JsonProperty("total")]
+    [JsonPropertyName("total")]
     public decimal Total { get; set; }
 
-    [JsonProperty("ordernumber")]
+    [JsonPropertyName("ordernumber")]
     public int OrderNumber { get; set; }
 }
