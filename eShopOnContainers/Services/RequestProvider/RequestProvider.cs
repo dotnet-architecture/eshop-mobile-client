@@ -1,15 +1,13 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using eShopOnContainers.Exceptions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace eShopOnContainers.Services.RequestProvider;
 
 public class RequestProvider : IRequestProvider
 {
-    private readonly JsonSerializerSettings _serializerSettings;
 
     private readonly Lazy<HttpClient> _httpClient =
         new(() =>
@@ -20,17 +18,6 @@ public class RequestProvider : IRequestProvider
             },
             LazyThreadSafetyMode.ExecutionAndPublication);
 
-    public RequestProvider()
-    {
-        _serializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-            NullValueHandling = NullValueHandling.Ignore
-        };
-        _serializerSettings.Converters.Add(new StringEnumConverter());
-    }
-
     public async Task<TResult> GetAsync<TResult>(string uri, string token = "")
     {
         HttpClient httpClient = GetOrCreateHttpClient(token);
@@ -38,9 +25,7 @@ public class RequestProvider : IRequestProvider
 
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
 
-        string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-        TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
+        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
 
         return result;
     }
@@ -54,14 +39,12 @@ public class RequestProvider : IRequestProvider
             RequestProvider.AddHeaderParameter(httpClient, header);
         }
 
-        var content = new StringContent(JsonConvert.SerializeObject(data));
+        var content = new StringContent(JsonSerializer.Serialize(data));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         HttpResponseMessage response = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
 
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
-        string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-        TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
+        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
 
         return result;
     }
@@ -80,9 +63,7 @@ public class RequestProvider : IRequestProvider
         HttpResponseMessage response = await httpClient.PostAsync(uri, content).ConfigureAwait(false);
 
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
-        string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-        TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
+        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
 
         return result;
     }
@@ -96,14 +77,12 @@ public class RequestProvider : IRequestProvider
             RequestProvider.AddHeaderParameter(httpClient, header);
         }
 
-        var content = new StringContent(JsonConvert.SerializeObject(data));
+        var content = new StringContent(JsonSerializer.Serialize(data));
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         HttpResponseMessage response = await httpClient.PutAsync(uri, content).ConfigureAwait(false);
 
         await RequestProvider.HandleResponse(response).ConfigureAwait(false);
-        string serialized = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-        TResult result = JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings);
+        TResult result = await response.Content.ReadFromJsonAsync<TResult>();
 
         return result;
     }
