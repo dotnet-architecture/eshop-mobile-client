@@ -1,21 +1,14 @@
 ﻿using System.Globalization;
+using CommunityToolkit.Maui.Converters;
 
 namespace eShopOnContainers.Converters;
 
-public class DoesNotHaveCountConverter : IValueConverter
+public class DoesNotHaveCountConverter : BaseConverterOneWay<int, bool>
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is int intValue)
-        {
-            return intValue <= 0;
-        }
+    public override bool DefaultConvertReturnValue { get; set; } = false;
 
-        return false;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public override bool ConvertFrom(int value, CultureInfo culture)
     {
-        return null;
+        return value <= 0;
     }
 }

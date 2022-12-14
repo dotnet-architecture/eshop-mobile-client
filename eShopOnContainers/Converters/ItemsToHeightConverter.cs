@@ -1,24 +1,17 @@
 ﻿using System.Globalization;
+using CommunityToolkit.Maui.Converters;
 
 namespace eShopOnContainers.Converters
 {
-    public class ItemsToHeightConverter : IValueConverter
+    public class ItemsToHeightConverter : BaseConverterOneWay<int, int>
     {
         private const int ItemHeight = 156;
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is int)
-            {
-                return System.Convert.ToInt32(value) * ItemHeight;
-            }
+        public override int DefaultConvertReturnValue { get; set; } = ItemHeight;
 
-            return 0;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override int ConvertFrom(int value, CultureInfo culture)
         {
-            return null;
+            return value * ItemHeight;
         }
     }
 }

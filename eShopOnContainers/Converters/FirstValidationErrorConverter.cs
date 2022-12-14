@@ -1,16 +1,14 @@
 ﻿using System.Globalization;
+using CommunityToolkit.Maui.Converters;
 
 namespace eShopOnContainers.Converters;
 
-public class FirstValidationErrorConverter : IValueConverter
+public class FirstValidationErrorConverter : BaseConverterOneWay<ICollection<string>, string>
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value is ICollection<string> errors && errors.Count > 0 
-            ? errors.ElementAt(0)
-            : null;
+    public override string DefaultConvertReturnValue { get; set; } = string.Empty;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public override string ConvertFrom(ICollection<string> value, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        return value?.FirstOrDefault() ?? DefaultConvertReturnValue;
     }
 }

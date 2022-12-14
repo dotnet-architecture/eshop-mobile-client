@@ -1,13 +1,16 @@
 ﻿using System.Globalization;
+using CommunityToolkit.Maui.Converters;
 using eShopOnContainers.Models.Orders;
 
 namespace eShopOnContainers.Converters;
 
-public class OrderStatusToStringConverter : IValueConverter
+public class OrderStatusToStringConverter : BaseConverterOneWay<OrderStatus, string>
 {
+    public override string DefaultConvertReturnValue { get; set; } = string.Empty;
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value switch
+    public override string ConvertFrom(OrderStatus value, CultureInfo culture)
+    {
+        return value switch
         {
             OrderStatus.AwaitingValidation => "AWAITING VALIDATION",
             OrderStatus.Cancelled => "CANCELLED",
@@ -17,10 +20,6 @@ public class OrderStatusToStringConverter : IValueConverter
             OrderStatus.Submitted => "SUBMITTED",
             _ => string.Empty
         };
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
     }
 }
 

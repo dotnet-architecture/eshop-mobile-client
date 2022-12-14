@@ -1,16 +1,20 @@
 ﻿using System.Globalization;
+using CommunityToolkit.Maui.Converters;
 
 namespace eShopOnContainers.Converters;
 
-public class DoubleConverter : IValueConverter
+public class DoubleConverter : BaseConverter<double, string>
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value is double
-            ? value.ToString()
-            : value;
+    public override string DefaultConvertReturnValue { get; set; } = string.Empty;
+    public override double DefaultConvertBackReturnValue { get; set; } = 0d;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-        double.TryParse(value as string, out double doub)
-            ? doub 
-            : value;
+    public override double ConvertBackTo(string value, CultureInfo culture)
+    {
+        return double.TryParse(value, out var parsed) ? parsed : DefaultConvertBackReturnValue;
+    }
+
+    public override string ConvertFrom(double value, CultureInfo culture)
+    {
+        return value.ToString();
+    }
 }
