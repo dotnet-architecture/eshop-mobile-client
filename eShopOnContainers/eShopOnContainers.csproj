@@ -47,19 +47,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="CommunityToolkit.Maui" />
-	  <None Remove="IdentityModel" />
-	  <None Remove="PCLCrypto" />
-	  <None Remove="Services\AppEnvironment\" />
-	  <None Remove="CommunityToolkit.Mvvm" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="3.1.0" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
 	  <PackageReference Include="IdentityModel" Version="3.0.0" />
 	  <PackageReference Include="PCLCrypto" Version="2.1.40-alpha" />
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Services\AppEnvironment\" />
-	</ItemGroup>
+
 </Project>
