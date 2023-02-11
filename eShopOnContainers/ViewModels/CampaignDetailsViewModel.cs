@@ -9,39 +9,27 @@ using eShopOnContainers.ViewModels.Base;
 namespace eShopOnContainers.ViewModels;
 
 [QueryProperty(nameof(CampaignId), "Id")]
-public class CampaignDetailsViewModel : ViewModelBase
+public partial class CampaignDetailsViewModel : ViewModelBase
 {
     private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
 
+    [ObservableProperty]
     private CampaignItem _campaign;
+
+    [ObservableProperty]
     private bool _isDetailsSite;
 
-    public int CampaignId { get; set; }
-
-    public ICommand EnableDetailsSiteCommand { get; }
+    [ObservableProperty]
+    private int _campaignId;
 
     public CampaignDetailsViewModel(
         IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
-
-        EnableDetailsSiteCommand = new RelayCommand(EnableDetailsSite);
-    }
-
-    public CampaignItem Campaign
-    {
-        get => _campaign;
-        set => SetProperty(ref _campaign, value);
-    }
-
-    public bool IsDetailsSite
-    {
-        get => _isDetailsSite;
-        set => SetProperty(ref _isDetailsSite, value);
     }
 
     public override async Task InitializeAsync()
@@ -54,6 +42,7 @@ public class CampaignDetailsViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private void EnableDetailsSite()
     {
         IsDetailsSite = true;

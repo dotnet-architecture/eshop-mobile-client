@@ -10,42 +10,31 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-public class CheckoutViewModel : ViewModelBase
+public partial class CheckoutViewModel : ViewModelBase
 {
+    private readonly IDialogService _dialogService;
     private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
 
     private readonly BasketViewModel _basketViewModel;
 
+    [ObservableProperty]
     private Order _order;
+
+    [ObservableProperty]
     private Address _shippingAddress;
 
-    public Order Order
-    {
-        get => _order;
-        set => SetProperty(ref _order, value);
-    }
-
-    public Address ShippingAddress
-    {
-        get => _shippingAddress;
-        set => SetProperty(ref _shippingAddress, value);
-    }
-
-    public ICommand CheckoutCommand { get; }
-
     public CheckoutViewModel(
-        IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService,
-        BasketViewModel basketViewModel)
-        : base(dialogService, navigationService, settingsService)
+        BasketViewModel basketViewModel,
+        IAppEnvironmentService appEnvironmentService, IDialogService dialogService, ISettingsService settingsService,
+        INavigationService navigationService)
+        : base(navigationService)
     {
+        _dialogService = dialogService;
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
 
         _basketViewModel = basketViewModel;
-
-        CheckoutCommand = new AsyncRelayCommand(CheckoutAsync);
     }
 
     public override async Task InitializeAsync()
@@ -92,11 +81,11 @@ public class CheckoutViewModel : ViewModelBase
                     CardSecurityNumber = paymentInfo.SecurityNumber,
                     CardExpiration = DateTime.Now.AddYears(5),
                     CardTypeId = paymentInfo.CardType.Id,
-                    ShippingState = _shippingAddress.State,
-                    ShippingCountry = _shippingAddress.Country,
-                    ShippingStreet = _shippingAddress.Street,
-                    ShippingCity = _shippingAddress.City,
-                    ShippingZipCode = _shippingAddress.ZipCode,
+                    ShippingState = ShippingAddress.State,
+                    ShippingCountry = ShippingAddress.Country,
+                    ShippingStreet = ShippingAddress.Street,
+                    ShippingCity = ShippingAddress.City,
+                    ShippingZipCode = ShippingAddress.ZipCode,
                     Total = CheckoutViewModel.CalculateTotal(orderItems),
                 };
 
@@ -112,6 +101,7 @@ public class CheckoutViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task CheckoutAsync()
     {
         try
@@ -130,7 +120,7 @@ public class CheckoutViewModel : ViewModelBase
             }
 
             // Clean Basket
-            await _appEnvironmentService.BasketService.ClearBasketAsync(_shippingAddress.Id.ToString(), authToken);
+            await _appEnvironmentService.BasketService.ClearBasketAsync(ShippingAddress.Id.ToString(), authToken);
 
             // Reset Basket badge
             _basketViewModel.ClearBasketItems();
@@ -139,11 +129,11 @@ public class CheckoutViewModel : ViewModelBase
             await NavigationService.NavigateToAsync("//Main/Catalog");
 
             // Show Dialog
-            await DialogService.ShowAlertAsync("Order sent successfully!", "Checkout", "Ok");
+            await _dialogService.ShowAlertAsync("Order sent successfully!", "Checkout", "Ok");
         }
         catch
         {
-            await DialogService.ShowAlertAsync("An error ocurred. Please, try again.", "Oops!", "Ok");
+            await _dialogService.ShowAlertAsync("An error ocurred. Please, try again.", "Oops!", "Ok");
         }
     }
 

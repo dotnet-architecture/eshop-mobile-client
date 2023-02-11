@@ -49,19 +49,31 @@ public class SettingsService : ISettingsService
     public string IdentityEndpointBase
     {
         get => Preferences.Get(IdIdentityBase, UrlIdentityDefault);
-        set => Preferences.Set(IdIdentityBase, value);
+        set
+        {
+            Preferences.Set(IdIdentityBase, value);
+            GlobalSetting.Instance.BaseIdentityEndpoint = value;
+        }
     }
 
     public string GatewayShoppingEndpointBase
     {
         get => Preferences.Get(IdGatewayShoppingBase, UrlGatewayShoppingDefault);
-        set => Preferences.Set(IdGatewayShoppingBase, value);
+        set
+        {
+            Preferences.Set(IdGatewayShoppingBase, value);
+            GlobalSetting.Instance.BaseGatewayShoppingEndpoint = value;
+        }
     }
 
     public string GatewayMarketingEndpointBase
     {
         get => Preferences.Get(IdGatewayMarketingBase, UrlGatewayMarketingDefault);
-        set => Preferences.Set(IdGatewayMarketingBase, value);
+        set
+        {
+            Preferences.Set(IdGatewayMarketingBase, value);
+            GlobalSetting.Instance.BaseGatewayMarketingEndpoint = value;
+        }
     }
 
     public bool UseFakeLocation

@@ -4,41 +4,23 @@ using eShopOnContainers.Services.Settings;
 
 namespace eShopOnContainers.ViewModels.Base;
 
-public abstract class ViewModelBase : ObservableObject, IViewModelBase, IDisposable
+public abstract partial class ViewModelBase : ObservableObject, IViewModelBase, IDisposable
 {
     private readonly SemaphoreSlim _isBusyLock = new(1, 1);
 
-    private bool _isInitialized;
-    private bool _isBusy;
     private bool _disposedValue;
 
-    public IDialogService DialogService { get; private set; }
+    [ObservableProperty]
+    private bool _isInitialized;
+
+    [ObservableProperty]
+    private bool _isBusy;
 
     public INavigationService NavigationService { get; private set; }
 
-    public ISettingsService SettingsService { get; private set; }
-
-    public bool IsInitialized
+    public ViewModelBase(INavigationService navigationService)
     {
-        get => _isInitialized;
-        set => SetProperty(ref _isInitialized, value);
-    }
-
-    public bool IsBusy
-    {
-        get => _isBusy;
-        private set => SetProperty(ref _isBusy, value);
-    }
-
-    public ViewModelBase(IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-    {
-        DialogService = dialogService;
         NavigationService = navigationService;
-        SettingsService = settingsService;
-
-        GlobalSetting.Instance.BaseIdentityEndpoint = SettingsService.IdentityEndpointBase;
-        GlobalSetting.Instance.BaseGatewayShoppingEndpoint = SettingsService.GatewayShoppingEndpointBase;
-        GlobalSetting.Instance.BaseGatewayMarketingEndpoint = SettingsService.GatewayMarketingEndpointBase;
     }
 
     public virtual void ApplyQueryAttributes(IDictionary<string, object> query)

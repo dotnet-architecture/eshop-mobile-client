@@ -9,46 +9,30 @@ using eShopOnContainers.ViewModels.Base;
 namespace eShopOnContainers.ViewModels;
 
 [QueryProperty(nameof(OrderNumber), "OrderNumber")]
-public class OrderDetailViewModel : ViewModelBase
+public partial class OrderDetailViewModel : ViewModelBase
 {
     private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
 
+    [ObservableProperty]
     private Order _order;
+
+    [ObservableProperty]
     private bool _isSubmittedOrder;
+
+    [ObservableProperty]
     private string _orderStatusText;
 
-    public int OrderNumber { get; set; }
-
-    public Order Order
-    {
-        get => _order;
-        set => SetProperty(ref _order, value);
-    }
-
-    public bool IsSubmittedOrder
-    {
-        get => _isSubmittedOrder;
-        set => SetProperty(ref _isSubmittedOrder, value);
-    }
-
-    public string OrderStatusText
-    {
-        get => _orderStatusText;
-        set => SetProperty(ref _orderStatusText, value);
-    }
-
-    public ICommand ToggleCancelOrderCommand { get; }
+    [ObservableProperty]
+    private int _orderNumber;
 
     public OrderDetailViewModel(
         IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
-
-        ToggleCancelOrderCommand = new AsyncRelayCommand(ToggleCancelOrderAsync);
     }
 
     public override async Task InitializeAsync()
@@ -64,11 +48,12 @@ public class OrderDetailViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task ToggleCancelOrderAsync()
     {
         var authToken = _settingsService.AuthAccessToken;
 
-        var result = await _appEnvironmentService.OrderService.CancelOrderAsync(_order.OrderNumber, authToken);
+        var result = await _appEnvironmentService.OrderService.CancelOrderAsync(Order.OrderNumber, authToken);
 
         if (result)
         {

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
 using eShopOnContainers.Services;
 using eShopOnContainers.Services.Identity;
 using eShopOnContainers.Services.OpenUrl;
@@ -11,78 +11,41 @@ using IdentityModel.Client;
 
 namespace eShopOnContainers.ViewModels;
 
-public class LoginViewModel : ViewModelBase
+public partial class LoginViewModel : ViewModelBase
 {
-
     private readonly ISettingsService _settingsService;
     private readonly IOpenUrlService _openUrlService;
     private readonly IIdentityService _identityService;
-    private bool _isMock;
+
+    [ObservableProperty]
+    private ValidatableObject<string> _userName = new();
+
+    [ObservableProperty]
+    ValidatableObject<string> _password = new();
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(MockSignInCommand))]
     private bool _isValid;
+
+    [ObservableProperty]
+    private bool _isMock;
+
+    [ObservableProperty]
     private bool _isLogin;
+
+    [ObservableProperty]
     private string _loginUrl;
-
-    public ValidatableObject<string> UserName { get; private set; }
-
-    public ValidatableObject<string> Password { get; private set; }
-
-    public bool IsMock
-    {
-        get => _isMock;
-        set => SetProperty(ref _isMock, value);
-    }
-
-    public bool IsValid
-    {
-        get => _isValid;
-        set => SetProperty(ref _isValid, value);
-    }
-
-    public bool IsLogin
-    {
-        get => _isLogin;
-        set => SetProperty(ref _isLogin, value);
-    }
-
-    public string LoginUrl
-    {
-        get => _loginUrl;
-        set => SetProperty(ref _loginUrl, value);
-    }
-
-    public ICommand MockSignInCommand { get; }
-
-    public ICommand SignInCommand { get; }
-
-    public ICommand RegisterCommand { get; }
-
-    public ICommand NavigateCommand { get; }
-
-    public ICommand SettingsCommand { get; }
-
-    public ICommand ValidateCommand { get; }
 
     public LoginViewModel(
         IOpenUrlService openUrlService, IIdentityService identityService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _settingsService = settingsService;
         _openUrlService = openUrlService;
         _identityService = identityService;
 
-        UserName = new ValidatableObject<string>();
-        Password = new ValidatableObject<string>();
-
-        MockSignInCommand = new AsyncRelayCommand(MockSignInAsync);
-        SignInCommand = new AsyncRelayCommand(SignInAsync);
-        RegisterCommand = new AsyncRelayCommand(RegisterAsync);
-        NavigateCommand = new AsyncRelayCommand<string>(NavigateAsync);
-        SettingsCommand = new AsyncRelayCommand(SettingsAsync);
-        ValidateCommand = new RelayCommand(() => Validate());
-
         InvalidateMock();
-        AddValidations();
     }
 
     public override void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -100,31 +63,23 @@ public class LoginViewModel : ViewModelBase
         return Task.CompletedTask;
     }
 
+    [RelayCommand(CanExecute = nameof(IsValid))]
     private async Task MockSignInAsync()
     {
         await IsBusyFor(
             async () =>
             {
-                IsValid = true;
-                bool isValid = Validate();
                 bool isAuthenticated = false;
 
-                if (isValid)
+                try
                 {
-                    try
-                    {
-                        await Task.Delay(10);
+                    await Task.Delay(10);
 
-                        isAuthenticated = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"[SignIn] Error signing in: {ex}");
-                    }
+                    isAuthenticated = true;
                 }
-                else
+                catch (Exception ex)
                 {
-                    IsValid = false;
+                    Debug.WriteLine($"[SignIn] Error signing in: {ex}");
                 }
 
                 if (isAuthenticated)
@@ -136,6 +91,7 @@ public class LoginViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task SignInAsync()
     {
         await IsBusyFor(
@@ -150,11 +106,13 @@ public class LoginViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private Task RegisterAsync()
     {
         return _openUrlService.OpenUrl(GlobalSetting.Instance.RegisterWebsite);
     }
 
+    [RelayCommand]
     private void PerformLogout()
     {
         var authIdToken = _settingsService.AuthIdToken;
@@ -178,6 +136,7 @@ public class LoginViewModel : ViewModelBase
         Password.Value = string.Empty;
     }
 
+    [RelayCommand]
     private async Task NavigateAsync(string url)
     {
         var unescapedUrl = System.Net.WebUtility.UrlDecode(url);
@@ -207,14 +166,16 @@ public class LoginViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
     private Task SettingsAsync()
     {
         return NavigationService.NavigateToAsync("Settings");
     }
 
-    private bool Validate()
+    [RelayCommand]
+    private void Validate()
     {
-        return UserName.Validate() && Password.Validate();
+        IsValid = UserName.Validate() && Password.Validate();
     }
 
     private void AddValidations()

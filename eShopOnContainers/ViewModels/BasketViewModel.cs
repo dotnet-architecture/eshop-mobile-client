@@ -9,36 +9,27 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-public class BasketViewModel : ViewModelBase
+public partial class BasketViewModel : ViewModelBase
 {
     private readonly IAppEnvironmentService _appEnvironmentService;
     private readonly ISettingsService _settingsService;
+    private readonly ObservableCollectionEx<BasketItem> _basketItems = new ();
 
-    public int BadgeCount => BasketItems?.Sum(basketItem => basketItem.Quantity) ?? 0;
+    public int BadgeCount => _basketItems?.Sum(basketItem => basketItem.Quantity) ?? 0;
 
-    public decimal Total => BasketItems?.Sum(basketItem => basketItem.Quantity * basketItem.UnitPrice) ?? 0m;
+    public decimal Total => _basketItems?.Sum(basketItem => basketItem.Quantity * basketItem.UnitPrice) ?? 0m;
 
-    public ObservableCollectionEx<BasketItem> BasketItems { get; private set; }
-
-    public ICommand AddCommand { get; }
-
-    public ICommand DeleteCommand { get; }
-
-    public ICommand CheckoutCommand { get; }
+    public IReadOnlyList<BasketItem> BasketItems => _basketItems;
 
     public BasketViewModel(
         IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
 
-        BasketItems = new ObservableCollectionEx<BasketItem>();
-
-        AddCommand = new AsyncRelayCommand<BasketItem>(AddBasketItemAsync);
-        DeleteCommand = new AsyncRelayCommand<BasketItem>(DeleteBasketItemAsync);
-        CheckoutCommand = new AsyncRelayCommand(CheckoutAsync);
+        _basketItems = new ObservableCollectionEx<BasketItem>();
     }
 
     public override async Task InitializeAsync()
@@ -51,7 +42,7 @@ public class BasketViewModel : ViewModelBase
 
         if (basket != null && basket.Items != null && basket.Items.Any())
         {
-            await BasketItems.ReloadDataAsync(
+            await _basketItems.ReloadDataAsync(
                 async innerList =>
                 {
                     foreach (var basketItem in basket.Items.ToArray())
@@ -62,9 +53,10 @@ public class BasketViewModel : ViewModelBase
         }
     }
 
-    private Task AddBasketItemAsync(BasketItem item)
+    [RelayCommand]
+    private Task AddAsync(BasketItem item)
     {
-        return AddBasketItemAsync(item, BasketItems);
+        return AddBasketItemAsync(item, _basketItems);
     }
 
     private async Task AddBasketItemAsync(BasketItem item, IList<BasketItem> basketItems)
@@ -83,9 +75,10 @@ public class BasketViewModel : ViewModelBase
         ReCalculateTotal();
     }
 
-    private async Task DeleteBasketItemAsync(BasketItem item)
+    [RelayCommand]
+    private async Task DeleteAsync(BasketItem item)
     {
-        BasketItems.Remove(item);
+        _basketItems.Remove(item);
 
         var authToken = _settingsService.AuthAccessToken;
         var userInfo = await _appEnvironmentService.UserService.GetUserInfoAsync(authToken);
@@ -101,7 +94,7 @@ public class BasketViewModel : ViewModelBase
 
     public void ClearBasketItems()
     {
-        BasketItems.Clear();
+        _basketItems.Clear();
 
         ReCalculateTotal();
     }
@@ -112,11 +105,12 @@ public class BasketViewModel : ViewModelBase
         OnPropertyChanged(nameof(Total));
     }
 
+    [RelayCommand]
     private async Task CheckoutAsync()
     {
-        if (BasketItems?.Any() ?? false)
+        if (_basketItems?.Any() ?? false)
         {
-            _appEnvironmentService.BasketService.LocalBasketItems = BasketItems;
+            _appEnvironmentService.BasketService.LocalBasketItems = _basketItems;
             await NavigationService.NavigateToAsync("Checkout");
         }
     }

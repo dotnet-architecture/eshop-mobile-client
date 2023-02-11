@@ -8,27 +8,21 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-public class CampaignViewModel : ViewModelBase
+public partial class CampaignViewModel : ViewModelBase
 {
     private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
-    private readonly ObservableCollectionEx<CampaignItem> _campaigns;
+    private readonly ObservableCollectionEx<CampaignItem> _campaigns = new ();
 
-    public IList<CampaignItem> Campaigns => _campaigns;
-
-    public ICommand GetCampaignDetailsCommand { get; }
+    public IReadOnlyList<CampaignItem> Campaigns => _campaigns;
 
     public CampaignViewModel(
         IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
-
-        _campaigns = new ObservableCollectionEx<CampaignItem>();
-
-        GetCampaignDetailsCommand = new AsyncRelayCommand<CampaignItem>(GetCampaignDetailsAsync);
     }
 
     public override async Task InitializeAsync()
@@ -42,6 +36,7 @@ public class CampaignViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task GetCampaignDetailsAsync(CampaignItem campaign)
     {
         if (campaign is null)
