@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:eShopOnContainers.ViewModels"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     x:Class="eShopOnContainers.Views.FiltersView"
     BackgroundColor="#01FFFFFF"
     Shell.PresentationMode="ModalAnimated"
@@ -32,7 +33,8 @@
                 <Picker Title="BRAND"
                         ItemsSource="{Binding Brands}"
                         ItemDisplayBinding="{Binding Brand}"
-                        SelectedItem="{Binding Brand, Mode=TwoWay}">
+                        SelectedItem="{Binding Brand, Mode=TwoWay}"
+                        ios:Picker.UpdateMode="WhenFinished">
                     <Picker.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double">
                             <On Platform="iOS, Android" Value="48" />
@@ -45,7 +47,7 @@
                         ItemsSource="{Binding Types}"
                         ItemDisplayBinding="{Binding Type}"
                         SelectedItem="{Binding Type, Mode=TwoWay}"
-                        Grid.Row="1" Grid.Column="1">
+                        ios:Picker.UpdateMode="WhenFinished">
                     <Picker.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double">
                             <On Platform="iOS, Android" Value="48" />
@@ -53,10 +55,38 @@
                         </OnPlatform>
                     </Picker.HeightRequest>
                 </Picker>
-                <Button Text="Apply" Command="{Binding FilterCommand}"
-                        Grid.Row="2" Grid.Column="1"/>
-                <Button Text="Clear" IsEnabled="{Binding IsFilter}" Command="{Binding ClearFilterCommand}"
-                        Grid.Row="3" Grid.Column="1"/>
+                <Button Text="Apply" Command="{Binding FilterCommand}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value=".5" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+                <Button Text="Clear" IsEnabled="{Binding IsFilter, Mode=OneWay}" Command="{Binding ClearFilterCommand}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value=".5" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
             </VerticalStackLayout>
         </Border>
     </Grid>
