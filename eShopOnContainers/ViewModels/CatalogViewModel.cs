@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using eShopOnContainers.Models.Basket;
 using eShopOnContainers.Models.Catalog;
 using eShopOnContainers.Services;
@@ -103,7 +104,9 @@ public partial class CatalogViewModel : ViewModelBase
 
             await _appEnvironmentService.BasketService.UpdateBasketAsync(basket, authToken);
             BadgeCount = basket.Items.Count;
-            MessagingCenter.Send(this, MessengerKeys.AddProduct);
+
+            WeakReferenceMessenger.Default
+                .Send(new Messages.AddProductMessage(BadgeCount));
         }
 
         SelectedProduct = null;
