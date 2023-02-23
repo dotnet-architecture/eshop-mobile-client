@@ -47,7 +47,7 @@
             x:Name="Products"
             SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
             IsVisible="{Binding Products.Count, Converter={StaticResource HasCountConverter}}"
-            ItemsSource="{Binding Products}"
+            ItemsSource="{Binding Products, Mode=OneTime}"
             SelectionMode="Single"
             SelectionChangedCommand="{Binding AddCatalogItemCommand}"
             SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
@@ -83,7 +83,7 @@
             VerticalOptions="End">
                 <ImageButton
                     Source="{DynamicResource BasketIconForTitleImageSource}"
-                    Command="{Binding ViewBasketCommand}"
+                    Command="{Binding ViewBasketCommand, Mode=OneTime}"
                     BackgroundColor="{StaticResource LightGreenColor}"
                     Padding="16"
                     CornerRadius="8" />
