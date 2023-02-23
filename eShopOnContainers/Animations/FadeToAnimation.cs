@@ -140,7 +140,7 @@ public class FadeOutAnimation : AnimationBase
 
     internal Animation FadeOut()
     {
-        var animation = new Animation();
+        Animation animation = new ();
 
         animation.WithConcurrent(
              (f) => Target.Opacity = f,

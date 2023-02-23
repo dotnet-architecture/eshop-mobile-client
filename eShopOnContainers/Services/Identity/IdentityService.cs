@@ -25,7 +25,7 @@ public class IdentityService : IIdentityService
         var authorizeRequest = new AuthorizeRequest(GlobalSetting.Instance.AuthorizeEndpoint);
 
         // Dictionary with values for the authorize request
-        var dic = new Dictionary<string, string>
+        Dictionary<string, string> dic = new ()
         {
             { "client_id", GlobalSetting.Instance.ClientId },
             { "client_secret", GlobalSetting.Instance.ClientSecret },

@@ -5,19 +5,16 @@ namespace eShopOnContainers.Animations;
 [ContentProperty("Animations")]
 public class StoryBoard : AnimationBase
 {
+    public List<AnimationBase> Animations { get; }
+
     public StoryBoard()
     {
-        Animations = new List<AnimationBase>();
+        Animations = new();
     }
 
     public StoryBoard(List<AnimationBase> animations)
     {
         Animations = animations;
-    }
-
-    public List<AnimationBase> Animations
-    {
-        get;
     }
 
     protected override async Task BeginAnimation()
