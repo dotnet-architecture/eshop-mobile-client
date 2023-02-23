@@ -5,7 +5,6 @@ namespace eShopOnContainers.Views;
 [ContentProperty(nameof(Content))]
 public class BadgeView : Grid
 {
-    private readonly ContentPresenter _badgeContent;
     private readonly Border _border;
     private readonly RoundRectangle _borderShape;
     private readonly Label _badgeIndicator;
@@ -78,19 +77,13 @@ public class BadgeView : Grid
         ColumnDefinitions =
             new ColumnDefinitionCollection
             {
-                    new ColumnDefinition(GridLength.Auto),
+                new ColumnDefinition(GridLength.Auto),
             };
 
         RowDefinitions =
             new RowDefinitionCollection
             {
-                    new RowDefinition(GridLength.Auto),
-            };
-
-        _badgeContent =
-            new ContentPresenter
-            {
-                ZIndex = 0
+                new RowDefinition(GridLength.Auto),
             };
 
         _badgeIndicator =
@@ -110,10 +103,8 @@ public class BadgeView : Grid
                 Content = _badgeIndicator,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Start,
-                ZIndex = 1,
             };
 
-        Children.Add(_badgeContent);
         Children.Add(_border);
 
         UpdateLayout();
@@ -140,13 +131,15 @@ public class BadgeView : Grid
     private void UpdateLayout()
     {
         BatchBegin();
-        _badgeContent.BatchBegin();
         _border.BatchBegin();
         _badgeIndicator.BatchBegin();
 
         Padding = Inset;
 
-        _badgeContent.Content = Content;
+        if (Content is not null)
+        {
+            Children.Insert(0, Content);
+        }
 
         _border.TranslationY = -Inset;
         _border.TranslationX = Inset;
@@ -156,7 +149,6 @@ public class BadgeView : Grid
         _badgeIndicator.TextColor = TextColor;
         _badgeIndicator.FontSize = FontSize;
 
-        _badgeContent.BatchCommit();
         _border.BatchCommit();
         _badgeIndicator.BatchCommit();
         BatchCommit();
