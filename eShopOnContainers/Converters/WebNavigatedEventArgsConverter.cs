@@ -9,6 +9,6 @@ public class WebNavigatedEventArgsConverter : BaseConverterOneWay<WebNavigatedEv
 
     public override string ConvertFrom(WebNavigatedEventArgs value, CultureInfo culture)
     {
-        return value.Url;
+        return value?.Url ?? string.Empty;
     }
 }

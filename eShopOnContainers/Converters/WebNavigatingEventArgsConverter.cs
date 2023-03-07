@@ -1,14 +1,30 @@
 ﻿using System.Globalization;
 using CommunityToolkit.Maui.Converters;
 
-namespace eShopOnContainers.Converters;
-
-public class WebNavigatingEventArgsConverter : BaseConverterOneWay<WebNavigatingEventArgs, string>
+namespace eShopOnContainers.Converters
 {
-    public override string DefaultConvertReturnValue { get; set; } = string.Empty;
-
-    public override string ConvertFrom(WebNavigatingEventArgs value, CultureInfo culture)
+    public class WebNavigatingEventArgsConverter : ICommunityToolkitValueConverter
     {
-        return value.Url;
+        public Type FromType => typeof(WebNavigatingEventArgs);
+
+        public Type ToType => typeof(string);
+
+        public object DefaultConvertReturnValue => string.Empty;
+
+        public object DefaultConvertBackReturnValue => null;
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+{
+            var eventArgs = value as WebNavigatingEventArgs;
+            if (eventArgs == null)
+                throw new ArgumentException("Expected WebNavigatingEventArgs as value", "value");
+
+            return eventArgs.Url;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+            throw new NotImplementedException();
+        }
     }
 }
