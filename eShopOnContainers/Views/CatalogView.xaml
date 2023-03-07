@@ -74,19 +74,20 @@
 
         <views:BadgeView
             x:Name="badge"
-            Padding="8"
             Margin="16"
             Text="{Binding BadgeCount, Mode=OneWay}"
             BadgeColor="{AppThemeBinding Light={StaticResource DarkBackgroundColor}, Dark={StaticResource LightBackgroundColor}}"
             TextColor="{AppThemeBinding Light={StaticResource DarkForegroundColor}, Dark={StaticResource LightForegroundColor}}"
             HorizontalOptions="End"
             VerticalOptions="End">
-                <ImageButton
-                    Source="{DynamicResource BasketIconForTitleImageSource}"
+                <Button
+                    ImageSource="{DynamicResource BasketIconForTitleImageSource}"
                     Command="{Binding ViewBasketCommand, Mode=OneTime}"
                     BackgroundColor="{StaticResource LightGreenColor}"
-                    Padding="16"
-                    CornerRadius="8" />
+                    Padding="8"
+                    CornerRadius="8"
+                    HeightRequest="56"
+                    WidthRequest="56"/>
         </views:BadgeView>
     </Grid>
 </views:ContentPageBase>

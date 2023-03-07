@@ -59,33 +59,11 @@ public class BadgeView : Grid
         set => SetValue(BadgeColorProperty, value);
     }
 
-    public static BindableProperty InsetProperty =
-            BindableProperty.Create(nameof(Inset), typeof(double), typeof(BadgeView), 4.0d,
-                propertyChanged: OnLayoutPropertyChanged);
-
-    public double Inset
-    {
-        get => (double)GetValue(InsetProperty);
-        set => SetValue(InsetProperty, value);
-    }
-
     static void OnLayoutPropertyChanged(BindableObject bindable, object oldValue, object newValue) =>
             (bindable as BadgeView)?.UpdateLayout();
 
     public BadgeView()
     {
-        ColumnDefinitions =
-            new ColumnDefinitionCollection
-            {
-                new ColumnDefinition(GridLength.Auto),
-            };
-
-        RowDefinitions =
-            new RowDefinitionCollection
-            {
-                new RowDefinition(GridLength.Auto),
-            };
-
         _badgeIndicator =
             new Label
             {
@@ -103,6 +81,7 @@ public class BadgeView : Grid
                 Content = _badgeIndicator,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Start,
+                ZIndex = 10,
             };
 
         Children.Add(_border);
@@ -124,8 +103,14 @@ public class BadgeView : Grid
 
     private void BadgeIndicatorSizeChanged(object sender, EventArgs e)
     {
+        var halfHeight = _border.Height * .5f;
         _border.MinimumWidthRequest = _border.Height;
-        _borderShape.CornerRadius = _border.Height * .5f;
+        _borderShape.CornerRadius = halfHeight;
+
+        if (Content is not null)
+        {
+            Content.Margin = halfHeight;
+        }
     }
 
     private void UpdateLayout()
@@ -134,15 +119,12 @@ public class BadgeView : Grid
         _border.BatchBegin();
         _badgeIndicator.BatchBegin();
 
-        Padding = Inset;
-
-        if (Content is not null)
+        if (Content is not null && Content.Parent != this)
         {
-            Children.Insert(0, Content);
+            Content.ZIndex = 1;
+            Children.Add(Content);
         }
 
-        _border.TranslationY = -Inset;
-        _border.TranslationX = Inset;
         _border.BackgroundColor = BadgeColor;
 
         _badgeIndicator.Text = Text;
