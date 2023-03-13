@@ -2,14 +2,12 @@
 
 public class MarketingViewModelTests
 {
-    private readonly IDialogService _dialogService;
     private readonly INavigationService _navigationService;
     private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
 
     public MarketingViewModelTests()
     {
-        _dialogService = new MockDialogService();
         _navigationService = new MockNavigationService();
         _settingsService = new MockSettingsService();
 
@@ -33,14 +31,14 @@ public class MarketingViewModelTests
     [Fact]
     public void GetCampaignsIsEmptyTest()
     {
-        var campaignViewModel = new CampaignViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var campaignViewModel = new CampaignViewModel(_appEnvironmentService, _navigationService, _settingsService);
         Assert.Empty(campaignViewModel.Campaigns);
     }
 
     [Fact]
     public async Task GetCampaignsIsNotNullTest()
     {
-        var campaignViewModel = new CampaignViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var campaignViewModel = new CampaignViewModel(_appEnvironmentService, _navigationService, _settingsService);
 
         await campaignViewModel.InitializeAsync();
 
@@ -50,21 +48,21 @@ public class MarketingViewModelTests
     [Fact]
     public void GetCampaignDetailsCommandIsNotNullTest()
     {
-        var campaignViewModel = new CampaignViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var campaignViewModel = new CampaignViewModel(_appEnvironmentService, _navigationService, _settingsService);
         Assert.NotNull(campaignViewModel.GetCampaignDetailsCommand);
     }
 
     [Fact]
     public void GetCampaignDetailsByIdIsNullTest()
     {
-        var campaignDetailsViewModel = new CampaignDetailsViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var campaignDetailsViewModel = new CampaignDetailsViewModel(_appEnvironmentService, _navigationService, _settingsService);
         Assert.Null(campaignDetailsViewModel.Campaign);
     }
 
     [Fact]
     public async Task GetCampaignDetailsByIdIsNotNullTest()
     {
-        var campaignDetailsViewModel = new CampaignDetailsViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService)
+        var campaignDetailsViewModel = new CampaignDetailsViewModel(_appEnvironmentService, _navigationService, _settingsService)
         {
             CampaignId = 1
         };
