@@ -14,6 +14,7 @@ using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
 using eShopOnContainers.Views;
+using Microsoft.Maui.Controls.Hosting;
 
 namespace eShopOnContainers;
 
@@ -41,6 +42,7 @@ public static class MauiProgram
                     fonts.AddFont("SourceSansPro-Regular.ttf", "SourceSansPro-Regular");
                     fonts.AddFont("SourceSansPro-Solid.ttf", "SourceSansPro-Solid");
                 })
+            .UseMauiMaps()
             .RegisterAppServices()
             .RegisterViewModels()
             .RegisterViews()

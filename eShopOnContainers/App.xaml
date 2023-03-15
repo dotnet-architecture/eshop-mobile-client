@@ -101,6 +101,7 @@
 
             <x:String x:Key="SettingsIcon">&#xf013;</x:String>
             <x:String x:Key="CatalogIcon">&#xf03a;</x:String>
+            <x:String x:Key="MapIcon">&#xf279;</x:String>
             <x:String x:Key="ProfileIcon">&#xf2bd;</x:String>
             <x:String x:Key="BasketIcon">&#xf07a;</x:String>
             <x:String x:Key="CampaignIcon">&#xf155;</x:String>
@@ -127,6 +128,13 @@
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 Glyph="{StaticResource CatalogIcon}"/>
+            <FontImageSource
+                x:Key="MapIconImageSource"
+                FontAutoScalingEnabled="True"
+                Size="22"
+                Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"
+                FontFamily="{StaticResource FontAwesomeSolid}"
+                Glyph="{StaticResource MapIcon}"/>
             <FontImageSource
                 x:Key="ProfileIconImageSource"
                 FontAutoScalingEnabled="True"

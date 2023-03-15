@@ -32,6 +32,7 @@
 
     <TabBar Route="Main">
         <ShellContent Title="CATALOG" Route="Catalog" Icon="{StaticResource CatalogIconImageSource}" ContentTemplate="{DataTemplate views:CatalogView}" />
+        <ShellContent Title="MAP" Route="Map" IsVisible="{OnPlatform Android=True, iOS=True, MacCatalyst=True, Default=False}" Icon="{StaticResource MapIconImageSource}" ContentTemplate="{DataTemplate views:MapView}" />
         <ShellContent Title="PROFILE" Route="Profile" Icon="{StaticResource ProfileIconImageSource}" ContentTemplate="{DataTemplate views:ProfileView}" />
     </TabBar>
 </Shell>
