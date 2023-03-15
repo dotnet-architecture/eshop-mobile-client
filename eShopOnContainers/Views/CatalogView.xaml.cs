@@ -17,15 +17,15 @@ public partial class CatalogView : ContentPageBase
         base.OnAppearing();
 
         WeakReferenceMessenger.Default
-            .Register<Messages.AddProductMessage>(
+            .Register<CatalogView, Messages.AddProductMessage>(
                 this,
-                (r, m) =>
+                async (recipient, message) =>
                 {
-                    this.Dispatcher.DispatchAsync(
+                    await recipient.Dispatcher.DispatchAsync(
                         async () =>
                         {
-                            await badge.ScaleTo(1.2);
-                            await badge.ScaleTo(1.0);
+                            await recipient.badge.ScaleTo(1.2);
+                            await recipient.badge.ScaleTo(1.0);
                         });
                 });
     }
@@ -34,7 +34,7 @@ public partial class CatalogView : ContentPageBase
     {
         base.OnDisappearing();
 
-        WeakReferenceMessenger.Default
-            .Unregister<Messages.AddProductMessage>(this);
+WeakReferenceMessenger.Default
+    .Unregister<Messages.AddProductMessage>(this);
     }
 }
