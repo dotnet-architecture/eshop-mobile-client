@@ -22,7 +22,7 @@ public class BasketMockService : IBasketService
 
         if (string.IsNullOrEmpty(guidUser) || string.IsNullOrEmpty(token))
         {
-            return new CustomerBasket();
+            return new();
         }
 
         return MockCustomBasket;
@@ -34,7 +34,7 @@ public class BasketMockService : IBasketService
 
         if (string.IsNullOrEmpty(token))
         {
-            return new CustomerBasket();
+            return new();
         }
 
         MockCustomBasket = customerBasket;

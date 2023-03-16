@@ -6,17 +6,14 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-public class MainViewModel : ViewModelBase
+public partial class MainViewModel : ViewModelBase
 {
-    public ICommand SettingsCommand { get; }
-
-    public MainViewModel(
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+    public MainViewModel(INavigationService navigationService)
+        : base(navigationService)
     {
-        SettingsCommand = new AsyncRelayCommand(SettingsAsync);
     }
 
+    [RelayCommand]
     private async Task SettingsAsync()
     {
         await NavigationService.NavigateToAsync("Settings");

@@ -49,7 +49,7 @@
             <Image
                 Grid.Row="0"
                 Aspect="AspectFill"
-                Source="{Binding PictureUri, TargetNullValue='default_product.png'}" />
+                Source="{Binding PictureUri, Mode=OneTime, TargetNullValue='default_product.png'}" />
 
             <Grid
                 Grid.Row="0"
@@ -61,12 +61,12 @@
             <Label
                 Grid.Row="1"
                 Style="{StaticResource ProductNameStyle}"
-                Text="{Binding Name, Converter={StaticResource ToUpperConverter}}" />
+                Text="{Binding Name, Mode=OneTime, Converter={StaticResource ToUpperConverter}}" />
             <!--  PRICE  -->
             <Label
                 Grid.Row="2"
                 Style="{StaticResource ProductPriceStyle}"
-                Text="{Binding Price, StringFormat='${0:N}'}" />
+                Text="{Binding Price, Mode=OneTime, StringFormat='${0:N}'}" />
         </Grid>
     </ContentView.Content>
 </ContentView>

@@ -8,44 +8,34 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-public class ProfileViewModel : ViewModelBase
+public partial class ProfileViewModel : ViewModelBase
 {
     private readonly IAppEnvironmentService _appEnvironmentService;
+    private readonly ISettingsService _settingsService;
     private readonly ObservableCollectionEx<Order> _orders;
 
+    [ObservableProperty]
     private Order _selectedOrder;
 
     public IList<Order> Orders => _orders;
 
-    public Order SelectedOrder
-    {
-        get => _selectedOrder;
-        set => SetProperty(ref _selectedOrder, value);
-    }
-
-    public ICommand RefreshCommand { get; }
-    public ICommand LogoutCommand { get; }
-    public ICommand OrderDetailCommand { get; }
-
     public ProfileViewModel(
-        IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        IAppEnvironmentService appEnvironmentService, ISettingsService settingsService,
+        INavigationService navigationService)
+        : base(navigationService)
     {
         _appEnvironmentService = appEnvironmentService;
+        _settingsService = settingsService;
 
         _orders = new ObservableCollectionEx<Order>();
-
-        RefreshCommand = new AsyncRelayCommand(LoadOrdersAsync);
-        LogoutCommand = new AsyncRelayCommand(LogoutAsync);
-        OrderDetailCommand = new AsyncRelayCommand<Order>(OrderDetailAsync);
     }
 
     public override async Task InitializeAsync()
     {
-        await LoadOrdersAsync();
+        await RefreshAsync();
     }
 
+    [RelayCommand]
     private async Task LogoutAsync()
     {
         await IsBusyFor(
@@ -58,7 +48,8 @@ public class ProfileViewModel : ViewModelBase
             });
     }
 
-    private async Task LoadOrdersAsync()
+    [RelayCommand]
+    private async Task RefreshAsync()
     {
         if (IsBusy)
         {
@@ -69,13 +60,14 @@ public class ProfileViewModel : ViewModelBase
             async () =>
             {
                 // Get orders
-                var authToken = SettingsService.AuthAccessToken;
+                var authToken = _settingsService.AuthAccessToken;
                 var orders = await _appEnvironmentService.OrderService.GetOrdersAsync(authToken);
 
                 _orders.ReloadData(orders);
             });
     }
 
+    [RelayCommand]
     private async Task OrderDetailAsync(Order order)
     {
         if (order is null)

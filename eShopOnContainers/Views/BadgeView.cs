@@ -5,7 +5,6 @@ namespace eShopOnContainers.Views;
 [ContentProperty(nameof(Content))]
 public class BadgeView : Grid
 {
-    private readonly ContentPresenter _badgeContent;
     private readonly Border _border;
     private readonly RoundRectangle _borderShape;
     private readonly Label _badgeIndicator;
@@ -60,39 +59,11 @@ public class BadgeView : Grid
         set => SetValue(BadgeColorProperty, value);
     }
 
-    public static BindableProperty InsetProperty =
-            BindableProperty.Create(nameof(Inset), typeof(double), typeof(BadgeView), 4.0d,
-                propertyChanged: OnLayoutPropertyChanged);
-
-    public double Inset
-    {
-        get => (double)GetValue(InsetProperty);
-        set => SetValue(InsetProperty, value);
-    }
-
     static void OnLayoutPropertyChanged(BindableObject bindable, object oldValue, object newValue) =>
             (bindable as BadgeView)?.UpdateLayout();
 
     public BadgeView()
     {
-        ColumnDefinitions =
-            new ColumnDefinitionCollection
-            {
-                    new ColumnDefinition(GridLength.Auto),
-            };
-
-        RowDefinitions =
-            new RowDefinitionCollection
-            {
-                    new RowDefinition(GridLength.Auto),
-            };
-
-        _badgeContent =
-            new ContentPresenter
-            {
-                ZIndex = 0
-            };
-
         _badgeIndicator =
             new Label
             {
@@ -110,10 +81,9 @@ public class BadgeView : Grid
                 Content = _badgeIndicator,
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.Start,
-                ZIndex = 1,
+                ZIndex = 10,
             };
 
-        Children.Add(_badgeContent);
         Children.Add(_border);
 
         UpdateLayout();
@@ -133,30 +103,34 @@ public class BadgeView : Grid
 
     private void BadgeIndicatorSizeChanged(object sender, EventArgs e)
     {
+        var halfHeight = _border.Height * .5f;
         _border.MinimumWidthRequest = _border.Height;
-        _borderShape.CornerRadius = _border.Height * .5f;
+        _borderShape.CornerRadius = halfHeight;
+
+        if (Content is not null)
+        {
+            Content.Margin = halfHeight;
+        }
     }
 
     private void UpdateLayout()
     {
         BatchBegin();
-        _badgeContent.BatchBegin();
         _border.BatchBegin();
         _badgeIndicator.BatchBegin();
 
-        Padding = Inset;
+        if (Content is not null && Content.Parent != this)
+        {
+            Content.ZIndex = 1;
+            Children.Add(Content);
+        }
 
-        _badgeContent.Content = Content;
-
-        _border.TranslationY = -Inset;
-        _border.TranslationX = Inset;
         _border.BackgroundColor = BadgeColor;
 
         _badgeIndicator.Text = Text;
         _badgeIndicator.TextColor = TextColor;
         _badgeIndicator.FontSize = FontSize;
 
-        _badgeContent.BatchCommit();
         _border.BatchCommit();
         _badgeIndicator.BatchCommit();
         BatchCommit();

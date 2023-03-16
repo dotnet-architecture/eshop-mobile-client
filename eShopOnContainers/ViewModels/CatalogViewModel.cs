@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using eShopOnContainers.Models.Basket;
 using eShopOnContainers.Models.Catalog;
 using eShopOnContainers.Services;
@@ -9,76 +10,43 @@ using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;
 
-public class CatalogViewModel : ViewModelBase
+public partial class CatalogViewModel : ViewModelBase
 {
     private readonly IAppEnvironmentService _appEnvironmentService;
     private readonly ISettingsService _settingsService;
 
-    private readonly ObservableCollectionEx<CatalogItem> _products;
-    private readonly ObservableCollectionEx<CatalogBrand> _brands;
-    private readonly ObservableCollectionEx<CatalogType> _types;
+    private readonly ObservableCollectionEx<CatalogItem> _products = new();
+    private readonly ObservableCollectionEx<CatalogBrand> _brands = new();
+    private readonly ObservableCollectionEx<CatalogType> _types = new();
 
+    [ObservableProperty]
     private CatalogItem _selectedProduct;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsFilter))]
+    [NotifyCanExecuteChangedFor(nameof(FilterCommand))]
     private CatalogBrand _brand;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsFilter))]
+    [NotifyCanExecuteChangedFor(nameof(FilterCommand))]
     private CatalogType _type;
+
+    [ObservableProperty]
     private int _badgeCount;
 
-    public IList<CatalogItem> Products => _products;
+    public IReadOnlyList<CatalogItem> Products => _products;
 
-    public CatalogItem SelectedProduct
-    {
-        get => _selectedProduct;
-        set => SetProperty(ref _selectedProduct, value);
-    }
+    public IReadOnlyList<CatalogBrand> Brands => _brands;
 
-    public IEnumerable<CatalogBrand> Brands => _brands;
+    public IReadOnlyList<CatalogType> Types => _types;
 
-    public CatalogBrand Brand
-    {
-        get => _brand;
-        set
-        {
-            SetProperty(ref _brand, value);
-            OnPropertyChanged(nameof(IsFilter));
-            FilterCommand.AttemptNotifyCanExecuteChanged();
-        }
-    }
-
-    public IEnumerable<CatalogType> Types => _types;
-
-    public CatalogType Type
-    {
-        get => _type;
-        set
-        {
-            SetProperty(ref _type, value);
-            OnPropertyChanged(nameof(IsFilter));
-            FilterCommand.AttemptNotifyCanExecuteChanged();
-        }
-    }
-
-    public int BadgeCount
-    {
-        get => _badgeCount;
-        set => SetProperty(ref _badgeCount, value);
-    }
-
-    public bool IsFilter => Brand != null || Type != null;
-
-    public ICommand AddCatalogItemCommand { get; }
-
-    public ICommand ShowFilterCommand { get; }
-
-    public ICommand FilterCommand { get; }
-
-    public ICommand ClearFilterCommand { get; }
-
-    public ICommand ViewBasketCommand { get; }
+    public bool IsFilter => Brand is not null && Type is not null;
 
     public CatalogViewModel(
         IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _appEnvironmentService = appEnvironmentService;
         _settingsService = settingsService;
@@ -86,16 +54,6 @@ public class CatalogViewModel : ViewModelBase
         _products = new ObservableCollectionEx<CatalogItem>();
         _brands = new ObservableCollectionEx<CatalogBrand>();
         _types = new ObservableCollectionEx<CatalogType>();
-
-        AddCatalogItemCommand = new AsyncRelayCommand<CatalogItem>(AddCatalogItemAsync);
-
-        ShowFilterCommand = new AsyncRelayCommand(ShowFilterAsync);
-
-        FilterCommand = new AsyncRelayCommand(FilterAsync, () => IsFilter);
-
-        ClearFilterCommand = new AsyncRelayCommand(ClearFilterAsync);
-
-        ViewBasketCommand = new AsyncRelayCommand(ViewBasket, AsyncRelayCommandOptions.AllowConcurrentExecutions);
     }
 
     public override async Task InitializeAsync()
@@ -121,6 +79,7 @@ public class CatalogViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task AddCatalogItemAsync(CatalogItem catalogItem)
     {
         if (catalogItem is null)
@@ -145,17 +104,21 @@ public class CatalogViewModel : ViewModelBase
 
             await _appEnvironmentService.BasketService.UpdateBasketAsync(basket, authToken);
             BadgeCount = basket.Items.Count;
-            MessagingCenter.Send(this, MessengerKeys.AddProduct);
+
+            WeakReferenceMessenger.Default
+                .Send(new Messages.AddProductMessage(BadgeCount));
         }
 
         SelectedProduct = null;
     }
 
+    [RelayCommand]
     private async Task ShowFilterAsync()
     {
         await NavigationService.NavigateToAsync("Filter");
     }
 
+    [RelayCommand(CanExecute = nameof(IsFilter))]
     private async Task FilterAsync()
     {
         await IsBusyFor(
@@ -171,6 +134,7 @@ public class CatalogViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task ClearFilterAsync()
     {
         await IsBusyFor(
@@ -185,6 +149,7 @@ public class CatalogViewModel : ViewModelBase
             });
     }
 
+    [RelayCommand]
     private async Task ViewBasket()
     {
         await NavigationService.NavigateToAsync("Basket");

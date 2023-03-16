@@ -2,21 +2,17 @@
 
 public class MockViewModelTests
 {
-    private readonly IDialogService _dialogService;
     private readonly INavigationService _navigationService;
-    private readonly ISettingsService _settingsService;
 
     public MockViewModelTests()
     {
-        _dialogService = new MockDialogService();
         _navigationService = new MockNavigationService();
-        _settingsService = new MockSettingsService();
     }
 
     [Fact]
     public void CheckValidationFailsWhenPropertiesAreEmptyTest()
     {
-        var mockViewModel = new MockViewModel(_dialogService, _navigationService, _settingsService);
+        var mockViewModel = new MockViewModel(_navigationService);
 
         bool isValid = mockViewModel.Validate();
 
@@ -32,7 +28,7 @@ public class MockViewModelTests
     [Fact]
     public void CheckValidationFailsWhenOnlyForenameHasDataTest()
     {
-        var mockViewModel = new MockViewModel(_dialogService, _navigationService, _settingsService);
+        var mockViewModel = new MockViewModel(_navigationService);
         mockViewModel.Forename.Value = "John";
 
         bool isValid = mockViewModel.Validate();
@@ -49,7 +45,7 @@ public class MockViewModelTests
     [Fact]
     public void CheckValidationPassesWhenOnlySurnameHasDataTest()
     {
-        var mockViewModel = new MockViewModel(_dialogService, _navigationService, _settingsService);
+        var mockViewModel = new MockViewModel(_navigationService);
         mockViewModel.Surname.Value = "Smith";
 
         bool isValid = mockViewModel.Validate();
@@ -66,7 +62,7 @@ public class MockViewModelTests
     [Fact]
     public void CheckValidationPassesWhenBothPropertiesHaveDataTest()
     {
-        var mockViewModel = new MockViewModel(_dialogService, _navigationService, _settingsService);
+        var mockViewModel = new MockViewModel(_navigationService);
         mockViewModel.Forename.Value = "John";
         mockViewModel.Surname.Value = "Smith";
 
@@ -85,7 +81,7 @@ public class MockViewModelTests
     public void SettingForenamePropertyShouldRaisePropertyChanged()
     {
         bool invoked = false;
-        var mockViewModel = new MockViewModel(_dialogService, _navigationService, _settingsService);
+        var mockViewModel = new MockViewModel(_navigationService);
 
         mockViewModel.Forename.PropertyChanged += (_, e) =>
         {
@@ -103,7 +99,7 @@ public class MockViewModelTests
     public void SettingSurnamePropertyShouldRaisePropertyChanged()
     {
         bool invoked = false;
-        var mockViewModel = new MockViewModel(_dialogService, _navigationService, _settingsService);
+        var mockViewModel = new MockViewModel(_navigationService);
 
         mockViewModel.Surname.PropertyChanged += (_, e) =>
         {

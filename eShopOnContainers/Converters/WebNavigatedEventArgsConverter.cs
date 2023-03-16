@@ -3,19 +3,12 @@ using CommunityToolkit.Maui.Converters;
 
 namespace eShopOnContainers.Converters;
 
-public class WebNavigatedEventArgsConverter : ICommunityToolkitValueConverter
+public class WebNavigatedEventArgsConverter : BaseConverterOneWay<WebNavigatedEventArgs, string>
 {
-    public Type FromType => typeof(WebNavigatedEventArgs);
+    public override string DefaultConvertReturnValue { get; set; } = string.Empty;
 
-    public Type ToType => typeof(string);
-
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-        value is not WebNavigatedEventArgs eventArgs
-            ? throw new ArgumentException("Expected WebNavigatedEventArgs as value", nameof(value))
-            : (object)eventArgs.Url;
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public override string ConvertFrom(WebNavigatedEventArgs value, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        return value?.Url ?? string.Empty;
     }
 }

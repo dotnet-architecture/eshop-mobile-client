@@ -2,14 +2,12 @@
 
 public class OrderViewModelTests
 {
-    private readonly IDialogService _dialogService;
     private readonly INavigationService _navigationService;
     private readonly ISettingsService _settingsService;
     private readonly IAppEnvironmentService _appEnvironmentService;
 
     public OrderViewModelTests()
     {
-        _dialogService = new MockDialogService();
         _navigationService = new MockNavigationService();
         _settingsService = new MockSettingsService();
 
@@ -33,14 +31,14 @@ public class OrderViewModelTests
     [Fact]
     public void OrderPropertyIsNullWhenViewModelInstantiatedTest()
     {
-        var orderViewModel = new OrderDetailViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var orderViewModel = new OrderDetailViewModel(_appEnvironmentService, _navigationService, _settingsService);
         Assert.Null(orderViewModel.Order);
     }
 
     [Fact]
     public async Task OrderPropertyIsNotNullAfterViewModelInitializationTest()
     {
-        var orderViewModel = new OrderDetailViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var orderViewModel = new OrderDetailViewModel(_appEnvironmentService, _navigationService, _settingsService);
 
         var order = await _appEnvironmentService.OrderService.GetOrderAsync(1, GlobalSetting.Instance.AuthToken);
 
@@ -55,7 +53,7 @@ public class OrderViewModelTests
     {
         bool invoked = false;
 
-        var orderViewModel = new OrderDetailViewModel(_appEnvironmentService, _dialogService, _navigationService, _settingsService);
+        var orderViewModel = new OrderDetailViewModel(_appEnvironmentService, _navigationService, _settingsService);
 
         orderViewModel.PropertyChanged += (_, e) =>
         {

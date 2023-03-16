@@ -9,8 +9,8 @@ public class MockViewModel : ViewModelBase
 
     public ValidatableObject<string> Surname { get; } = new();
 
-    public MockViewModel(IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+    public MockViewModel(INavigationService navigationService)
+        : base(navigationService)
     {
         Forename = new ValidatableObject<string>();
         Surname = new ValidatableObject<string>();

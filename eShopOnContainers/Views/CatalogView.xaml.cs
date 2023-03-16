@@ -1,4 +1,5 @@
-﻿using eShopOnContainers.Models.Catalog;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using eShopOnContainers.Models.Catalog;
 
 namespace eShopOnContainers.Views;
 
@@ -15,24 +16,25 @@ public partial class CatalogView : ContentPageBase
     {
         base.OnAppearing();
 
-        MessagingCenter.Subscribe<CatalogViewModel>(
-            this,
-            MessengerKeys.AddProduct,
-            (sender) =>
-            {
-                MainThread.BeginInvokeOnMainThread(
-                    async () =>
-                    {
-                        await badge.ScaleTo(1.2);
-                        await badge.ScaleTo(1.0);
-                    });
-            });
+        WeakReferenceMessenger.Default
+            .Register<CatalogView, Messages.AddProductMessage>(
+                this,
+                async (recipient, message) =>
+                {
+                    await recipient.Dispatcher.DispatchAsync(
+                        async () =>
+                        {
+                            await recipient.badge.ScaleTo(1.2);
+                            await recipient.badge.ScaleTo(1.0);
+                        });
+                });
     }
 
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
 
-        MessagingCenter.Unsubscribe<CatalogViewModel, CatalogItem>(this, MessengerKeys.AddProduct);
+WeakReferenceMessenger.Default
+    .Unregister<Messages.AddProductMessage>(this);
     }
 }

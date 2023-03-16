@@ -3,7 +3,6 @@
     x:Class="eShopOnContainers.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:eShopOnContainers.Behaviors;assembly=eShopOnContainers"
     xmlns:converters="clr-namespace:eShopOnContainers.Converters;assembly=eShopOnContainers"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
@@ -144,7 +143,7 @@
                 x:Key="BasketIconForTitleImageSource"
                 FontFamily="{StaticResource FontAwesomeSolid}"
                 Glyph="{StaticResource BasketIcon}"
-                Size="22"
+                Size="24"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
                 x:Key="CampaignIconImageSource"

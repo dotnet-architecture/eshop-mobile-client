@@ -151,8 +151,8 @@ public class SettingsViewModel : ViewModelBase
 
     public SettingsViewModel(
         ILocationService locationService, IAppEnvironmentService appEnvironmentService,
-        IDialogService dialogService, INavigationService navigationService, ISettingsService settingsService)
-        : base(dialogService, navigationService, settingsService)
+        INavigationService navigationService, ISettingsService settingsService)
+        : base(navigationService)
     {
         _settingsService = settingsService;
         _locationService = locationService;
