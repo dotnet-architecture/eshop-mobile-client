@@ -14,20 +14,20 @@
         <ResourceDictionary>
 
             <Style x:Key="CartTotalStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource LargerSize}" />
                 <Setter Property="HorizontalOptions" Value="End" />
             </Style>
 
             <Style x:Key="CheckoutButtonStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="Center" />
             </Style>
 
             <Style x:Key="ShoppingCartStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="Margin" Value="0, 12" />

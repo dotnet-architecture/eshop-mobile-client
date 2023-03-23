@@ -8,7 +8,7 @@
         <ResourceDictionary>
 
             <Style x:Key="CampaignNameStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="Margin" Value="0, 12, 0, 6" />
