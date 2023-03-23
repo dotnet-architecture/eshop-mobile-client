@@ -13,10 +13,11 @@ public abstract class ContentPageBase : ContentPage
     {
         base.OnAppearing();
 
-        if (BindingContext is IViewModelBase ivmb && !ivmb.IsInitialized)
+        if (BindingContext is not IViewModelBase ivmb)
         {
-            ivmb.IsInitialized = true;
-            await ivmb.InitializeAsync();
+            return;
         }
+
+        await ivmb.InitializeAsyncCommand.ExecuteAsync(null);
     }
 }
