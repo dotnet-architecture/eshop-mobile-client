@@ -2,13 +2,15 @@
 
 namespace eShopOnContainers.Views;
 
-public partial class LoginView : ContentPage
+public partial class LoginView : ContentPageBase
 {
+    private readonly LoginViewModel _viewModel;
+
     private bool _animate;
 
     public LoginView(LoginViewModel viewModel)
     {
-        BindingContext = viewModel;
+        BindingContext = _viewModel = viewModel;
         InitializeComponent();
     }
 
@@ -18,15 +20,12 @@ public partial class LoginView : ContentPage
         Content = null;
         Content = content;
 
-        if (BindingContext is LoginViewModel vm)
-        {
-            vm.InvalidateMock();
+        _viewModel.InvalidateMock();
 
-            if (!vm.IsMock)
-            {
-                _animate = true;
-                await AnimateIn();
-            }
+        if (!_viewModel.IsMock)
+        {
+            _animate = true;
+            await AnimateIn();
         }
     }
 
