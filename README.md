@@ -42,7 +42,7 @@ All the backend services-related code and components are maintained as [eShopOnC
 
 ## Supported platforms
 
-The app targets **three** platforms:
+The app targets **four** platforms:
 
 - iOS
 - macOS

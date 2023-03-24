@@ -10,7 +10,7 @@
             <Style x:Key="OrderItemUnitPriceStyle" 
                TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
+                        Value="Montserrat-Regular" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
                 <Setter Property="HorizontalOptions" 
@@ -20,7 +20,7 @@
             <Style x:Key="OrderItemQuantityStyle" 
                TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
+                        Value="Montserrat-Regular" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource MidMediumSize}" />
                 <Setter Property="HorizontalOptions" 
@@ -30,7 +30,7 @@
             <Style x:Key="OrderTotalStyle" 
                TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
+                        Value="Montserrat-Regular" />
                 <Setter Property="FontSize" 
                         Value="{StaticResource LargerSize}" />
                 <Setter Property="TextColor" 
@@ -42,7 +42,7 @@
             <Style x:Key="QuantityStyle"  
              TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                        Value="{StaticResource MontserratRegular}" />
+                        Value="Montserrat-Regular" />
                 <Setter Property="HorizontalOptions"
                         Value="End" />
                 <Setter Property="VerticalOptions"

@@ -27,7 +27,7 @@
             <Style x:Key="TitleLabelStyle"
                 TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                    Value="{StaticResource MontserratRegular}" />
+                    Value="Montserrat-Regular" />
                 <Setter Property="FontAttributes"
                     Value="Bold" />
                 <Setter Property="FontSize"
@@ -41,7 +41,7 @@
             <Style x:Key="HeaderLabelStyle"
                 TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                    Value="{StaticResource MontserratRegular}" />
+                    Value="Montserrat-Regular" />
                 <Setter Property="FontSize"
                     Value="{StaticResource LittleSize}" />
                 <Setter Property="TextColor"
@@ -53,7 +53,7 @@
             <Style x:Key="LoginButtonStyle"
                 TargetType="{x:Type Label}">
                 <Setter Property="FontFamily"
-                    Value="{StaticResource MontserratRegular}" />
+                    Value="Montserrat-Regular" />
                 <Setter Property="TextColor"
                     Value="{StaticResource WhiteColor}" />
                 <Setter Property="HorizontalOptions"

@@ -13,7 +13,7 @@
         <ResourceDictionary>
 
             <Style x:Key="OrderTitleStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="Gray" />
             </Style>
@@ -21,7 +21,7 @@
             <Style
                 x:Key="OrderContentStyle"
                 TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
             </Style>
 
@@ -40,12 +40,12 @@
             </Style>
 
             <Style x:Key="OrderTotalStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource LargerSize}" />
             </Style>
 
             <Style x:Key="CheckoutButtonStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="Center" />

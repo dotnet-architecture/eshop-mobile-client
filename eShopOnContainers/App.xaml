@@ -85,20 +85,6 @@
             </OnPlatform>
 
             <!--  FONTS  -->
-            <x:String x:Key="MontserratRegular">Montserrat-Regular</x:String>
-            <x:String x:Key="MontserratBold">Montserrat-Bold</x:String>
-            <x:String x:Key="SourceSansProRegular">SourceSansPro-Regular</x:String>
-
-            <OnPlatform x:Key="FontAwesomeRegular" x:TypeArguments="x:String">
-                <On Platform="iOS, Android" Value="FontAwesome-Regular" />
-                <On Platform="WinUI" Value="Assets/Fonts/Font_Awesome_5_Free-Regular-400.otf#Font Awesome 5 Free" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="FontAwesomeSolid" x:TypeArguments="x:String">
-                <On Platform="iOS, Android" Value="FontAwesome-Solid" />
-                <On Platform="WinUI" Value="Assets/Fonts/Font_Awesome_5_Free-Solid-900.otf#Font Awesome 5 Free" />
-            </OnPlatform>
-
             <x:String x:Key="SettingsIcon">&#xf013;</x:String>
             <x:String x:Key="CatalogIcon">&#xf03a;</x:String>
             <x:String x:Key="MapIcon">&#xf279;</x:String>
@@ -113,11 +99,11 @@
 
             <FontImageSource
                 x:Key="SettingsIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource SettingsIcon}" />
             <FontImageSource
                 x:Key="SettingsIconLightImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource SettingsIcon}"
                 Color="{StaticResource WhiteColor}" />
 
@@ -126,7 +112,7 @@
                 FontAutoScalingEnabled="True"
                 Size="22"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource CatalogIcon}"/>
             <FontImageSource
                 x:Key="MapIconImageSource"
@@ -140,65 +126,65 @@
                 FontAutoScalingEnabled="True"
                 Size="22"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource ProfileIcon}" />
             <FontImageSource
                 x:Key="BasketIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource BasketIcon}" />
 
             <FontImageSource
                 x:Key="BasketIconForTitleImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource BasketIcon}"
                 Size="24"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
                 x:Key="CampaignIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource CampaignIcon}" />
             <FontImageSource
                 x:Key="FilterIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource FilterIcon}" />
             <FontImageSource
                 x:Key="FilterHighlightIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource FilterIcon}"
                 Color="{StaticResource AccentColor}"/>
             <FontImageSource
                 x:Key="FilterIconForTitleImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource FilterIcon}"
                 Size="22"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
                 x:Key="SettingsIconForTitleImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource SettingsIcon}"
                 Size="22"
                 Color="{AppThemeBinding Dark={StaticResource DarkFontColor}, Light={StaticResource LightFontColor}}"/>
             <FontImageSource
                 x:Key="AddIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource AddIcon}" />
             <FontImageSource
                 x:Key="AddIconLightImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource AddIcon}"
                 Color="{StaticResource WhiteColor}" />
             <FontImageSource
                 x:Key="CircleIconImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource CircleIcon}" />
             <FontImageSource
                 x:Key="ToggleOffImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource ToggleOffIcon}"
                 Color="{StaticResource DisabledColor}" />
             <FontImageSource
                 x:Key="ToggleOnImageSource"
-                FontFamily="{StaticResource FontAwesomeSolid}"
+                FontFamily="FontAwesome-Solid"
                 Glyph="{StaticResource ToggleOnIcon}"
                 Color="{StaticResource AccentColor}" />
 
@@ -278,7 +264,7 @@
             </Style>
 
             <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="FontAttributes" Value="Bold" />
@@ -291,17 +277,17 @@
             </Style>
 
             <Style x:Key="MediumSizeFontStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
             </Style>
 
             <Style x:Key="LittleSizeFontStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
             </Style>
 
             <Style x:Key="WinUIEntryStyle" TargetType="{x:Type Entry}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
                 <Setter Property="PlaceholderColor" Value="{StaticResource BlackColor}" />
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />

@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.ViewModels.Base;
+using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.Views;
 
@@ -13,12 +13,11 @@ public abstract class ContentPageBase : ContentPage
     {
         base.OnAppearing();
 
-        if (BindingContext is not IViewModelBase ivmb || ivmb.IsInitialized)
+        if (BindingContext is not IViewModelBase ivmb)
         {
             return;
         }
 
-        ivmb.IsInitialized = true;
-        await ivmb.InitializeAsync();
+        await ivmb.InitializeAsyncCommand.ExecuteAsync(null);
     }
 }
