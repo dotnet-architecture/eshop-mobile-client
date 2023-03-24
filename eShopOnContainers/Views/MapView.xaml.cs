@@ -1,9 +1,25 @@
-﻿namespace eShopOnContainers.Views;
+﻿using eShopOnContainers.ViewModels;
+using Microsoft.Maui.Controls.Maps;
 
-public partial class MapView : ContentPage
+namespace eShopOnContainers.Views;
+
+public partial class MapView : ContentPageBase
 {
-    public MapView()
+    public MapView(MapViewModel viewModel)
     {
+        BindingContext = viewModel;
         InitializeComponent();
+    }
+
+    async void Pin_MarkerClicked(System.Object sender, Microsoft.Maui.Controls.Maps.PinClickedEventArgs e)
+    {
+        e.HideInfoWindow = true;
+
+        if (sender is not Pin pin)
+        {
+            return;
+        }
+
+        await pin.Location.OpenMapsAsync();
     }
 }

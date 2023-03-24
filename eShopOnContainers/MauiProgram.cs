@@ -42,6 +42,13 @@ public static class MauiProgram
                     fonts.AddFont("SourceSansPro-Regular.ttf", "SourceSansPro-Regular");
                     fonts.AddFont("SourceSansPro-Solid.ttf", "SourceSansPro-Solid");
                 })
+            .ConfigureEssentials(
+                essentials =>
+                {
+                    essentials
+                        .AddAppAction(AppActions.ViewProfileAction)
+                        .OnAppAction(App.HandleAppActions);
+                })
             .UseMauiMaps()
             .RegisterAppServices()
             .RegisterViewModels()
@@ -89,6 +96,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
         mauiAppBuilder.Services.AddSingleton<BasketViewModel>();
         mauiAppBuilder.Services.AddSingleton<CatalogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<MapViewModel>();
         mauiAppBuilder.Services.AddSingleton<ProfileViewModel>();
 
         mauiAppBuilder.Services.AddTransient<CheckoutViewModel>();
@@ -110,6 +118,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<FiltersView>();
         mauiAppBuilder.Services.AddTransient<LoginView>();
         mauiAppBuilder.Services.AddTransient<OrderDetailView>();
+        mauiAppBuilder.Services.AddTransient<MapView>();
         mauiAppBuilder.Services.AddTransient<ProfileView>();
         mauiAppBuilder.Services.AddTransient<SettingsView>();
 
