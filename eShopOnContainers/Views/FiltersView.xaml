@@ -8,18 +8,7 @@
     Shell.PresentationMode="ModalAnimated"
     x:DataType="viewmodels:CatalogViewModel">
 
-    <Grid VerticalOptions="Center">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
+    <Grid VerticalOptions="Center" ColumnDefinitions="*, 2*, *">
         <Border Grid.Row="0" Grid.Column="1"
             Background="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}">
             <Border.StrokeShape>

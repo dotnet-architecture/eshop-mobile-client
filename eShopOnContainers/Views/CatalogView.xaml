@@ -51,6 +51,10 @@
             SelectionMode="Single"
             SelectionChangedCommand="{Binding AddCatalogItemCommand}"
             SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+			<CollectionView.ItemsLayout>
+				<GridItemsLayout Orientation="Vertical"
+								 Span="{OnPlatform iOS=1, Android=1, Default=2}" />
+			</CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <templates:ProductTemplate />
@@ -58,19 +62,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <!--  INDICATOR  -->
-        <ActivityIndicator
+		<ActivityIndicator
             HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center"
-            Color="{StaticResource LightGreenColor}">
-            <ActivityIndicator.WidthRequest>
-                <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="iOS, Android" Value="100" />
-                    <On Platform="WinUI" Value="400" />
-                </OnPlatform>
-            </ActivityIndicator.WidthRequest>
-        </ActivityIndicator>
+            Color="{StaticResource LightGreenColor}"/>
 
         <views:BadgeView
             x:Name="badge"

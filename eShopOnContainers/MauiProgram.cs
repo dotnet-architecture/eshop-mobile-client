@@ -14,6 +14,7 @@ using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
 using eShopOnContainers.Views;
+using Microsoft.Maui.Controls.Hosting;
 
 namespace eShopOnContainers;
 
@@ -33,7 +34,6 @@ public static class MauiProgram
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-
                     fonts.AddFont("Font_Awesome_5_Free-Regular-400.otf", "FontAwesome-Regular");
                     fonts.AddFont("Font_Awesome_5_Free-Solid-900.otf", "FontAwesome-Solid");
                     fonts.AddFont("Montserrat-Bold.ttf", "Montserrat-Bold");
@@ -41,6 +41,14 @@ public static class MauiProgram
                     fonts.AddFont("SourceSansPro-Regular.ttf", "SourceSansPro-Regular");
                     fonts.AddFont("SourceSansPro-Solid.ttf", "SourceSansPro-Solid");
                 })
+            .ConfigureEssentials(
+                essentials =>
+                {
+                    essentials
+                        .AddAppAction(AppActions.ViewProfileAction)
+                        .OnAppAction(App.HandleAppActions);
+                })
+            .UseMauiMaps()
             .RegisterAppServices()
             .RegisterViewModels()
             .RegisterViews()
@@ -87,6 +95,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddSingleton<LoginViewModel>();
         mauiAppBuilder.Services.AddSingleton<BasketViewModel>();
         mauiAppBuilder.Services.AddSingleton<CatalogViewModel>();
+        mauiAppBuilder.Services.AddSingleton<MapViewModel>();
         mauiAppBuilder.Services.AddSingleton<ProfileViewModel>();
 
         mauiAppBuilder.Services.AddTransient<CheckoutViewModel>();
@@ -108,6 +117,7 @@ public static class MauiProgram
         mauiAppBuilder.Services.AddTransient<FiltersView>();
         mauiAppBuilder.Services.AddTransient<LoginView>();
         mauiAppBuilder.Services.AddTransient<OrderDetailView>();
+        mauiAppBuilder.Services.AddTransient<MapView>();
         mauiAppBuilder.Services.AddTransient<ProfileView>();
         mauiAppBuilder.Services.AddTransient<SettingsView>();
 

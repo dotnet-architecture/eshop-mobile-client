@@ -24,14 +24,4 @@
   <ItemGroup>
     <ProjectReference Include="..\eShopOnContainers\eShopOnContainers.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Services\" />
-    <None Remove="ViewModels\" />
-    <None Remove="Mocks\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Mocks\" />
-  </ItemGroup>
 </Project>

@@ -14,14 +14,14 @@
         <ResourceDictionary>
 
             <Style x:Key="LoginButtonStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="Center" />
             </Style>
 
             <Style x:Key="MyOrdersLabelStyle" TargetType="{x:Type Label}">
-                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />

@@ -51,6 +51,7 @@
 	  <PackageReference Include="IdentityModel" Version="6.0.0" />
 	  <PackageReference Include="PCLCrypto" Version="2.1.40-alpha" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+	  <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.59" />
 	</ItemGroup>
 
 </Project>

@@ -139,4 +139,21 @@ public partial class App : Application
 
         await _locationService.UpdateUserLocation(location, _settingsService.AuthAccessToken);
     }
+
+    public static void HandleAppActions(AppAction appAction)
+    {
+        if (App.Current is not App app)
+        {
+            return;
+        }
+
+        app.Dispatcher.Dispatch(
+            async () =>
+            {
+                if (appAction.Id.Equals(AppActions.ViewProfileAction.Id))
+                {
+                    await app._navigationService.NavigateToAsync("//Main/Profile");
+                }
+            });
+    }
 }

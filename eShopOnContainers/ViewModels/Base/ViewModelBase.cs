@@ -4,23 +4,31 @@ using eShopOnContainers.Services.Settings;
 
 namespace eShopOnContainers.ViewModels.Base;
 
-public abstract partial class ViewModelBase : ObservableObject, IViewModelBase, IDisposable
+public abstract partial class ViewModelBase : ObservableObject, IViewModelBase
 {
-    private readonly SemaphoreSlim _isBusyLock = new(1, 1);
+    private long _isBusy;
 
-    private bool _disposedValue;
+    public bool IsBusy => Interlocked.Read(ref _isBusy) > 0;
 
     [ObservableProperty]
     private bool _isInitialized;
 
-    [ObservableProperty]
-    private bool _isBusy;
+    public INavigationService NavigationService { get; }
 
-    public INavigationService NavigationService { get; private set; }
+    public IAsyncRelayCommand InitializeAsyncCommand { get; }
 
     public ViewModelBase(INavigationService navigationService)
     {
         NavigationService = navigationService;
+
+        InitializeAsyncCommand =
+            new AsyncRelayCommand(
+                async () =>
+                {
+                    await IsBusyFor(InitializeAsync);
+                    IsInitialized = true;
+                },
+                AsyncRelayCommandOptions.FlowExceptionsToTaskScheduler);
     }
 
     public virtual void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -34,39 +42,18 @@ public abstract partial class ViewModelBase : ObservableObject, IViewModelBase, 
 
     public async Task IsBusyFor(Func<Task> unitOfWork)
     {
-        await _isBusyLock.WaitAsync();
+        Interlocked.Increment(ref _isBusy);
+        OnPropertyChanged(nameof(IsBusy));
 
         try
         {
-            IsBusy = true;
-
             await unitOfWork();
         }
         finally
         {
-            IsBusy = false;
-            _isBusyLock.Release();
+            Interlocked.Decrement(ref _isBusy);
+            OnPropertyChanged(nameof(IsBusy));
         }
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposedValue)
-        {
-            if (disposing)
-            {
-                _isBusyLock?.Dispose();
-            }
-
-            _disposedValue = true;
-        }
-    }
-
-    public void Dispose()
-    {
-        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }
 
