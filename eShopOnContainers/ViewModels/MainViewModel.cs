@@ -1,7 +1,4 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using eShopOnContainers.Services;
-using eShopOnContainers.Services.Settings;
+﻿using eShopOnContainers.Services;
 using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;

@@ -1,5 +1,4 @@
-﻿using System;
-using eShopOnContainers.Services;
+﻿using eShopOnContainers.Services;
 using eShopOnContainers.ViewModels.Base;
 
 namespace eShopOnContainers.ViewModels;

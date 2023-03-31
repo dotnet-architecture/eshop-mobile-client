@@ -1,5 +1,4 @@
 ﻿using eShopOnContainers.Services;
-using eShopOnContainers.Services.Settings;
 
 namespace eShopOnContainers.ViewModels.Base;
 

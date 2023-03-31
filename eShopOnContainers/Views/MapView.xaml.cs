@@ -1,5 +1,4 @@
-﻿using eShopOnContainers.ViewModels;
-using Microsoft.Maui.Controls.Maps;
+﻿using Microsoft.Maui.Controls.Maps;
 
 namespace eShopOnContainers.Views;
 

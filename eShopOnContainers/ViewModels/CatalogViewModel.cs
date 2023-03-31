@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using eShopOnContainers.Models.Basket;
 using eShopOnContainers.Models.Catalog;
 using eShopOnContainers.Services;
@@ -35,6 +33,8 @@ public partial class CatalogViewModel : ViewModelBase
     [ObservableProperty]
     private int _badgeCount;
 
+    private bool _initialized;
+
     public IReadOnlyList<CatalogItem> Products => _products;
 
     public IReadOnlyList<CatalogBrand> Brands => _brands;
@@ -58,6 +58,10 @@ public partial class CatalogViewModel : ViewModelBase
 
     public override async Task InitializeAsync()
     {
+        if (_initialized)
+            return;
+
+        _initialized = true;
         await IsBusyFor(
             async () =>
             {
