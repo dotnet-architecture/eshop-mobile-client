@@ -24,12 +24,6 @@
                         ItemDisplayBinding="{Binding Brand}"
                         SelectedItem="{Binding Brand, Mode=TwoWay}"
                         ios:Picker.UpdateMode="WhenFinished">
-                    <Picker.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="iOS, Android" Value="48" />
-                            <On Platform="WinUI" Value="36" />
-                        </OnPlatform>
-                    </Picker.HeightRequest>
                 </Picker>
                 <!-- TYPE -->
                 <Picker Title="TYPE"
@@ -37,12 +31,6 @@
                         ItemDisplayBinding="{Binding Type}"
                         SelectedItem="{Binding Type, Mode=TwoWay}"
                         ios:Picker.UpdateMode="WhenFinished">
-                    <Picker.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="iOS, Android" Value="48" />
-                            <On Platform="WinUI" Value="36" />
-                        </OnPlatform>
-                    </Picker.HeightRequest>
                 </Picker>
                 <Button Text="Apply" Command="{Binding FilterCommand}">
                     <VisualStateManager.VisualStateGroups>
