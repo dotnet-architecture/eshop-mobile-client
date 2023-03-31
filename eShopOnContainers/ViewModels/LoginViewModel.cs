@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Windows.Input;
 using eShopOnContainers.Services;
 using eShopOnContainers.Services.Identity;
 using eShopOnContainers.Services.OpenUrl;

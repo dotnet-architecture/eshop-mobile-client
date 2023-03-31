@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using eShopOnContainers.Models.Orders;
+﻿using eShopOnContainers.Models.Orders;
 using eShopOnContainers.Services;
 using eShopOnContainers.Services.AppEnvironment;
 using eShopOnContainers.Services.Settings;

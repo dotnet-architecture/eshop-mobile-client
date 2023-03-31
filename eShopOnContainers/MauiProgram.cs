@@ -14,7 +14,6 @@ using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
 using eShopOnContainers.Views;
-using Microsoft.Maui.Controls.Hosting;
 
 namespace eShopOnContainers;
 

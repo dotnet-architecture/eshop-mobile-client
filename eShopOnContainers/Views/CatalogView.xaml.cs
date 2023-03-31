@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using eShopOnContainers.Models.Catalog;
 
 namespace eShopOnContainers.Views;
 

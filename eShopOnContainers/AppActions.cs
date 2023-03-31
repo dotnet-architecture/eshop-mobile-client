@@ -1,5 +1,4 @@
-﻿using System;
-namespace eShopOnContainers;
+﻿namespace eShopOnContainers;
 
 public static class AppActions
 {

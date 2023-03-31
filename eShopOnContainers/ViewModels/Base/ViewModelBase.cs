@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using eShopOnContainers.Services;
-using eShopOnContainers.Services.Settings;
+﻿using eShopOnContainers.Services;
 
 namespace eShopOnContainers.ViewModels.Base;
 

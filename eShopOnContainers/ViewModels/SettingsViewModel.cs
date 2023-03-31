@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
 using eShopOnContainers.Services;
 using eShopOnContainers.Services.AppEnvironment;
 using eShopOnContainers.Services.Location;

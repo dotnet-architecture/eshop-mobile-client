@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace eShopOnContainers.Validations;
+﻿namespace eShopOnContainers.Validations;
 
 public class ValidatableObject<T> : ObservableObject, IValidity
 {
