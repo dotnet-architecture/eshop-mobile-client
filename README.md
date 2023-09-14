@@ -45,14 +45,13 @@ All the backend services-related code and components are maintained as [eShopOnC
 The app targets **four** platforms:
 
 - iOS
-- macOS
 - Android
-- Universal Windows Platform (UWP)
-  - UWP is supported only in Visual Studio for Windows, not Visual Studio for macOS
+- macOS (must build and deploy from Mac)
+- Windows (must build and deploy from Windows)
 
 ## Requirements
 
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (2022 or higher) to compile C# language features (or Visual Studio MacOS)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (2022 or higher) to compile C# language features
   - **Visual Studio Community Edition is fully supported!**
 - .NET MAUI add-ons for Visual Studio (available via the Visual Studio installer)
 
@@ -60,7 +59,7 @@ The app targets **four** platforms:
 
 ### 1. Ensure the .NET MAUI platform is installed
 
-You can do that by following the steps mentioned in [Installing .NET MAUI](https://dotnet.microsoft.com/learn/maui/first-app-tutorial/install)
+You can do that by following the steps mentioned in [Installing .NET MAUI](https://learn.microsoft.com/dotnet/maui/get-started/installation)
 
 ### 2. Ensure .NET MAUI is updated
 
@@ -72,19 +71,15 @@ Restore NuGet packages for the project.
 
 ### 4. Ensure Android Emulator is installed
 
-You can use any Android emulator although it is highly recommended to use an x86-based version.
+You can use any Android emulator or device. Refer to the [Android Emulator documentation](https://learn.microsoft.com/dotnet/maui/android/emulator/device-manager) for details on setup.
 
-<img src="media/AndroidEmulator.png" alt="Visual Studio Android Emulator" Width="600" />
+> **Note**: Android emulators cannot run well inside a virtual machine or over Remote Desktop or VNC since it relies on virtualization.
 
-> **Note**: The Visual Studio Android Emulator cannot run well inside a virtual machine or over Remote Desktop or VNC since it relies on virtualization and OpenGL.
+To deploy and debug the application on a physical device, refer to the [Debug on an Android device](https://learn.microsoft.com/dotnet/maui/android/device/setup) article.
 
-To deploy and debug the application on a physical device, refer to the [Debug on an Android device](https://docs.microsoft.com/xamarin/android/deploy-test/debugging/debug-on-device) article.
+### 5. Optional iOS Deployment
 
-### 5. Ensure Mac connection
-
-To set up the Mac host, you must enable communication between the Xamarin extension for Visual Studio and your Mac.
-
-<img src="media/MacAgent.png" alt="Connect with a Mac" Width="600" />
+To deploy to iOS you can directly deploy from a Mac machine or optionally from a Windows machine [directly to a device](https://learn.microsoft.com/dotnet/maui/ios/hot-restart) or by [pairing your Windows machine to a Mac](https://learn.microsoft.com/dotnet/maui/ios/pair-to-mac).
 
 ### 6. Use Actual Microservices
 
@@ -111,7 +106,7 @@ Mobile Gateway Shopping Url: `http://<YOUR_IP_OR_DNS_NAME>/mobileshoppingapi`
 
 You'll also need to include the `<YOUR_IP_OR_DNS_NAME>` in the section `<domain includeSubdomains="true"><YOUR_IP_OR_DNS_NAME></domain>` of the `network_security_config.xml` file to use `HTTP` traffic.
 
-For more details refer to [Managing HTTP & Cleartext Traffic on Android with Network Security Configuration](https://devblogs.microsoft.com/xamarin/cleartext-http-android-network-security/)
+For more details refer to [Managing HTTP & Cleartext Traffic on Android with Network Security Configuration](https://learn.microsoft.com/dotnet/maui/data-cloud/local-web-services)
 
 #### IOS App
 
@@ -125,7 +120,7 @@ You'll need to make sure your `info.plist` file contains the following configura
   </dict>
 ```
 
-For more details refer to [Opting-Out of ATS](https://docs.microsoft.com/xamarin/ios/app-fundamentals/ats?WT.mc_id=docs-xamarinblog-jamont#opting-out-of-ats)
+For more details refer to [Opting-Out of ATS](https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services#ios-ats-configuration)
 
 > **NOTE:** Please note, in production scenario you'll the services which uses `HTTPS` endpoint.
 
@@ -137,7 +132,7 @@ In the `eShopOnContainers\Platforms\Android\AndroidManifest.xml` you must replac
 <meta-data android:name="com.google.android.geo.API_KEY" android:value="YOUR_KEY_GOES_HERE" />
 ```
 
-For more details refer to [.NET MAUI Map - Get a Google Maps API key](https://learn.microsoft.com/dotnet/maui/user-interface/controls/map?view=net-maui-7.0#get-a-google-maps-api-key).
+For more details refer to [.NET MAUI Map - Get a Google Maps API key](https://learn.microsoft.com/dotnet/maui/user-interface/controls/map#get-a-google-maps-api-key).
 
 ## Screenshots
 
