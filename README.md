@@ -1,6 +1,6 @@
 # eshop-mobile-client
 
-`eshop-mobile-client` is a reference .NET MAUI multi-platform client app whose imagined purpose is to serve the mobile workforce of a fictitious company that sells products. The app allows you to manage the catalog, view products, and manage the basket and the orders.
+`eshop-mobile-client` is a reference [.NET MAUI](https://dot.net/maui) multi-platform client app whose imagined purpose is to serve the mobile workforce of a fictitious company that sells products. The app allows you to manage the catalog, view products, and manage the basket and the orders.
 
 # Dependencies
 
