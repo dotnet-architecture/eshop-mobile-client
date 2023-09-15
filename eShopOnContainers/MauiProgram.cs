@@ -14,6 +14,7 @@ using eShopOnContainers.Services.Settings;
 using eShopOnContainers.Services.Theme;
 using eShopOnContainers.Services.User;
 using eShopOnContainers.Views;
+using Microsoft.Extensions.Logging;
 
 namespace eShopOnContainers;
 
@@ -84,6 +85,10 @@ public static class MauiProgram
                 aes.UpdateDependencies(settingsService.UseMocks);
                 return aes;
             });
+
+#if DEBUG
+        mauiAppBuilder.Logging.AddDebug();
+#endif
 
         return mauiAppBuilder;
     }

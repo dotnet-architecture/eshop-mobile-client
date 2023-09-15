@@ -226,12 +226,14 @@
 					Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					Style="{StaticResource ValidationErrorLabelStyle}" />
 			</StackLayout>
-			<Frame CornerRadius="16" HasShadow="False" Padding="0" IsClippedToBounds="True"
+			<Frame CornerRadius="16" HasShadow="False"  IsClippedToBounds="True"
                    HorizontalOptions="Center"
-                   Grid.Row="2" >
+                   Grid.Row="2" Padding="40">
 				<Image
                     Source="eshop_logo.png"
-                    Aspect="AspectFit" />
+                    Aspect="AspectFill"
+                    WidthRequest="300"
+                    HeightRequest="85"/>
 			</Frame>
 			<!-- LOGIN BUTTON -->
 			<Grid
@@ -329,18 +331,12 @@
 			</WebView>
 		</Grid>
 		<!-- INDICATOR -->
-		<ActivityIndicator
+        <ActivityIndicator
             Color="{StaticResource LightGreenColor}"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center"
             HorizontalOptions="Center">
-			<ActivityIndicator.WidthRequest>
-				<OnPlatform x:TypeArguments="x:Double">
-					<On Platform="iOS, Android" Value="100" />
-					<On Platform="WinUI" Value="400" />
-				</OnPlatform>
-			</ActivityIndicator.WidthRequest>
-		</ActivityIndicator>
+        </ActivityIndicator>
 	</Grid>
 </views:ContentPageBase>

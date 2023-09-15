@@ -35,7 +35,7 @@
     </ContentPage.ToolbarItems>
 
     <!--  ORDERS  -->
-    <Grid>
+    <Grid RowDefinitions="*,Auto">
         <Grid IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
             <Label
                 HorizontalOptions="Center"
