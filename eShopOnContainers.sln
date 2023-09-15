@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopOnContainers", "eShopOnContainers\eShopOnContainers.csproj", "{A3FDE011-C268-4319-A0BF-3151DEA5EF90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopOnContainers", "eShopOnContainers\eShopOnContainers.csproj", "{A3FDE011-C268-4319-A0BF-3151DEA5EF90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopOnContainers.UnitTests", "eShopOnContainers.UnitTests\eShopOnContainers.UnitTests.csproj", "{2F62F414-42B8-4663-96BB-FF00E63B2929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopOnContainers.UnitTests", "eShopOnContainers.UnitTests\eShopOnContainers.UnitTests.csproj", "{2F62F414-42B8-4663-96BB-FF00E63B2929}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26C3A3EB-3DB4-46A0-91C8-500FEC1CDA16}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-validation.yml = .github\workflows\build-validation.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

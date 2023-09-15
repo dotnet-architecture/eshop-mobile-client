@@ -15,7 +15,7 @@ on:
     - '**.xaml'
 
 env:
-  DOTNET_VERSION: '7.0.x' # The .NET SDK version to use
+  DOTNET_VERSION: '8.0.x' # The .NET SDK version to use
 
 jobs:
   build:
@@ -45,9 +45,6 @@ jobs:
     - name: Install .NET workloads
       shell: pwsh
       run: |
-        dotnet workload install android
-        dotnet workload install ios
-        dotnet workload install maccatalyst
         dotnet workload install maui
       
     - name: Build ${{ matrix.project }}
