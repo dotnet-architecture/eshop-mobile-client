@@ -55,6 +55,10 @@ The app targets **four** platforms:
   - **Visual Studio Community Edition is fully supported!**
 - .NET MAUI add-ons for Visual Studio (available via the Visual Studio installer)
 
+or
+
+- [Visual Studio Code](https://learn.microsoft.com/dotnet/maui/get-started/installation?tabs=visual-studio-code) configured for .NET MAUI development on Mac, Windows, or Linux. 
+
 ## Setup
 
 ### 1. Ensure the .NET MAUI platform is installed

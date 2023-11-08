@@ -19,7 +19,6 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
-		<!-- <UseRidGraph>true</UseRidGraph> -->
 
 		<!-- Display name -->
 		<ApplicationTitle>eShop</ApplicationTitle>
