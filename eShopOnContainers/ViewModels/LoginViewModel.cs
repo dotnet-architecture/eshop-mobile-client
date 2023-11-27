@@ -71,7 +71,7 @@ public partial class LoginViewModel : ViewModelBase
 
                 try
                 {
-                    await Task.Delay(10);
+                    await Task.Delay(1000);
 
                     isAuthenticated = true;
                 }

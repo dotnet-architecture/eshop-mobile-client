@@ -68,7 +68,7 @@ public partial class ProfileViewModel : ViewModelBase
     [RelayCommand]
     private async Task OrderDetailAsync(Order order)
     {
-        if (order is null)
+        if (order is null || IsBusy)
         {
             return;
         }

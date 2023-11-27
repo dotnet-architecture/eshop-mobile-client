@@ -53,7 +53,7 @@
             SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
 			<CollectionView.ItemsLayout>
 				<GridItemsLayout Orientation="Vertical"
-								 Span="{OnPlatform iOS=1, Android=1, Default=2}" />
+								 Span="2" />
 			</CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>

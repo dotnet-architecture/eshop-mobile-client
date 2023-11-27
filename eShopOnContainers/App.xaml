@@ -24,46 +24,14 @@
             <Color x:Key="LightTextColor">#979797</Color>
             <Color x:Key="iOSDefaultTintColor">#007aff</Color>
             <Color x:Key="SeparatorLineColor">#CCCCCC</Color>
-            <Color x:Key="AndroidDefaultButtonClassBackgroundColor">#C9C9C9</Color>
-            <Color x:Key="iOSDefaultButtonClassBackgroundColor">Transparent</Color>
-            <Color x:Key="AndroidDefaultButtonClassBorderColor">Transparent</Color>
-            <Color x:Key="iOSDefaultButtonClassBorderColor">#007aff</Color>
-            <Color x:Key="AndroidDefaultButtonClassTextColor">#FFFFFF</Color>
-            <Color x:Key="iOSDefaultButtonClassTextColor">#007aff</Color>
-            <Color x:Key="AndroidEntryBackgroundColor">Transparent</Color>
-            <Color x:Key="iOSEntryBackgroundColor">#FFFFFF</Color>
-            <Color x:Key="AndroidDefaultAccentColorColor">#1FAECE</Color>
-            <Color x:Key="AndroidListViewBackgroundColor">Transparent</Color>
-            <Color x:Key="iOSListViewBackgroundColor">Transparent</Color>
-
-            <OnPlatform x:Key="ActivityIndicatorColor" x:TypeArguments="Color">
-                <On Platform="iOS" Value="{StaticResource iOSDefaultTintColor}" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="DefaultButtonClassBackgroundColor" x:TypeArguments="Color">
-                <On Platform="iOS" Value="{StaticResource iOSDefaultButtonClassBackgroundColor}" />
-                <On Platform="Android" Value="{StaticResource AndroidDefaultButtonClassBackgroundColor}" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="DefaultButtonClassBorderColor" x:TypeArguments="Color">
-                <On Platform="iOS" Value="{StaticResource iOSDefaultButtonClassBorderColor}" />
-                <On Platform="Android" Value="{StaticResource AndroidDefaultButtonClassBorderColor}" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="DefaultButtonClassTextColor" x:TypeArguments="Color">
-                <On Platform="iOS" Value="{StaticResource iOSDefaultButtonClassTextColor}" />
-                <On Platform="Android" Value="{StaticResource AndroidDefaultButtonClassTextColor}" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="EntryBackgroundColor" x:TypeArguments="Color">
-                <On Platform="iOS" Value="{StaticResource iOSEntryBackgroundColor}" />
-                <On Platform="Android" Value="{StaticResource AndroidEntryBackgroundColor}" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="ThemeListViewBackgroundColor" x:TypeArguments="Color">
-                <On Platform="iOS" Value="{StaticResource iOSListViewBackgroundColor}" />
-                <On Platform="Android" Value="{StaticResource AndroidListViewBackgroundColor}" />
-            </OnPlatform>
+            <Color x:Key="DefaultButtonClassBackgroundColor">#C9C9C9</Color>
+            <Color x:Key="DefaultButtonClassBorderColor">Transparent</Color>
+            <Color x:Key="DefaultButtonClassTextColor">#FFFFFF</Color>
+            <Color x:Key="EntryBackgroundColor">Transparent</Color>
+            <Color x:Key="DefaultAccentColorColor">#1FAECE</Color>
+            <Color x:Key="ListViewBackgroundColor">Transparent</Color>
+            <Color x:Key="ThemeListViewBackgroundColor">Transparent</Color>
+            <Color x:Key="ActivityIndicatorColor">#00857D</Color>
 
             <!--  Theme Colors  -->
             <Color x:Key="LightBackgroundColor">#FFFFFF</Color>
@@ -75,14 +43,8 @@
             <Color x:Key="LightSeparatorColor">#222222</Color>
             <Color x:Key="DarkSeparatorColor">#E7E7E7</Color>
 
-            <!--  SIZES  -->
-            <OnPlatform x:Key="BaseButtonBorderRadius" x:TypeArguments="x:Double">
-                <On Platform="iOS" Value="6" />
-            </OnPlatform>
-
-            <OnPlatform x:Key="BaseButtonBorderWidth" x:TypeArguments="x:Double">
-                <On Platform="iOS, Android" Value="0" />
-            </OnPlatform>
+            <x:Double x:Key="BaseButtonBorderRadius">6</x:Double>
+            <x:Double x:Key="BaseButtonBorderWidth">0</x:Double>
 
             <!--  FONTS  -->
             <x:String x:Key="SettingsIcon">&#xf013;</x:String>
@@ -288,8 +250,8 @@
 
             <Style x:Key="WinUIEntryStyle" TargetType="{x:Type Entry}">
                 <Setter Property="FontFamily" Value="Montserrat-Regular" />
-                <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
-                <Setter Property="PlaceholderColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BlackColor}, Dark=White}" />
+                <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource BlackColor}, Dark=White}" />
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="FontAttributes" Value="Bold" />
