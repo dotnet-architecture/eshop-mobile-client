@@ -1,5 +1,7 @@
 # eshop-mobile-client
 
+> eShop sample applications have been updated and moved to https://github.com/dotnet/eShop. Active development will continue there.
+
 `eshop-mobile-client` is a reference [.NET MAUI](https://dot.net/maui) multi-platform client app whose imagined purpose is to serve the mobile workforce of a fictitious company that sells products. The app allows you to manage the catalog, view products, and manage the basket and the orders.
 
 # Dependencies
